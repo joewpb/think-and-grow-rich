@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import { toast } from 'sonner'
+import { formCopy } from '../data/resources-and-events'
 
 const quickLinks = [
   { label: 'Home', path: '/' },
@@ -94,11 +95,10 @@ export default function Footer() {
               onSubmit={(e) => {
                 e.preventDefault()
                 if (!email.trim()) {
-                  toast.error('Please enter your email address')
+                  toast.error(formCopy.subscribe.error)
                   return
                 }
-                toast.success('Subscribed!', {
-                  description: 'Welcome to the StudyClub newsletter. Check your inbox.',
+                toast.success(formCopy.subscribe.success, {
                   duration: 4000,
                 })
                 setEmail('')

@@ -1,8 +1,8 @@
 import { useRef, useState } from 'react'
-import { Link } from 'react-router'
 import { motion, useInView } from 'framer-motion'
 import { toast } from 'sonner'
 import Layout from '../components/Layout'
+import { eventDetails, formCopy } from '../data/resources-and-events'
 
 const easeExpoOut = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
@@ -35,23 +35,8 @@ const steps = [
   { num: 4, title: 'Grow Together', desc: 'Apply the principles to your life. Track your progress. Celebrate wins. Hold each other accountable for 13 weeks and beyond.' },
 ]
 
-const events = [
-  {
-    title: 'Weekly Principle Discussion',
-    date: 'Every Tuesday 7PM EST',
-    desc: 'Group discussion of the week\'s principle. Share insights, ask questions, apply together.',
-  },
-  {
-    title: 'Vision Board Workshop',
-    date: 'First Saturday of Month',
-    desc: 'A hands-on session to visualize your desires. Materials provided. Open to all members.',
-  },
-  {
-    title: 'Guest Speaker Series',
-    date: 'Monthly',
-    desc: "Successful entrepreneurs and leaders share how they applied Hill's principles in their lives.",
-  },
-]
+/* Events are imported from data/resources-and-events.ts — see eventDetails */
+const events = eventDetails
 
 /* ------------------------------------------------------------------ */
 /*  SECTION 1 — PAGE HEADER                                            */
@@ -338,28 +323,38 @@ function EventsSection() {
               </div>
 
               {/* Content */}
-              <div className="flex flex-1 items-center justify-between p-8">
-                <div>
+              <div className="flex flex-1 flex-col justify-between p-8 md:flex-row md:items-center">
+                <div className="flex-1">
                   <h3 className="font-playfair text-[22px] font-semibold text-pure-white">
                     {e.title}
                   </h3>
                   <p className="mt-2 font-inter text-[16px] text-off-white">
                     {e.desc}
                   </p>
+                  <p className="mt-3 font-inter text-[14px] leading-[1.6] text-steel-blue">
+                    {e.detail}
+                  </p>
                 </div>
-                <Link
-                  to="/community"
-                  className="ml-6 flex-shrink-0 rounded-[4px] border border-accent-gold px-5 py-3 font-inter text-[12px] font-medium uppercase tracking-[1px] text-accent-gold transition-all duration-300 hover:bg-accent-gold hover:text-deep-navy"
-                  onClick={(ev) => {
-                    ev.preventDefault()
-                    toast.success('RSVP sent!', {
-                      description: `You\'re registered for "${e.title}". We\'ll send a calendar invite.`,
-                      duration: 4000,
-                    })
-                  }}
-                >
-                  RSVP
-                </Link>
+                {e.ctaHref ? (
+                  <a
+                    href={e.ctaHref}
+                    className="ml-0 mt-4 flex-shrink-0 rounded-[4px] border border-accent-gold px-5 py-3 font-inter text-[12px] font-medium uppercase tracking-[1px] text-accent-gold transition-all duration-300 hover:bg-accent-gold hover:text-deep-navy md:ml-6 md:mt-0"
+                  >
+                    {e.ctaLabel}
+                  </a>
+                ) : (
+                  <button
+                    onClick={() =>
+                      toast.success('You\'re on the list', {
+                        description: `We\'ll notify you when "${e.title}" is scheduled.`,
+                        duration: 4000,
+                      })
+                    }
+                    className="ml-0 mt-4 flex-shrink-0 rounded-[4px] border border-accent-gold px-5 py-3 font-inter text-[12px] font-medium uppercase tracking-[1px] text-accent-gold transition-all duration-300 hover:bg-accent-gold hover:text-deep-navy md:ml-6 md:mt-0"
+                  >
+                    {e.ctaLabel}
+                  </button>
+                )}
               </div>
             </motion.div>
           ))}
@@ -382,11 +377,11 @@ function JoinCTA() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!email.trim()) {
-      toast.error('Please enter your email address')
+      toast.error(formCopy.join.error)
       return
     }
     toast.success('You\'re in!', {
-      description: 'Welcome to the StudyClub. Check your email for next steps.',
+      description: formCopy.join.success,
       duration: 5000,
     })
     setEmail('')
