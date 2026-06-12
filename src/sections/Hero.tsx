@@ -138,9 +138,16 @@ export default function Hero() {
       </div>
 
       {/* Scroll Chevron */}
-      <div
-        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
+      <button
+        onClick={() => {
+          const principlesSection = document.getElementById('principles')
+          if (principlesSection) {
+            principlesSection.scrollIntoView({ behavior: 'smooth' })
+          }
+        }}
+        className="absolute bottom-8 left-1/2 z-10 -translate-x-1/2 cursor-pointer"
         style={{ color: 'var(--accent-gold)' }}
+        aria-label="Scroll to principles section"
       >
         <svg
           width="24"
@@ -155,7 +162,7 @@ export default function Hero() {
         >
           <polyline points="6 9 12 15 18 9" />
         </svg>
-      </div>
+      </button>
     </section>
   )
 }

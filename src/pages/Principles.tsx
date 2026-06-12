@@ -238,14 +238,6 @@ const staggerContainer = (staggerChildren = 0.08, delayChildren = 0) => ({
   visible: { transition: { staggerChildren, delayChildren } },
 })
 
-const cardEnter = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.7, ease: easeExpoOut },
-  },
-}
 
 const numberScale = {
   hidden: { opacity: 0, scale: 0.8 },
@@ -355,10 +347,11 @@ function PageHeader() {
 
 function PrincipleCard({ principle }: { principle: Principle }) {
   return (
-    <motion.div
-      variants={cardEnter}
+    <Link
+      to="/study-plan"
+      onClick={(e) => e.stopPropagation()}
       className="group relative flex flex-col border border-transparent bg-midnight-blue p-8 transition-all duration-[350ms] ease-out hover:-translate-y-1.5 hover:border-accent-gold-dim hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_30px_rgba(212,175,55,0.3)]"
-      style={{ borderRadius: '4px' }}
+      style={{ borderRadius: '4px', textDecoration: 'none' }}
     >
       {/* Number */}
       <motion.span
@@ -399,7 +392,7 @@ function PrincipleCard({ principle }: { principle: Principle }) {
 
       {/* Bottom accent line */}
       <div className="h-[2px] w-full bg-slate-blue" />
-    </motion.div>
+    </Link>
   )
 }
 

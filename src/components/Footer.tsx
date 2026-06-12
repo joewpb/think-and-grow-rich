@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
+import { toast } from 'sonner'
 
 const quickLinks = [
   { label: 'Home', path: '/' },
@@ -10,10 +11,10 @@ const quickLinks = [
 ]
 
 const resources = [
-  'Discussion Guides',
-  'Worksheets',
-  'Audio Summaries',
-  'Recommended Reading',
+  { label: 'Discussion Guides', path: '/study-plan' },
+  { label: 'Worksheets', path: '/study-plan' },
+  { label: 'Audio Summaries', path: '/study-plan' },
+  { label: 'Recommended Reading', path: '/study-plan' },
 ]
 
 export default function Footer() {
@@ -69,10 +70,13 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-3">
               {resources.map((resource) => (
-                <li key={resource}>
-                  <span className="font-inter text-[16px] text-off-white">
-                    {resource}
-                  </span>
+                <li key={resource.label}>
+                  <Link
+                    to={resource.path}
+                    className="font-inter text-[16px] text-off-white transition-colors duration-300 hover:text-accent-gold"
+                  >
+                    {resource.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -89,6 +93,14 @@ export default function Footer() {
             <form
               onSubmit={(e) => {
                 e.preventDefault()
+                if (!email.trim()) {
+                  toast.error('Please enter your email address')
+                  return
+                }
+                toast.success('Subscribed!', {
+                  description: 'Welcome to the StudyClub newsletter. Check your inbox.',
+                  duration: 4000,
+                })
                 setEmail('')
               }}
               className="flex gap-2"

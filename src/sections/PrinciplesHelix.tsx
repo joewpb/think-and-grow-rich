@@ -233,6 +233,7 @@ function PrincipleCardsOverlay() {
       {cards.map((card) => (
         <div
           key={card.num}
+          onClick={() => { window.location.hash = '#/principles' }}
           className="absolute -translate-x-1/2 -translate-y-1/2 rounded-[4px] border border-slate-blue bg-midnight-blue p-4"
           style={{
             left: card.xPos,
@@ -243,6 +244,7 @@ function PrincipleCardsOverlay() {
             minWidth: '220px',
             pointerEvents: 'auto',
             transition: 'border-color 0.3s, box-shadow 0.3s',
+            cursor: 'pointer',
           }}
           onMouseEnter={(e) => {
             e.currentTarget.style.borderColor = 'var(--accent-gold)'

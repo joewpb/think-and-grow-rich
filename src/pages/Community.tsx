@@ -1,5 +1,7 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router'
 import { motion, useInView } from 'framer-motion'
+import { toast } from 'sonner'
 import Layout from '../components/Layout'
 
 const easeExpoOut = [0.16, 1, 0.3, 1] as [number, number, number, number]
@@ -336,13 +338,28 @@ function EventsSection() {
               </div>
 
               {/* Content */}
-              <div className="p-8">
-                <h3 className="font-playfair text-[22px] font-semibold text-pure-white">
-                  {e.title}
-                </h3>
-                <p className="mt-2 font-inter text-[16px] text-off-white">
-                  {e.desc}
-                </p>
+              <div className="flex flex-1 items-center justify-between p-8">
+                <div>
+                  <h3 className="font-playfair text-[22px] font-semibold text-pure-white">
+                    {e.title}
+                  </h3>
+                  <p className="mt-2 font-inter text-[16px] text-off-white">
+                    {e.desc}
+                  </p>
+                </div>
+                <Link
+                  to="/community"
+                  className="ml-6 flex-shrink-0 rounded-[4px] border border-accent-gold px-5 py-3 font-inter text-[12px] font-medium uppercase tracking-[1px] text-accent-gold transition-all duration-300 hover:bg-accent-gold hover:text-deep-navy"
+                  onClick={(ev) => {
+                    ev.preventDefault()
+                    toast.success('RSVP sent!', {
+                      description: `You\'re registered for "${e.title}". We\'ll send a calendar invite.`,
+                      duration: 4000,
+                    })
+                  }}
+                >
+                  RSVP
+                </Link>
               </div>
             </motion.div>
           ))}
@@ -364,6 +381,14 @@ function JoinCTA() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if (!email.trim()) {
+      toast.error('Please enter your email address')
+      return
+    }
+    toast.success('You\'re in!', {
+      description: 'Welcome to the StudyClub. Check your email for next steps.',
+      duration: 5000,
+    })
     setEmail('')
   }
 
