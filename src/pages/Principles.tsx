@@ -238,7 +238,6 @@ const staggerContainer = (staggerChildren = 0.08, delayChildren = 0) => ({
   visible: { transition: { staggerChildren, delayChildren } },
 })
 
-
 const numberScale = {
   hidden: { opacity: 0, scale: 0.8 },
   visible: {
@@ -266,19 +265,17 @@ const lineExpand = {
 }
 
 /* ------------------------------------------------------------------ */
-/*  SECTION 1 \u2014 PAGE HEADER                                           */
+/*  SECTION 1 — PAGE HEADER                                           */
 /* ------------------------------------------------------------------ */
 
 function PageHeader() {
   const ref = useRef<HTMLElement>(null)
   const isInView = useInView(ref, { once: true })
 
-  const titleWords = '13 PRINCIPLES OF SUCCESS'.split(' ')
-
   return (
     <section
       ref={ref}
-      className="relative flex w-full max-w-full items-center justify-center overflow-hidden bg-deep-navy"
+      className="relative w-full max-w-full overflow-hidden bg-deep-navy"
       style={{ minHeight: '60vh', paddingTop: '80px' }}
     >
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-6 py-20 text-center">
@@ -292,29 +289,14 @@ function PageHeader() {
           THE PHILOSOPHY
         </motion.span>
 
-        {/* Title with word stagger */}
+        {/* Title */}
         <motion.h1
-          variants={staggerContainer(0.08, 0.4)}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="w-full max-w-full overflow-hidden font-playfair text-[clamp(22px,4.5vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
+          initial={{ opacity: 0, y: 40 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.4, ease: easeExpoOut }}
+          className="w-full text-balance font-playfair text-[clamp(22px,4.5vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
         >
-          {titleWords.map((word, i) => (
-            <motion.span
-              key={i}
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: { duration: 1.0, ease: easeExpoOut },
-                },
-              }}
-              className="inline-block whitespace-normal mr-[0.3em]"
-            >
-              {word}
-            </motion.span>
-          ))}
+          13 PRINCIPLES OF SUCCESS
         </motion.h1>
 
         {/* Subtitle */}
@@ -322,7 +304,7 @@ function PageHeader() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.0, ease: easeExpoOut }}
-          className="mx-auto mt-6 w-full max-w-[640px] font-inter text-[20px] font-light leading-[1.6] text-off-white"
+          className="mx-auto mt-6 w-full max-w-[640px] text-balance font-inter text-[clamp(16px,2vw,20px)] font-light leading-[1.6] text-off-white"
         >
           Napoleon Hill distilled two decades of research into 13 actionable
           principles. Master them, and you master the path to achievement.
@@ -342,57 +324,63 @@ function PageHeader() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  SECTION 2 \u2014 PRINCIPLE CARDS                                        */
+/*  SECTION 2 — PRINCIPLE CARDS                                        */
 /* ------------------------------------------------------------------ */
 
 function PrincipleCard({ principle }: { principle: Principle }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-10% 0px' })
+
   return (
-    <Link
-      to="/study-plan"
-      onClick={(e) => e.stopPropagation()}
-      className="group relative flex flex-col border border-transparent bg-midnight-blue p-8 transition-all duration-[350ms] ease-out hover:-translate-y-1.5 hover:border-accent-gold-dim hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_30px_rgba(212,175,55,0.3)]"
-      style={{ borderRadius: '4px', textDecoration: 'none' }}
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: easeExpoOut }}
     >
-      {/* Number */}
-      <motion.span
-        variants={numberScale}
-        className="mb-4 font-instrument text-[64px] leading-none text-accent-gold"
-        style={{ fontStyle: 'italic' }}
+      <Link
+        to="/study-plan"
+        onClick={(e) => e.stopPropagation()}
+        className="group relative flex flex-col border border-transparent bg-midnight-blue p-8 transition-all duration-[350ms] ease-out hover:-translate-y-1.5 hover:border-accent-gold-dim hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_30px_rgba(212,175,55,0.3)]"
+        style={{ borderRadius: '4px', textDecoration: 'none' }}
       >
-        {principle.number}
-      </motion.span>
-
-      {/* Title */}
-      <h3 className="mb-4 font-playfair text-[28px] font-semibold text-pure-white">
-        {principle.title}
-      </h3>
-
-      {/* Quote */}
-      <blockquote
-        className="mb-4 border-l-2 border-accent-gold pb-2 pl-4 font-instrument text-[18px] leading-[1.5] text-accent-gold-dim"
-        style={{ fontStyle: 'italic' }}
-      >
-        &ldquo;{principle.quote}&rdquo;
-      </blockquote>
-
-      {/* Description */}
-      <p className="mb-6 flex-1 font-inter text-[16px] leading-[1.7] text-off-white">
-        {principle.description}
-      </p>
-
-      {/* Apply It */}
-      <div className="mb-6">
-        <span className="block font-inter text-[12px] font-medium uppercase tracking-[1px] text-accent-gold">
-          APPLY IT:
+        {/* Number */}
+        <span className="mb-4 font-instrument text-[64px] leading-none text-accent-gold" style={{ fontStyle: 'italic' }}>
+          {principle.number}
         </span>
-        <span className="mt-1 block font-inter text-[14px] leading-[1.5] text-off-white">
-          {principle.apply}
-        </span>
-      </div>
 
-      {/* Bottom accent line */}
-      <div className="h-[2px] w-full bg-slate-blue" />
-    </Link>
+        {/* Title */}
+        <h3 className="mb-4 font-playfair text-[28px] font-semibold text-pure-white">
+          {principle.title}
+        </h3>
+
+        {/* Quote */}
+        <blockquote
+          className="mb-4 border-l-2 border-accent-gold pb-2 pl-4 font-instrument text-[18px] leading-[1.5] text-accent-gold-dim"
+          style={{ fontStyle: 'italic' }}
+        >
+          &ldquo;{principle.quote}&rdquo;
+        </blockquote>
+
+        {/* Description */}
+        <p className="mb-6 flex-1 font-inter text-[16px] leading-[1.7] text-off-white">
+          {principle.description}
+        </p>
+
+        {/* Apply It */}
+        <div className="mb-6">
+          <span className="block font-inter text-[12px] font-medium uppercase tracking-[1px] text-accent-gold">
+            APPLY IT:
+          </span>
+          <span className="mt-1 block font-inter text-[14px] leading-[1.5] text-off-white">
+            {principle.apply}
+          </span>
+        </div>
+
+        {/* Bottom accent line */}
+        <div className="h-[2px] w-full bg-slate-blue" />
+      </Link>
+    </motion.div>
   )
 }
 
@@ -422,7 +410,7 @@ function PrinciplesGrid() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  SECTION 3 \u2014 SIX STEPS TO RICHES                                   */
+/*  SECTION 3 — SIX STEPS TO RICHES                                   */
 /* ------------------------------------------------------------------ */
 
 function StepsSection() {
@@ -534,7 +522,7 @@ function StepsSection() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  SECTION 4 \u2014 SIX GHOSTS OF FEAR                                    */
+/*  SECTION 4 — SIX GHOSTS OF FEAR                                    */
 /* ------------------------------------------------------------------ */
 
 function FearCard({ fear }: { fear: Fear }) {
@@ -615,7 +603,7 @@ function GhostsSection() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  SECTION 5 \u2014 CTA BANNER                                            */
+/*  SECTION 5 — CTA BANNER                                            */
 /* ------------------------------------------------------------------ */
 
 function CTABanner() {
