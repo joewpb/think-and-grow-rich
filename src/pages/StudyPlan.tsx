@@ -190,11 +190,20 @@ function ResourceModal({ item, onClose }: { item: ResourceItem; onClose: () => v
           </p>
 
           <div className="border-t border-slate-blue pt-4">
-            <span className="font-inter text-[14px] text-steel-blue">
-              {item.status === 'coming-soon'
-                ? 'This resource is being prepared and will be available soon. In the meantime, try the matching exercise in the Weekly Timeline above.'
-                : 'Available now.'}
-            </span>
+            {item.status === 'live' && item.href ? (
+              <a
+                href={item.href}
+                target={item.href.startsWith('http') ? '_blank' : undefined}
+                rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="inline-block rounded-[4px] border border-accent-gold px-6 py-3 font-inter text-[14px] font-medium text-accent-gold transition-all duration-200 hover:bg-accent-gold hover:text-midnight-blue"
+              >
+                Open Resource
+              </a>
+            ) : (
+              <span className="font-inter text-[14px] text-steel-blue">
+                This resource is being prepared and will be available soon. In the meantime, try the matching exercise in the Weekly Timeline above.
+              </span>
+            )}
           </div>
         </motion.div>
       </motion.div>
@@ -399,9 +408,13 @@ function ResourcesSection({ onResourceClick }: { onResourceClick: (item: Resourc
                       >
                         <span className="mt-[0.5em] block h-[5px] w-[5px] flex-shrink-0 rounded-full bg-charcoal transition-colors" />
                         {item.label}
-                        {item.status === 'coming-soon' && (
+                        {item.status === 'coming-soon' ? (
                           <span className="ml-auto font-inter text-[11px] uppercase tracking-[1px] text-steel-blue">
                             Soon
+                          </span>
+                        ) : (
+                          <span className="ml-auto font-inter text-[11px] uppercase tracking-[1px] text-accent-gold">
+                            Live
                           </span>
                         )}
                       </button>
