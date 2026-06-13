@@ -286,7 +286,7 @@ function PageHeader() {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease: easeExpoOut }}
-          className="w-full text-balance font-playfair text-[clamp(22px,4.5vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
+          className="w-full text-balance font-playfair text-[clamp(18px,3.8vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
         >
           13 PRINCIPLES OF SUCCESS
         </motion.h1>
