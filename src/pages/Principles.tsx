@@ -278,10 +278,10 @@ function PageHeader() {
   return (
     <section
       ref={ref}
-      className="relative flex w-full items-center justify-center overflow-hidden bg-deep-navy"
+      className="relative flex w-full max-w-full items-center justify-center overflow-hidden bg-deep-navy"
       style={{ minHeight: '60vh', paddingTop: '80px' }}
     >
-      <div className="mx-auto flex w-full max-w-full flex-col items-center px-6 py-20 text-center">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-6 py-20 text-center">
         {/* Eyebrow */}
         <motion.span
           initial={{ opacity: 0, y: 20 }}
@@ -322,7 +322,7 @@ function PageHeader() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 1.0, ease: easeExpoOut }}
-          className="mx-auto mt-6 max-w-[640px] font-inter text-[20px] font-light leading-[1.6] text-off-white"
+          className="mx-auto mt-6 w-full max-w-[640px] font-inter text-[20px] font-light leading-[1.6] text-off-white"
         >
           Napoleon Hill distilled two decades of research into 13 actionable
           principles. Master them, and you master the path to achievement.
