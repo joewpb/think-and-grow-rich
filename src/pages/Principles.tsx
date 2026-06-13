@@ -278,7 +278,7 @@ function PageHeader() {
   return (
     <section
       ref={ref}
-      className="relative flex items-center justify-center bg-deep-navy"
+      className="relative flex w-full items-center justify-center overflow-hidden bg-deep-navy"
       style={{ minHeight: '60vh', paddingTop: '80px' }}
     >
       <div className="mx-auto flex w-full max-w-full flex-col items-center px-6 py-20 text-center">
