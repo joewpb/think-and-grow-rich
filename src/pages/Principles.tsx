@@ -281,7 +281,7 @@ function PageHeader() {
       className="relative flex items-center justify-center bg-deep-navy"
       style={{ minHeight: '60vh', paddingTop: '80px' }}
     >
-      <div className="mx-auto flex max-w-[1200px] flex-col items-center px-6 py-20 text-center">
+      <div className="mx-auto flex w-full max-w-full flex-col items-center px-6 py-20 text-center">
         {/* Eyebrow */}
         <motion.span
           initial={{ opacity: 0, y: 20 }}
@@ -297,7 +297,7 @@ function PageHeader() {
           variants={staggerContainer(0.08, 0.4)}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="font-playfair text-[clamp(28px,6vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
+          className="w-full max-w-full flex-wrap font-playfair text-[clamp(28px,6vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
         >
           {titleWords.map((word, i) => (
             <motion.span
