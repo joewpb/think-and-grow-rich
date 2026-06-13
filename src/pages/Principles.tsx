@@ -297,7 +297,7 @@ function PageHeader() {
           variants={staggerContainer(0.08, 0.4)}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="font-playfair text-[clamp(42px,5vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
+          className="font-playfair text-[clamp(28px,6vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
         >
           {titleWords.map((word, i) => (
             <motion.span
@@ -310,7 +310,7 @@ function PageHeader() {
                   transition: { duration: 1.0, ease: easeExpoOut },
                 },
               }}
-              className="mr-[0.3em] inline-block"
+              className="mr-[0.3em] inline-block break-words"
             >
               {word}
             </motion.span>
@@ -409,7 +409,7 @@ function PrinciplesGrid() {
           animate={isInView ? 'visible' : 'hidden'}
           className="grid gap-8"
           style={{
-            gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))',
           }}
         >
           {PRINCIPLES.map((p) => (
