@@ -93,7 +93,7 @@ export default function Hero() {
             transform: loaded ? 'translateY(0)' : 'translateY(20px)',
           }}
         >
-          STUDYCLUB PRESENTS
+          HILL CODEX PRESENTS
         </p>
 
         {/* Title */}

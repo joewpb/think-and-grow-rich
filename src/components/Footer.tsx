@@ -33,13 +33,13 @@ export default function Footer() {
             Begin Your Transformation
           </h3>
           <p className="mx-auto mt-4 max-w-[560px] font-inter text-[18px] font-light text-off-white">
-            Join the StudyClub and start applying the 13 Principles today.
+            Join The Hill Codex and start applying the 13 Principles today.
           </p>
           <Link
             to="/community"
             className="mt-8 inline-block rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
           >
-            Join the StudyClub
+            Join The Hill Codex
           </Link>
         </div>
 
@@ -101,7 +101,7 @@ export default function Footer() {
                 try {
                   const fd = new FormData()
                   fd.append('email', email)
-                  fd.append('_subject', 'StudyClub Newsletter Subscribe')
+                  fd.append('_subject', 'Hill Codex Newsletter Subscribe')
                   fd.append('_captcha', 'false')
                   await fetch('https://formsubmit.co/ajax/thehillcodex@gmail.com', {
                     method: 'POST',
@@ -135,7 +135,7 @@ export default function Footer() {
         {/* Bottom Row */}
         <div className="mt-12 border-t border-slate-blue pt-8 text-center">
           <p className="font-inter text-[14px] text-steel-blue">
-            &copy; 2025 StudyClub — Think and Grow Rich. All rights reserved.
+            &copy; 2025 The Hill Codex — Think and Grow Rich. All rights reserved.
           </p>
         </div>
       </div>

@@ -499,7 +499,7 @@ function CTABanner() {
           Ready to Begin?
         </h2>
         <p className="mx-auto mt-4 max-w-[600px] font-inter text-[18px] font-light text-off-white">
-          Join the StudyClub community and start your 13-week journey today.
+          Join The Hill Codex community and start your 13-week journey today.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link

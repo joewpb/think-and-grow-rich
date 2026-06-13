@@ -28,7 +28,7 @@ export default function Navbar() {
           to="/"
           className="font-inter text-[14px] font-medium uppercase tracking-[2px] text-accent-gold"
         >
-          STUDYCLUB
+          HILL CODEX
         </Link>
 
         {/* Desktop Nav */}

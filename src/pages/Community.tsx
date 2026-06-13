@@ -29,7 +29,7 @@ const pillars = [
 ]
 
 const steps = [
-  { num: 1, title: 'Join', desc: 'Sign up for the StudyClub. You\'ll be placed in a mastermind group of 4–6 members who share your commitment level.' },
+  { num: 1, title: 'Join', desc: 'Sign up for The Hill Codex. You\'ll be placed in a mastermind group of 4–6 members who share your commitment level.' },
   { num: 2, title: 'Meet Weekly', desc: 'Your group meets for 60 minutes each week via video call. One member shares a challenge, the group provides solutions.' },
   { num: 3, title: 'Study Together', desc: 'Each week focuses on one of the 13 Principles. Read the chapter, complete exercises, and discuss insights with your group.' },
   { num: 4, title: 'Grow Together', desc: 'Apply the principles to your life. Track your progress. Celebrate wins. Hold each other accountable for 13 weeks and beyond.' },
@@ -383,7 +383,7 @@ function JoinCTA() {
     try {
       const fd = new FormData()
       fd.append('email', email)
-      fd.append('_subject', 'StudyClub Community Join')
+      fd.append('_subject', 'Hill Codex Community Join')
       fd.append('_captcha', 'false')
       await fetch('https://formsubmit.co/ajax/thehillcodex@gmail.com', {
         method: 'POST',
@@ -446,7 +446,7 @@ function JoinCTA() {
             type="submit"
             className="rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
           >
-            Join the StudyClub
+            Join The Hill Codex
           </button>
         </motion.form>
 
