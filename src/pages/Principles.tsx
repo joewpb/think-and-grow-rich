@@ -297,7 +297,7 @@ function PageHeader() {
           variants={staggerContainer(0.08, 0.4)}
           initial="hidden"
           animate={isInView ? 'visible' : 'hidden'}
-          className="w-full max-w-full flex-wrap font-playfair text-[clamp(28px,6vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
+          className="w-full max-w-full overflow-hidden font-playfair text-[clamp(22px,4.5vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
         >
           {titleWords.map((word, i) => (
             <motion.span
@@ -310,7 +310,7 @@ function PageHeader() {
                   transition: { duration: 1.0, ease: easeExpoOut },
                 },
               }}
-              className="mr-[0.3em] inline-block break-words"
+              className="inline-block whitespace-normal mr-[0.3em]"
             >
               {word}
             </motion.span>
