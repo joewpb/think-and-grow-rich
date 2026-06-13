@@ -238,14 +238,6 @@ const staggerContainer = (staggerChildren = 0.08, delayChildren = 0) => ({
   visible: { transition: { staggerChildren, delayChildren } },
 })
 
-const numberScale = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5, ease: easeExpoOut, delay: 0.1 },
-  },
-}
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0 },

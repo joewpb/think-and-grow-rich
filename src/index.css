@@ -63,3 +63,16 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+/* FORCE: prevent any horizontal overflow anywhere */
+html {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+}
+
+#root {
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+}
