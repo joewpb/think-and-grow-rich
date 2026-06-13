@@ -66,22 +66,21 @@ export const resourceData: Record<string, ResourceItem> = {
     label: '15-minute chapter recaps',
     slug: 'chapter-recaps-audio',
     blurb: 'Audio summaries of each chapter for the commute or the workout — the principle, the mechanism, the exercise, no filler.',
-    status: 'live',
-    href: 'https://docs.google.com/uc?export=download&id=1m_XYvPcRlCjugHVJ_GOLzX4Yrd0K7SNi&confirm=t',
+    status: 'coming-soon',
   },
   'Guided visualization audio': {
     label: 'Guided visualization audio',
     slug: 'guided-visualization-audio',
     blurb: 'Narrated sessions that walk you through building a sensory scene of your achieved want. No music, no nature sounds — just the structure.',
     status: 'live',
-    href: 'https://docs.google.com/uc?export=download&id=1eIcfhqs-sMZPG-gQuFpnYHRWShzEM87v&confirm=t',
+    href: './resources/guided-visualization.m4a',
   },
   'Auto-suggestion recordings': {
     label: 'Auto-suggestion recordings',
     slug: 'auto-suggestion-recordings',
     blurb: 'Pre-recorded affirmation tracks aligned with each principle. Use them when your own voice feels too familiar to land.',
     status: 'live',
-    href: 'https://docs.google.com/uc?export=download&id=1SZ_oqMEvMfZaFM8sDsIhxFH__zybA1PB&confirm=t',
+    href: './resources/auto-suggestion-recordings.m4a',
   },
 }
 
