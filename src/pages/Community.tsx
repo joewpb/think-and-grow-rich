@@ -374,17 +374,29 @@ function JoinCTA() {
   const [email, setEmail] = useState('')
   const [focused, setFocused] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email.trim()) {
       toast.error(formCopy.join.error)
       return
     }
-    toast.success('You\'re in!', {
-      description: formCopy.join.success,
-      duration: 5000,
-    })
-    setEmail('')
+    try {
+      const fd = new FormData()
+      fd.append('email', email)
+      fd.append('_subject', 'StudyClub Community Join')
+      fd.append('_captcha', 'false')
+      await fetch('https://formsubmit.co/ajax/thehillcodex@gmail.com', {
+        method: 'POST',
+        body: fd,
+      })
+      toast.success('You\'re in!', {
+        description: formCopy.join.success,
+        duration: 5000,
+      })
+      setEmail('')
+    } catch {
+      toast.error('Something went wrong. Try again or email us directly.')
+    }
   }
 
   return (

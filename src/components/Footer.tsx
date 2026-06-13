@@ -92,16 +92,26 @@ export default function Footer() {
               Subscribe to our newsletter
             </p>
             <form
-              onSubmit={(e) => {
+              onSubmit={async (e) => {
                 e.preventDefault()
                 if (!email.trim()) {
                   toast.error(formCopy.subscribe.error)
                   return
                 }
-                toast.success(formCopy.subscribe.success, {
-                  duration: 4000,
-                })
-                setEmail('')
+                try {
+                  const fd = new FormData()
+                  fd.append('email', email)
+                  fd.append('_subject', 'StudyClub Newsletter Subscribe')
+                  fd.append('_captcha', 'false')
+                  await fetch('https://formsubmit.co/ajax/thehillcodex@gmail.com', {
+                    method: 'POST',
+                    body: fd,
+                  })
+                  toast.success(formCopy.subscribe.success, { duration: 4000 })
+                  setEmail('')
+                } catch {
+                  toast.error('Something went wrong. Try again or email us directly.')
+                }
               }}
               className="flex gap-2"
             >
