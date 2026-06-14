@@ -287,8 +287,8 @@ function PageHeader() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease: easeExpoOut }}
           className="w-full max-w-full break-words font-playfair text-[16px] md:text-[clamp(24px,3.5vw,80px)] font-bold leading-[1.1] tracking-[-1px] text-pure-white"
-          style={{ fontSize: 'clamp(16px, 3.5vw, 80px)' }}
-          13 PRINCIPLES OF SUCCESS
+          style={{ fontSize: 'clamp(16px, 3.5vw, 80px)' }}>
+          {'13 PRINCIPLES OF SUCCESS'}
         </motion.h1>
 
         {/* Subtitle */}
