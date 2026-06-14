@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ch 04 Worksheet — Specialized Knowledge — josie.ai</title>
+<style>
+  :root{
+    --bg:#0e0e0f;--panel:#16161a;--line:#3a3a40;
+    --ink:#ececec;--mut:#8a8a92;--acc:#e0633a;--amb:#d9b44a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+    padding:28px 14px 56px;display:flex;justify-content:center;
+  }
+  .wrap{width:100%;max-width:620px;}
+  .kicker{font-size:10px;letter-spacing:.28em;color:var(--mut);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-size:22px;font-weight:700;letter-spacing:.03em;margin-bottom:4px;}
+  .sub{font-size:11px;color:var(--mut);letter-spacing:.06em;margin-bottom:18px;}
+  .edge{font-size:13px;line-height:1.6;border-left:3px solid var(--acc);padding-left:13px;margin-bottom:24px;}
+  .edge b{color:var(--amb);}
+  .secthead{font-size:10px;letter-spacing:.22em;color:var(--mut);text-transform:uppercase;
+    border-bottom:1px solid var(--line);padding-bottom:5px;margin:22px 0 12px;}
+  .q-block{border:1px solid var(--line);background:var(--panel);padding:13px 14px;margin-bottom:8px;}
+  .q-num{font-size:9px;color:var(--acc);letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px;}
+  .q-text{font-size:13px;line-height:1.5;color:var(--ink);}
+  .q-text b{color:var(--amb);}
+  .q-note{font-size:11px;color:var(--mut);margin-top:6px;line-height:1.4;}
+  .ws-row{display:grid;grid-template-columns:180px 1fr;gap:0;border:1px solid var(--line);margin-bottom:6px;}
+  .ws-label{background:var(--panel);padding:12px 13px;font-size:10px;color:var(--acc);
+    letter-spacing:.14em;text-transform:uppercase;border-right:1px solid var(--line);display:flex;align-items:center;}
+  .ws-field{padding:12px 13px;min-height:52px;font-size:12px;color:var(--mut);line-height:1.4;}
+  .ws-field.tall{min-height:80px;}
+  .ws-field.xtall{min-height:110px;}
+  .check-row{display:flex;gap:8px;align-items:flex-start;padding:10px 12px;
+    border:1px dashed var(--line);margin-bottom:5px;font-size:12px;color:var(--mut);}
+  .check-box{width:14px;height:14px;border:1px solid var(--acc);flex-shrink:0;margin-top:1px;}
+  .footer{margin-top:28px;font-size:11px;color:var(--mut);line-height:1.6;
+    border-top:1px solid var(--line);padding-top:12px;}
+  .footer b{color:var(--acc);}
+  .brand{font-size:10px;letter-spacing:.18em;color:var(--line);text-transform:uppercase;margin-top:18px;}
+  @media(max-width:460px){.ws-row{grid-template-columns:1fr;} .ws-label{border-right:none;border-bottom:1px solid var(--line);}}
+
+  @media print {
+    :root {
+      --bg: #ffffff;
+      --panel: #f4f4f4;
+      --line: #cccccc;
+      --ink: #111111;
+      --mut: #444444;
+      --acc: #b84a20;
+      --amb: #8a6800;
+    }
+    body {
+      background: #ffffff;
+      color: #111111;
+      padding: 12px 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .wrap { max-width: 100%; }
+    .q-block { border-color: #cccccc; background: #f4f4f4; }
+    .ws-row { border-color: #cccccc; }
+    .ws-label { background: #f4f4f4; border-right-color: #cccccc; color: #b84a20; }
+    .ws-field { color: #444444; }
+    .check-row { border-color: #cccccc; color: #444444; }
+    .check-box { border-color: #b84a20; }
+    .secthead { border-bottom-color: #cccccc; color: #444444; }
+    .edge { border-left-color: #b84a20; }
+    .edge b { color: #8a6800; }
+    .q-num { color: #b84a20; }
+    .q-text b { color: #8a6800; }
+    .q-note { color: #444444; }
+    .footer { border-top-color: #cccccc; color: #444444; }
+    .footer b { color: #b84a20; }
+    .brand { color: #cccccc; }
+    .kicker { color: #444444; }
+    .sub { color: #444444; }
+    .c-num { color: #b84a20; }
+    .c-hook { color: #444444; }
+    .c-tag { border-color: #cccccc; color: #444444; }
+    .card { border-color: #cccccc; background: #f4f4f4; }
+    .card.active { border-color: #b84a20; }
+    .card.active .c-num { color: #8a6800; }
+    .card.active .c-tag { border-color: #8a6800; color: #8a6800; }
+    .verdict { border-left-color: #b84a20; background: #fff8f5; color: #111111; }
+    .card.active .verdict { border-left-color: #8a6800; background: #fffbf0; }
+    .week-row { border-color: #cccccc; background: #f4f4f4; }
+    .week-row.phase-2 { border-left-color: #8a6800; }
+    .week-row.phase-3 { border-left-color: #b84a20; }
+    .week-row.capstone { border-color: #8a6800; }
+    .w-num { color: #444444; }
+    .w-num span { color: #b84a20; }
+    .week-row.phase-2 .w-num span { color: #8a6800; }
+    .week-row.capstone .w-num span { color: #8a6800; }
+    .w-principle { color: #b84a20; }
+    .week-row.phase-2 .w-principle { color: #8a6800; }
+    .week-row.capstone .w-principle { color: #8a6800; }
+    .w-focus { color: #444444; }
+    .w-body { border-right: none; }
+    .w-num { border-right-color: #cccccc; }
+    .proto-box { border-color: #cccccc; }
+    .proto-box .p-label { color: #b84a20; }
+    .proto-box .p-txt { color: #444444; }
+    .phase-label { border-color: #cccccc; color: #444444; }
+    .phase-label.p2 { color: #8a6800; border-color: #8a6800; }
+    .phase-label.p3 { color: #b84a20; border-color: #b84a20; }
+    .commit-box { border-color: #b84a20; }
+    .commit-box .c-head { color: #b84a20; }
+    .commit-box .c-row { color: #444444; }
+    .commit-box .c-row .dot { color: #b84a20; }
+    .commit-box .c-row b { color: #111111; }
+    .stack-note { border-color: #cccccc; color: #444444; }
+    .stack-note b { color: #b84a20; }
+    .mech { border-color: #cccccc; }
+    .mech .n { color: #b84a20; }
+    .mech .d { color: #444444; }
+    .tension { border-left-color: #b84a20; }
+    .tension b { color: #8a6800; }
+    .node { border-color: #cccccc; background: #f4f4f4; }
+    .node .lbl { color: #b84a20; }
+    .node .txt em { color: #8a6800; }
+    .core { border-color: #b84a20; }
+    .core .lbl { color: #8a6800; }
+    .out { border-color: #8a6800; }
+    .out .lbl { color: #8a6800; }
+    .conn { background: #cccccc; }
+    .conn::after { border-top-color: #cccccc; }
+  }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+    <div class="kicker">Chapter 04 · Specialized Knowledge · Worksheet</div>
+  <h1>SPECIALIZED KNOWLEDGE — LEVERAGE AUDIT</h1>
+  <div class="sub">Principle: Personal Experiences or Observations · josie.ai Study Club</div>
+
+  <div class="edge">Hill's most provocative move in this chapter: <b>'knowledge is only potential power.'</b> General education, untranslated into organized action toward a definite end, produces nothing. Most people confuse acquiring knowledge with building leverage. They are not the same operation.</div>
+
+  <div class="secthead">Fields — Complete Before or During Session</div>
+  
+  <div class="ws-row">
+    <div class="ws-label">My Core Specialization</div>
+    <div class="ws-field tall">State it in one precise sentence: what do you know how to do that creates specific, monetizable value that most people cannot replicate?</div>
+  </div>
+  <div class="ws-row">
+    <div class="ws-label">Knowledge Gaps vs. My Definite Want</div>
+    <div class="ws-field xtall">List the 3-5 areas of specialized knowledge you currently lack that stand between you and your definite want.</div>
+  </div>
+  <div class="ws-row">
+    <div class="ws-label">My Knowledge Alliance (The Buttons)</div>
+    <div class="ws-field xtall">Who in your current network fills each gap above? For gaps with no one assigned, name the type of person you need to find.</div>
+  </div>
+  <div class="ws-row">
+    <div class="ws-label">This Quarter's Learning Investment</div>
+    <div class="ws-field tall">What specific course, mentor, or resource are you committing to in the next 90 days to acquire a specific skill?</div>
+  </div>
+  <div class="ws-row">
+    <div class="ws-label">Knowledge I Have That I'm Not Deploying</div>
+    <div class="ws-field tall">What do you already know that you're not organizing into action? This is often more valuable than what you're still trying to learn.</div>
+  </div>
+
+  <div class="secthead">Session Checklist</div>
+  
+  <div class="check-row">
+    <div class="check-box"></div>
+    <span>I can state my specialization in one sentence</span>
+  </div>
+  <div class="check-row">
+    <div class="check-box"></div>
+    <span>I identified my top 3 knowledge gaps</span>
+  </div>
+  <div class="check-row">
+    <div class="check-box"></div>
+    <span>I have at least one person assigned to each gap</span>
+  </div>
+  <div class="check-row">
+    <div class="check-box"></div>
+    <span>I have a scheduled learning investment for this quarter</span>
+  </div>
+
+  <div class="footer">This worksheet is yours. The answers that matter most are the ones that make you pause. <b>If nothing made you pause, you answered too quickly.</b></div>
+
+<div class="brand">josie.ai · Think and Grow Rich Study Club</div>
+</div>
+</body>
+</html>

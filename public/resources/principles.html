@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 13 Principles — josie.ai</title>
+<style>
+  :root{
+    --bg:#0e0e0f;
+    --panel:#16161a;
+    --line:#3a3a40;
+    --ink:#ececec;
+    --mut:#8a8a92;
+    --acc:#e0633a;
+    --amb:#d9b44a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+    padding:32px 16px 64px;display:flex;justify-content:center;
+  }
+  .wrap{width:100%;max-width:640px;}
+
+  .kicker{font-size:10px;letter-spacing:.30em;color:var(--mut);text-transform:uppercase;margin-bottom:10px;}
+  h1{font-size:26px;font-weight:700;letter-spacing:.03em;line-height:1.1;margin-bottom:6px;}
+  .sub{font-size:12px;color:var(--mut);letter-spacing:.06em;margin-bottom:8px;}
+  .tension{
+    font-size:13px;line-height:1.6;color:var(--ink);
+    border-left:3px solid var(--acc);padding-left:14px;
+    margin:20px 0 28px;
+  }
+  .tension b{color:var(--amb);}
+
+  .divider{height:1px;background:var(--line);margin:24px 0;}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  @media(max-width:480px){.grid{grid-template-columns:1fr;}}
+
+  .card{
+    border:1px solid var(--line);background:var(--panel);
+    padding:14px 15px;position:relative;cursor:default;
+    transition:border-color .15s;
+  }
+  .card:hover{border-color:var(--acc);}
+  .card.active{border-color:var(--amb);}
+
+  .c-num{
+    font-size:10px;letter-spacing:.18em;color:var(--acc);
+    text-transform:uppercase;margin-bottom:4px;
+  }
+  .card.active .c-num{color:var(--amb);}
+  .c-title{font-size:14px;font-weight:700;letter-spacing:.02em;margin-bottom:6px;}
+  .c-tag{
+    display:inline-block;font-size:9px;letter-spacing:.14em;
+    text-transform:uppercase;padding:2px 7px;
+    border:1px solid var(--line);color:var(--mut);margin-bottom:8px;
+  }
+  .card.active .c-tag{border-color:var(--amb);color:var(--amb);}
+  .c-hook{font-size:12px;line-height:1.5;color:var(--mut);}
+  .c-hook b{color:var(--ink);}
+
+  .verdict{
+    margin-top:10px;font-size:11px;line-height:1.5;
+    padding:8px 10px;border-left:2px solid var(--acc);
+    background:rgba(224,99,58,.06);color:var(--ink);
+  }
+  .card.active .verdict{border-left-color:var(--amb);background:rgba(217,180,74,.06);}
+
+  .secthead{
+    font-size:10px;letter-spacing:.24em;color:var(--mut);text-transform:uppercase;
+    border-bottom:1px solid var(--line);padding-bottom:6px;margin:28px 0 14px;
+  }
+
+  .stack-note{
+    border:1px dashed var(--line);padding:14px 16px;
+    font-size:12px;line-height:1.6;color:var(--mut);margin-top:10px;
+  }
+  .stack-note b{color:var(--acc);}
+
+  .footer{
+    margin-top:32px;font-size:11px;color:var(--mut);
+    line-height:1.6;border-top:1px solid var(--line);padding-top:14px;
+  }
+  .footer b{color:var(--acc);}
+  .brand{font-size:10px;letter-spacing:.18em;color:var(--line);text-transform:uppercase;margin-top:20px;}
+
+  @media print {
+    :root {
+      --bg: #ffffff;
+      --panel: #f4f4f4;
+      --line: #cccccc;
+      --ink: #111111;
+      --mut: #444444;
+      --acc: #b84a20;
+      --amb: #8a6800;
+    }
+    body {
+      background: #ffffff;
+      color: #111111;
+      padding: 12px 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .wrap { max-width: 100%; }
+    .q-block { border-color: #cccccc; background: #f4f4f4; }
+    .ws-row { border-color: #cccccc; }
+    .ws-label { background: #f4f4f4; border-right-color: #cccccc; color: #b84a20; }
+    .ws-field { color: #444444; }
+    .check-row { border-color: #cccccc; color: #444444; }
+    .check-box { border-color: #b84a20; }
+    .secthead { border-bottom-color: #cccccc; color: #444444; }
+    .edge { border-left-color: #b84a20; }
+    .edge b { color: #8a6800; }
+    .q-num { color: #b84a20; }
+    .q-text b { color: #8a6800; }
+    .q-note { color: #444444; }
+    .footer { border-top-color: #cccccc; color: #444444; }
+    .footer b { color: #b84a20; }
+    .brand { color: #cccccc; }
+    .kicker { color: #444444; }
+    .sub { color: #444444; }
+    .c-num { color: #b84a20; }
+    .c-hook { color: #444444; }
+    .c-tag { border-color: #cccccc; color: #444444; }
+    .card { border-color: #cccccc; background: #f4f4f4; }
+    .card.active { border-color: #b84a20; }
+    .card.active .c-num { color: #8a6800; }
+    .card.active .c-tag { border-color: #8a6800; color: #8a6800; }
+    .verdict { border-left-color: #b84a20; background: #fff8f5; color: #111111; }
+    .card.active .verdict { border-left-color: #8a6800; background: #fffbf0; }
+    .week-row { border-color: #cccccc; background: #f4f4f4; }
+    .week-row.phase-2 { border-left-color: #8a6800; }
+    .week-row.phase-3 { border-left-color: #b84a20; }
+    .week-row.capstone { border-color: #8a6800; }
+    .w-num { color: #444444; }
+    .w-num span { color: #b84a20; }
+    .week-row.phase-2 .w-num span { color: #8a6800; }
+    .week-row.capstone .w-num span { color: #8a6800; }
+    .w-principle { color: #b84a20; }
+    .week-row.phase-2 .w-principle { color: #8a6800; }
+    .week-row.capstone .w-principle { color: #8a6800; }
+    .w-focus { color: #444444; }
+    .w-body { border-right: none; }
+    .w-num { border-right-color: #cccccc; }
+    .proto-box { border-color: #cccccc; }
+    .proto-box .p-label { color: #b84a20; }
+    .proto-box .p-txt { color: #444444; }
+    .phase-label { border-color: #cccccc; color: #444444; }
+    .phase-label.p2 { color: #8a6800; border-color: #8a6800; }
+    .phase-label.p3 { color: #b84a20; border-color: #b84a20; }
+    .commit-box { border-color: #b84a20; }
+    .commit-box .c-head { color: #b84a20; }
+    .commit-box .c-row { color: #444444; }
+    .commit-box .c-row .dot { color: #b84a20; }
+    .commit-box .c-row b { color: #111111; }
+    .stack-note { border-color: #cccccc; color: #444444; }
+    .stack-note b { color: #b84a20; }
+    .mech { border-color: #cccccc; }
+    .mech .n { color: #b84a20; }
+    .mech .d { color: #444444; }
+    .tension { border-left-color: #b84a20; }
+    .tension b { color: #8a6800; }
+    .node { border-color: #cccccc; background: #f4f4f4; }
+    .node .lbl { color: #b84a20; }
+    .node .txt em { color: #8a6800; }
+    .core { border-color: #b84a20; }
+    .core .lbl { color: #8a6800; }
+    .out { border-color: #8a6800; }
+    .out .lbl { color: #8a6800; }
+    .conn { background: #cccccc; }
+    .conn::after { border-top-color: #cccccc; }
+  }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Think and Grow Rich · Napoleon Hill · 1937</div>
+  <h1>THE 13 PRINCIPLES</h1>
+  <div class="sub">josie.ai Study Club · Operational Reference</div>
+
+  <div class="tension">
+    Most people read this book once, feel inspired for 48 hours, then return to the same configuration that produced the same results. <b>That is not a motivation problem. That is a systems problem.</b> These 13 principles are not chapters — they are interlocking components. Understand the architecture or keep wondering why the output never changes.
+  </div>
+
+  <div class="secthead">01 · The Foundation Layer — Input Signals</div>
+  <div class="grid">
+
+    <div class="card active">
+      <div class="c-num">Principle 01</div>
+      <div class="c-title">DESIRE</div>
+      <div class="c-tag">The Ignition</div>
+      <div class="c-hook">Not wanting. Not wishing. <b>Burning, obsessive, specific desire.</b> Hill calls it the starting point of all achievement — not the finish line, the launch pad.</div>
+      <div class="verdict">If your goal doesn't keep you awake, it's a preference. Preferences don't build fortunes.</div>
+    </div>
+
+    <div class="card active">
+      <div class="c-num">Principle 02</div>
+      <div class="c-title">FAITH</div>
+      <div class="c-tag">The Carrier Signal</div>
+      <div class="c-hook">Faith is a <b>programmable state of mind</b> — not a spiritual bypass. Repeated autosuggestion recodes the subconscious. The subconscious doesn't evaluate; it executes.</div>
+      <div class="verdict">The mind moves toward whatever it believes most consistently. You are currently moving somewhere.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-num">Principle 03</div>
+      <div class="c-title">AUTO-SUGGESTION</div>
+      <div class="c-tag">The Input Protocol</div>
+      <div class="c-hook">The mechanism for feeding Faith into the subconscious. <b>Deliberate, emotional, repetitive instruction</b> — not passive reading. Most people skip this step entirely and wonder why nothing changes.</div>
+      <div class="verdict">Passive exposure to good ideas changes nothing. Repetition with feeling rewires the system.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-num">Principle 04</div>
+      <div class="c-title">SPECIALIZED KNOWLEDGE</div>
+      <div class="c-tag">The Leverage Point</div>
+      <div class="c-hook">General knowledge has no market value. <b>Organized, applied, specific knowledge does.</b> Hill's point: Carnegie didn't need to know everything — he knew how to surround himself with people who did.</div>
+      <div class="verdict">What you know matters less than how you deploy it and who you deploy it with.</div>
+    </div>
+
+  </div>
+
+  <div class="secthead">02 · The Processing Layer — Transformation</div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="c-num">Principle 05</div>
+      <div class="c-title">IMAGINATION</div>
+      <div class="c-tag">The Design Engine</div>
+      <div class="c-hook">Two modes: <b>Synthetic</b> (recombining existing knowledge) and <b>Creative</b> (direct signal from Infinite Intelligence). Ideas are the only true source of original wealth.</div>
+      <div class="verdict">Every fortune that exists began as an intangible thought impulse. This isn't poetry — it's the documented sequence.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-num">Principle 06</div>
+      <div class="c-title">ORGANIZED PLANNING</div>
+      <div class="c-tag">The Blueprint</div>
+      <div class="c-hook">Desire without a plan is a daydream. <b>A written, specific, time-bound plan is where desire becomes architecture.</b> Hill: if your first plan fails, build another. Failure is feedback, not verdict.</div>
+      <div class="verdict">The people who say "I just need the right opportunity" are people without a plan.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-num">Principle 07</div>
+      <div class="c-title">DECISION</div>
+      <div class="c-tag">The Commit Signal</div>
+      <div class="c-hook">Hill's research: <b>successful people decide fast and change slowly.</b> Failures decide slowly and change fast. Indecision is not neutral — it is a drain on the entire system.</div>
+      <div class="verdict">You are making a decision right now — either the one you choose or the one your inaction chooses for you.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-num">Principle 08</div>
+      <div class="c-title">PERSISTENCE</div>
+      <div class="c-tag">The Override Function</div>
+      <div class="c-hook"><b>The single trait that separates people who succeed from people who had every advantage and didn't.</b> Hill documents it clearly: persistence outlasts talent, education, and circumstance.</div>
+      <div class="verdict">"Old Man Failure" gets tired and leaves. Most people quit before they find that out.</div>
+    </div>
+
+  </div>
+
+  <div class="secthead">03 · The Amplification Layer — Network Effects</div>
+  <div class="grid">
+
+    <div class="card active">
+      <div class="c-num">Principle 09</div>
+      <div class="c-title">MASTER MIND</div>
+      <div class="c-tag">The Force Multiplier</div>
+      <div class="c-hook">A coordinated alliance of harmonious minds produces a <b>third mind</b> — greater than any individual member. This is the principle this study club itself operates on. You are inside it right now.</div>
+      <div class="verdict">Studying alone is the broken configuration. The room multiplies the result.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-num">Principle 10</div>
+      <div class="c-title">SEX TRANSMUTATION</div>
+      <div class="c-tag">The Energy Redirect</div>
+      <div class="c-hook">The most powerful creative energy available to a human being. <b>The question is not whether you have it — it is whether you're directing it toward creation or diffusing it.</b> Hill's research linked the highest achievers to controlled transmutation.</div>
+      <div class="verdict">Uncontrolled, it is a distraction. Redirected, it is rocket fuel for creative output.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-num">Principle 11</div>
+      <div class="c-title">THE SUBCONSCIOUS MIND</div>
+      <div class="c-tag">The Processing Core</div>
+      <div class="c-hook">It runs continuously — feeding on <b>whatever you give it, or whatever you neglect to give it.</b> Neglect the input, and it defaults to the fears and doubts surrounding you. You are always programming it.</div>
+      <div class="verdict">You cannot turn the subconscious off. You can only choose what it runs on.</div>
+    </div>
+
+    <div class="card">
+      <div class="c-num">Principle 12</div>
+      <div class="c-title">THE BRAIN</div>
+      <div class="c-tag">The Broadcast Station</div>
+      <div class="c-hook">Hill frames the brain as both a <b>transmitter and receiver</b> of thought vibration. The frequency you broadcast determines the intelligence you attract — people, ideas, and circumstance operate on resonance.</div>
+      <div class="verdict">Cheap thinking produces cheap results. Not because of karma — because of signal quality.</div>
+    </div>
+
+  </div>
+
+  <div class="secthead">04 · The Integration Layer — The Capstone</div>
+  <div class="grid">
+
+    <div class="card active" style="grid-column:1/-1;">
+      <div class="c-num">Principle 13</div>
+      <div class="c-title">THE SIXTH SENSE</div>
+      <div class="c-tag">The Output — Integration of All Prior Principles</div>
+      <div class="c-hook">The final principle is not accessible without the first twelve. It is the <b>Creative Imagination at full operating capacity</b> — the faculty through which hunches, insights, and direct knowing arrive. Hill: it cannot be demanded; it must be developed, slowly, through mastery of everything that comes before it.</div>
+      <div class="verdict">This is where strategy ends and mastery begins. It doesn't come from reading faster — it comes from applying deeper.</div>
+    </div>
+
+  </div>
+
+  <div class="stack-note">
+    <b>System Note:</b> These 13 principles are not a reading list — they are a stack. Each layer activates the next. Desire without Faith is restlessness. Faith without Organized Planning is superstition. The Master Mind without Persistence is a meeting that produces nothing. The architecture only works when the full stack runs. This club exists to help you run the full stack.
+  </div>
+
+  <div class="footer">
+    The uncomfortable truth Hill embedded in this book: the people who benefit most from it are the people who needed it least — because they were already willing to apply, not just absorb. The others will read it, agree with everything, and change nothing. Which configuration are you running? <b>The stack doesn't care about your intentions. It responds to your inputs.</b>
+  </div>
+
+  <div class="brand">josie.ai · Think and Grow Rich Study Club</div>
+
+</div>
+</body>
+</html>
