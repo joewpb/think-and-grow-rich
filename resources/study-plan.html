@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Plan — josie.ai</title>
+<style>
+  :root{
+    --bg:#0e0e0f;
+    --panel:#16161a;
+    --line:#3a3a40;
+    --ink:#ececec;
+    --mut:#8a8a92;
+    --acc:#e0633a;
+    --amb:#d9b44a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+    padding:32px 16px 64px;display:flex;justify-content:center;
+  }
+  .wrap{width:100%;max-width:640px;}
+
+  .kicker{font-size:10px;letter-spacing:.30em;color:var(--mut);text-transform:uppercase;margin-bottom:10px;}
+  h1{font-size:26px;font-weight:700;letter-spacing:.03em;margin-bottom:6px;}
+  .sub{font-size:12px;color:var(--mut);letter-spacing:.06em;margin-bottom:20px;}
+
+  .tension{
+    font-size:13px;line-height:1.6;color:var(--ink);
+    border-left:3px solid var(--acc);padding-left:14px;margin-bottom:28px;
+  }
+  .tension b{color:var(--amb);}
+
+  .protocol-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:28px;}
+  @media(max-width:480px){.protocol-grid{grid-template-columns:1fr 1fr;}}
+  .proto-box{border:1px dashed var(--line);padding:10px 11px;}
+  .proto-box .p-label{font-size:9px;color:var(--acc);letter-spacing:.18em;text-transform:uppercase;margin-bottom:4px;}
+  .proto-box .p-txt{font-size:11px;color:var(--mut);line-height:1.4;}
+
+  .secthead{
+    font-size:10px;letter-spacing:.24em;color:var(--mut);text-transform:uppercase;
+    border-bottom:1px solid var(--line);padding-bottom:6px;margin:28px 0 14px;
+  }
+
+  .week-row{
+    display:grid;grid-template-columns:56px 1fr;
+    border:1px solid var(--line);background:var(--panel);
+    margin-bottom:6px;transition:border-color .15s;
+  }
+  .week-row:hover{border-color:var(--acc);}
+  .week-row.phase-2{border-left:2px solid var(--amb);}
+  .week-row.phase-3{border-left:2px solid var(--acc);}
+  .week-row.capstone{border:1px solid var(--amb);}
+
+  .w-num{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:12px 6px;border-right:1px solid var(--line);
+    font-size:10px;color:var(--mut);letter-spacing:.1em;text-align:center;
+  }
+  .w-num span{font-size:18px;font-weight:700;color:var(--acc);display:block;line-height:1;}
+  .week-row.phase-2 .w-num span{color:var(--amb);}
+  .week-row.capstone .w-num span{color:var(--amb);}
+
+  .w-body{padding:11px 13px;}
+  .w-chapter{font-size:11px;font-weight:700;letter-spacing:.04em;margin-bottom:3px;}
+  .w-principle{font-size:10px;color:var(--acc);letter-spacing:.12em;text-transform:uppercase;margin-bottom:5px;}
+  .week-row.phase-2 .w-principle{color:var(--amb);}
+  .week-row.capstone .w-principle{color:var(--amb);}
+  .w-focus{font-size:11px;color:var(--mut);line-height:1.4;}
+  .w-focus b{color:var(--ink);}
+
+  .phase-label{
+    font-size:9px;letter-spacing:.20em;text-transform:uppercase;
+    padding:5px 10px;border:1px solid var(--line);
+    display:inline-block;color:var(--mut);margin-bottom:10px;
+  }
+  .phase-label.p2{color:var(--amb);border-color:var(--amb);}
+  .phase-label.p3{color:var(--acc);border-color:var(--acc);}
+
+  .commit-box{
+    border:1px solid var(--acc);padding:16px;margin-top:24px;
+  }
+  .commit-box .c-head{font-size:10px;letter-spacing:.22em;color:var(--acc);text-transform:uppercase;margin-bottom:10px;}
+  .commit-box .c-row{
+    display:grid;grid-template-columns:auto 1fr;gap:10px;
+    font-size:12px;line-height:1.5;margin-bottom:6px;color:var(--mut);
+  }
+  .commit-box .c-row .dot{color:var(--acc);}
+  .commit-box .c-row b{color:var(--ink);}
+
+  .footer{margin-top:32px;font-size:11px;color:var(--mut);line-height:1.6;border-top:1px solid var(--line);padding-top:14px;}
+  .footer b{color:var(--acc);}
+  .brand{font-size:10px;letter-spacing:.18em;color:var(--line);text-transform:uppercase;margin-top:20px;}
+
+  @media print {
+    :root {
+      --bg: #ffffff;
+      --panel: #f4f4f4;
+      --line: #cccccc;
+      --ink: #111111;
+      --mut: #444444;
+      --acc: #b84a20;
+      --amb: #8a6800;
+    }
+    body {
+      background: #ffffff;
+      color: #111111;
+      padding: 12px 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .wrap { max-width: 100%; }
+    .q-block { border-color: #cccccc; background: #f4f4f4; }
+    .ws-row { border-color: #cccccc; }
+    .ws-label { background: #f4f4f4; border-right-color: #cccccc; color: #b84a20; }
+    .ws-field { color: #444444; }
+    .check-row { border-color: #cccccc; color: #444444; }
+    .check-box { border-color: #b84a20; }
+    .secthead { border-bottom-color: #cccccc; color: #444444; }
+    .edge { border-left-color: #b84a20; }
+    .edge b { color: #8a6800; }
+    .q-num { color: #b84a20; }
+    .q-text b { color: #8a6800; }
+    .q-note { color: #444444; }
+    .footer { border-top-color: #cccccc; color: #444444; }
+    .footer b { color: #b84a20; }
+    .brand { color: #cccccc; }
+    .kicker { color: #444444; }
+    .sub { color: #444444; }
+    .c-num { color: #b84a20; }
+    .c-hook { color: #444444; }
+    .c-tag { border-color: #cccccc; color: #444444; }
+    .card { border-color: #cccccc; background: #f4f4f4; }
+    .card.active { border-color: #b84a20; }
+    .card.active .c-num { color: #8a6800; }
+    .card.active .c-tag { border-color: #8a6800; color: #8a6800; }
+    .verdict { border-left-color: #b84a20; background: #fff8f5; color: #111111; }
+    .card.active .verdict { border-left-color: #8a6800; background: #fffbf0; }
+    .week-row { border-color: #cccccc; background: #f4f4f4; }
+    .week-row.phase-2 { border-left-color: #8a6800; }
+    .week-row.phase-3 { border-left-color: #b84a20; }
+    .week-row.capstone { border-color: #8a6800; }
+    .w-num { color: #444444; }
+    .w-num span { color: #b84a20; }
+    .week-row.phase-2 .w-num span { color: #8a6800; }
+    .week-row.capstone .w-num span { color: #8a6800; }
+    .w-principle { color: #b84a20; }
+    .week-row.phase-2 .w-principle { color: #8a6800; }
+    .week-row.capstone .w-principle { color: #8a6800; }
+    .w-focus { color: #444444; }
+    .w-body { border-right: none; }
+    .w-num { border-right-color: #cccccc; }
+    .proto-box { border-color: #cccccc; }
+    .proto-box .p-label { color: #b84a20; }
+    .proto-box .p-txt { color: #444444; }
+    .phase-label { border-color: #cccccc; color: #444444; }
+    .phase-label.p2 { color: #8a6800; border-color: #8a6800; }
+    .phase-label.p3 { color: #b84a20; border-color: #b84a20; }
+    .commit-box { border-color: #b84a20; }
+    .commit-box .c-head { color: #b84a20; }
+    .commit-box .c-row { color: #444444; }
+    .commit-box .c-row .dot { color: #b84a20; }
+    .commit-box .c-row b { color: #111111; }
+    .stack-note { border-color: #cccccc; color: #444444; }
+    .stack-note b { color: #b84a20; }
+    .mech { border-color: #cccccc; }
+    .mech .n { color: #b84a20; }
+    .mech .d { color: #444444; }
+    .tension { border-left-color: #b84a20; }
+    .tension b { color: #8a6800; }
+    .node { border-color: #cccccc; background: #f4f4f4; }
+    .node .lbl { color: #b84a20; }
+    .node .txt em { color: #8a6800; }
+    .core { border-color: #b84a20; }
+    .core .lbl { color: #8a6800; }
+    .out { border-color: #8a6800; }
+    .out .lbl { color: #8a6800; }
+    .conn { background: #cccccc; }
+    .conn::after { border-top-color: #cccccc; }
+  }
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kicker">Think and Grow Rich · josie.ai Study Club</div>
+  <h1>THE STUDY PLAN</h1>
+  <div class="sub">16-Week Operating Protocol · One Chapter Per Session</div>
+
+  <div class="tension">
+    Most people treat a book like a movie — consume it once, file it, move on. <b>That is why most people have the same conversations about money, opportunity, and potential for decades without the variables changing.</b> This plan is different. It is built for people who are willing to slow down enough to actually install something.
+  </div>
+
+  <div class="protocol-grid">
+    <div class="proto-box">
+      <div class="p-label">A · Pre-Load</div>
+      <div class="p-txt">Read & analyze the chapter several days before the session.</div>
+    </div>
+    <div class="proto-box">
+      <div class="p-label">B · Signal</div>
+      <div class="p-txt">One strong reader voices the chapter aloud — with feeling.</div>
+    </div>
+    <div class="proto-box">
+      <div class="p-label">C · Friction</div>
+      <div class="p-txt">All members discuss freely. Challenge every assumption.</div>
+    </div>
+    <div class="proto-box">
+      <div class="p-label">D · Capture</div>
+      <div class="p-txt">Write down every idea your own mind generates. Every one.</div>
+    </div>
+  </div>
+
+  <div class="secthead">Phase 01 · Foundation — Weeks 1–6</div>
+  <div class="phase-label">Input Layer: Desire → Faith → Subconscious Programming</div>
+
+  <div class="week-row">
+    <div class="w-num">WK<span>01</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Author's Preface + Introduction</div>
+      <div class="w-principle">System Orientation</div>
+      <div class="w-focus">Why this book demands a study club to function. What the Master Mind principle does. <b>The agreement you're making with yourself by showing up.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="w-num">WK<span>02</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 1 — Thoughts Are Things</div>
+      <div class="w-principle">Principle: The Starting Point</div>
+      <div class="w-focus">Edwin Barnes and the one idea. <b>The gap between "I wish" and "I will" is the only distance that matters.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="w-num">WK<span>03</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 2 — Desire</div>
+      <div class="w-principle">Principle 01: The Ignition</div>
+      <div class="w-focus">Six definite steps. The burning obsession that has no reverse gear. <b>If you can talk yourself out of your goal, it was never a real goal.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="w-num">WK<span>04</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 3 — Faith</div>
+      <div class="w-principle">Principle 02: The Carrier Signal</div>
+      <div class="w-focus">Autosuggestion as the programming interface. <b>Faith is not belief in spite of evidence — it is a trained response you can build deliberately.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="w-num">WK<span>05</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 4 — Auto-Suggestion</div>
+      <div class="w-principle">Principle 03: The Input Protocol</div>
+      <div class="w-focus">Repetition + emotion = subconscious installation. <b>Reading without feeling is data entry into a disconnected system. Nothing installs.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row">
+    <div class="w-num">WK<span>06</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 5 — Specialized Knowledge</div>
+      <div class="w-principle">Principle 04: The Leverage Point</div>
+      <div class="w-focus">The myth of general education as a wealth vehicle. <b>Carnegie's real edge: he didn't need to know everything. He knew how to organize the people who did.</b></div>
+    </div>
+  </div>
+
+  <div class="secthead">Phase 02 · Processing — Weeks 7–11</div>
+  <div class="phase-label p2">Transformation Layer: From Impulse to Architecture</div>
+
+  <div class="week-row phase-2">
+    <div class="w-num">WK<span>07</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 6 — Imagination</div>
+      <div class="w-principle">Principle 05: The Design Engine</div>
+      <div class="w-focus">Synthetic vs. Creative Imagination. <b>Every fortune that exists was first a thought impulse. This is not inspiration — it is documented sequence.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row phase-2">
+    <div class="w-num">WK<span>08</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 7 — Organized Planning</div>
+      <div class="w-principle">Principle 06: The Blueprint</div>
+      <div class="w-focus">How to build a Master Mind alliance. How to market personal services. <b>Success requires no explanation. Failure permits no alibis.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row phase-2">
+    <div class="w-num">WK<span>09</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 8 — Decision</div>
+      <div class="w-principle">Principle 07: The Commit Signal</div>
+      <div class="w-focus">Hill's pattern: rich people decide fast. Poor people deliberate until the window closes. <b>Indecision is its own decision — and it compounds against you.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row phase-2">
+    <div class="w-num">WK<span>10</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 9 — Persistence</div>
+      <div class="w-principle">Principle 08: The Override Function</div>
+      <div class="w-focus">Four steps. The wall most people hit and mistake for a verdict. <b>Old Man Failure gets tired. Most people quit before they find out how tired he is.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row phase-2">
+    <div class="w-num">WK<span>11</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 10 — Power of the Master Mind</div>
+      <div class="w-principle">Principle 09: The Force Multiplier</div>
+      <div class="w-focus">The third mind that forms from coordinated harmony. <b>This is not networking. This is a structural upgrade to how you produce results.</b></div>
+    </div>
+  </div>
+
+  <div class="secthead">Phase 03 · Amplification — Weeks 12–15</div>
+  <div class="phase-label p3">Network & Integration Layer: Energy, Frequency, Signal</div>
+
+  <div class="week-row phase-3">
+    <div class="w-num">WK<span>12</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 11 — Sex Transmutation</div>
+      <div class="w-principle">Principle 10: The Energy Redirect</div>
+      <div class="w-focus">The most powerful creative drive available. The question is direction. <b>Uncontrolled: distraction. Redirected: the energy source of every major creative output.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row phase-3">
+    <div class="w-num">WK<span>13</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 12 — The Subconscious Mind</div>
+      <div class="w-principle">Principle 11: The Processing Core</div>
+      <div class="w-focus">It never stops running. You are always feeding it something. <b>Neglect the input and it defaults to the fears surrounding you. That is not neutral territory.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row phase-3">
+    <div class="w-num">WK<span>14</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 13 — The Brain</div>
+      <div class="w-principle">Principle 12: The Broadcast Station</div>
+      <div class="w-focus">Transmitter and receiver. The frequency of your dominant thoughts determines what reaches you. <b>Cheap thinking produces cheap circumstances — not by coincidence, by signal.</b></div>
+    </div>
+  </div>
+
+  <div class="week-row phase-3">
+    <div class="w-num">WK<span>15</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 14 — The Sixth Sense</div>
+      <div class="w-principle">Principle 13: The Capstone</div>
+      <div class="w-focus">Not accessible without the first twelve. Creative Imagination at full operating capacity. <b>Strategy ends here. Mastery begins.</b></div>
+    </div>
+  </div>
+
+  <div class="secthead">Phase 04 · Integration — Week 16</div>
+
+  <div class="week-row capstone">
+    <div class="w-num">WK<span>16</span></div>
+    <div class="w-body">
+      <div class="w-chapter">Chapter 15 — How to Outwit the Six Ghosts of Fear</div>
+      <div class="w-principle">The Final Audit</div>
+      <div class="w-focus">Poverty. Criticism. Ill health. Loss of love. Old age. Death. Hill's final chapter doesn't add a new principle — it removes the interference blocking all thirteen. <b>This is the system self-test. Run it honestly.</b></div>
+    </div>
+  </div>
+
+  <div class="commit-box">
+    <div class="c-head">The Operating Commitment</div>
+    <div class="c-row"><span class="dot">→</span><span><b>Pre-load:</b> Read the chapter 3+ days before your session. Mark every line that activates resistance or recognition.</span></div>
+    <div class="c-row"><span class="dot">→</span><span><b>Show up prepared:</b> A club without preparation is a social call. Preparation is the minimum entry standard.</span></div>
+    <div class="c-row"><span class="dot">→</span><span><b>Capture everything:</b> Write down every idea the discussion generates in your own mind. Not the book's ideas — yours. Those are the output.</span></div>
+    <div class="c-row"><span class="dot">→</span><span><b>Apply within 72 hours:</b> The principle discussed must touch your real work within three days of the session or the installation fails.</span></div>
+  </div>
+
+  <div class="footer">
+    Sixteen weeks is not a long time. It is long enough to either build a new operating system or prove, once again, that you prefer the comfort of the old one. <b>The plan doesn't judge either choice. It just keeps running.</b>
+  </div>
+
+  <div class="brand">josie.ai · Think and Grow Rich Study Club</div>
+
+</div>
+</body>
+</html>
