@@ -483,10 +483,10 @@ function CTABanner() {
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
-            to="/community"
+            to="/study-plan"
             className="inline-block rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
           >
-            Join the Community
+            Start the Study Plan
           </Link>
           <Link
             to="/principles"

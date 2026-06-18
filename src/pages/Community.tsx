@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
+import { Link } from 'react-router'
 import Layout from '../components/Layout'
 
 const easeExpoOut = [0.16, 1, 0.3, 1] as [number, number, number, number]
@@ -8,46 +9,54 @@ const easeExpoOut = [0.16, 1, 0.3, 1] as [number, number, number, number]
 /*  DATA                                                               */
 /* ------------------------------------------------------------------ */
 
-const pillars = [
-  {
-    num: '01',
-    title: 'Collective Intelligence',
-    desc: "When minds unite around a shared purpose, the resulting intelligence exceeds the sum of its parts. Problems that stump individuals are solved by groups.",
-  },
-  {
-    num: '02',
-    title: 'Accountability',
-    desc: 'A mastermind group ensures you follow through on your commitments. When you report your progress to others, your motivation multiplies.',
-  },
-  {
-    num: '03',
-    title: 'Diverse Perspective',
-    desc: "Different backgrounds, skills, and viewpoints reveal blind spots you would never see alone. Diversity of thought is the mastermind's secret weapon.",
-  },
+const chapters = [
+  { slug: 'intro', label: 'Introduction' },
+  { slug: 'desire', label: 'Ch. 1 — Desire' },
+  { slug: 'faith', label: 'Ch. 2 — Faith' },
+  { slug: 'autosuggestion', label: 'Ch. 3 — Auto-Suggestion' },
+  { slug: 'specialized_knowledge', label: 'Ch. 4 — Specialized Knowledge' },
+  { slug: 'imagination', label: 'Ch. 5 — Imagination' },
+  { slug: 'organized_planning', label: 'Ch. 6 — Organized Planning' },
+  { slug: 'decision', label: 'Ch. 7 — Decision' },
+  { slug: 'persistence', label: 'Ch. 8 — Persistence' },
+  { slug: 'master_mind', label: 'Ch. 9 — Master Mind' },
+  { slug: 'sex_transmutation', label: 'Ch. 10 — Sex Transmutation' },
+  { slug: 'subconscious', label: 'Ch. 11 — Subconscious Mind' },
+  { slug: 'brain', label: 'Ch. 12 — The Brain' },
+  { slug: 'sixth_sense', label: 'Ch. 13 — Sixth Sense' },
+  { slug: 'fear', label: 'Ch. 14 — Six Ghosts of Fear' },
 ]
 
-const steps = [
-  { num: 1, title: 'Join', desc: 'Sign up for the StudyClub. You\'ll be placed in a mastermind group of 4–6 members who share your commitment level.' },
-  { num: 2, title: 'Meet Weekly', desc: 'Your group meets for 60 minutes each week via video call. One member shares a challenge, the group provides solutions.' },
-  { num: 3, title: 'Study Together', desc: 'Each week focuses on one of the 13 Principles. Read the chapter, complete exercises, and discuss insights with your group.' },
-  { num: 4, title: 'Grow Together', desc: 'Apply the principles to your life. Track your progress. Celebrate wins. Hold each other accountable for 13 weeks and beyond.' },
-]
-
-const events = [
+const protocol = [
   {
-    title: 'Weekly Principle Discussion',
-    date: 'Every Tuesday 7PM EST',
-    desc: 'Group discussion of the week\'s principle. Share insights, ask questions, apply together.',
+    num: '1',
+    title: 'Gather a friendly, harmonious group.',
+    desc: 'Any number works. The single requirement is harmony — Hill names it before he names frequency, before he names reading. The Master Mind doesn\'t function without it.',
   },
   {
-    title: 'Vision Board Workshop',
-    date: 'First Saturday of Month',
-    desc: 'A hands-on session to visualize your desires. Materials provided. Open to all members.',
+    num: '2',
+    title: 'Meet on a fixed cadence.',
+    desc: 'Once a week, as often as possible. The rhythm is the engine. Sporadic meetings produce sporadic results.',
   },
   {
-    title: 'Guest Speaker Series',
-    date: 'Monthly',
-    desc: "Successful entrepreneurs and leaders share how they applied Hill's principles in their lives.",
+    num: '3',
+    title: 'Read and analyze before you arrive.',
+    desc: 'Each member reads the chapter several days ahead. Underline what cuts. Walk in prepared. The unready member arrives empty and the table reveals it.',
+  },
+  {
+    num: '4',
+    title: 'One strong reader voices it aloud.',
+    desc: 'Not a lecture. A member reads the chapter aloud — with color and feeling. The spoken word lands differently than the silent scan. Hill insisted on it.',
+  },
+  {
+    num: '5',
+    title: 'Discuss freely. Capture everything.',
+    desc: 'Every member writes down every idea the discussion sparks — their own ideas, not a transcript. This is the capture step, and it is also the filter. If you have nothing to write, you weren\'t prepared.',
+  },
+  {
+    num: '6',
+    title: 'Run with persistence.',
+    desc: 'Thirteen weeks minimum. Every session surfaces two streams of knowledge: the distilled experience of the five hundred operators Hill catalogued, and the latent intelligence already in the room. Both streams require repetition to unlock.',
   },
 ]
 
@@ -66,17 +75,15 @@ function PageHeader() {
       className="relative flex min-h-[60vh] items-center justify-center bg-deep-navy px-6 pt-20"
     >
       <div className="mx-auto max-w-[1200px] text-center">
-        {/* Eyebrow */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-inter text-[12px] font-medium uppercase tracking-[3px] text-accent-gold"
         >
-          JOIN US
+          THE HILL CODEX
         </motion.p>
 
-        {/* Title with char split */}
         <h1 className="mt-4 font-playfair text-[clamp(48px,6vw,96px)] font-bold leading-[1.05] tracking-[-2px] text-pure-white">
           {titleChars.map((char, i) => (
             <motion.span
@@ -96,7 +103,6 @@ function PageHeader() {
           ))}
         </h1>
 
-        {/* Pull quote */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -106,7 +112,6 @@ function PageHeader() {
           &ldquo;No two minds ever come together without thereby creating a third, invisible, intangible force which may be likened to a third mind.&rdquo;
         </motion.p>
 
-        {/* Attribution */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
@@ -121,66 +126,58 @@ function PageHeader() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  SECTION 2 — WHY A MASTERMIND? (THREE PILLARS)                      */
+/*  SECTION 2 — THE PROTOCOL (Hill's 6-step operating manual)          */
 /* ------------------------------------------------------------------ */
 
-function PillarsSection() {
+function ProtocolSection() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
 
   return (
     <section ref={ref} className="bg-deep-navy px-6 py-[100px]">
-      <div className="mx-auto max-w-[1200px]">
-        {/* Section title */}
+      <div className="mx-auto max-w-[1000px]">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: easeExpoOut }}
-          className="mb-16 text-center font-playfair text-[clamp(32px,4vw,56px)] font-semibold text-pure-white"
+          className="mb-4 text-center font-playfair text-[36px] font-semibold text-pure-white"
         >
-          WHY A MASTERMIND?
+          HOW THE CLUB RUNS
         </motion.h2>
 
-        {/* Pillar cards grid */}
-        <div className="grid gap-6 md:grid-cols-3">
-          {pillars.map((p, i) => (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mx-auto mb-16 max-w-[640px] text-center font-inter text-[16px] leading-relaxed text-off-white"
+        >
+          Hill didn&apos;t just write a book. He wrote an <em className="not-italic text-accent-gold">operating manual</em> for a study club — in the Author&apos;s Preface, before Chapter One even begins. Six steps. That&apos;s the protocol. The rest is commentary.
+        </motion.p>
+
+        <div className="flex flex-col gap-8">
+          {protocol.map((p, i) => (
             <motion.div
               key={p.num}
-              initial={{ opacity: 0, y: 50 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              initial={{ opacity: 0, x: -20 }}
+              animate={isInView ? { opacity: 1, x: 0 } : {}}
               transition={{
-                duration: 0.7,
-                delay: 0.2 + i * 0.15,
+                duration: 0.6,
+                delay: 0.1 + i * 0.1,
                 ease: easeExpoOut,
               }}
-              className="relative overflow-hidden bg-midnight-blue p-12"
+              className="flex gap-6 border-b border-slate-blue pb-8 last:border-b-0"
             >
-              {/* Gold top border with scaleX animation */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={isInView ? { scaleX: 1 } : {}}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.5 + i * 0.15,
-                  ease: easeExpoOut,
-                }}
-                className="absolute left-0 top-0 h-[3px] w-full origin-left bg-accent-gold"
-              />
-
-              {/* Pillar number */}
-              <p className="font-instrument text-[64px] leading-none text-accent-gold">
+              <div className="flex h-[52px] w-[52px] flex-shrink-0 items-center justify-center bg-midnight-blue font-instrument text-[24px] text-accent-gold">
                 {p.num}
-              </p>
-
-              {/* Title */}
-              <h3 className="mt-4 font-playfair text-[24px] font-semibold text-pure-white">
-                {p.title}
-              </h3>
-
-              {/* Description */}
-              <p className="mt-4 font-inter text-[16px] leading-[1.7] text-off-white">
-                {p.desc}
-              </p>
+              </div>
+              <div>
+                <h3 className="font-playfair text-[20px] font-semibold text-pure-white">
+                  {p.title}
+                </h3>
+                <p className="mt-2 font-inter text-[16px] leading-relaxed text-off-white">
+                  {p.desc}
+                </p>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -190,238 +187,179 @@ function PillarsSection() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  SECTION 3 — HOW IT WORKS (STEP PROCESS)                            */
+/*  SECTION 3 — THE TWO STREAMS                                        */
 /* ------------------------------------------------------------------ */
 
-function HowItWorks() {
+function TwoStreams() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.2 })
+
+  return (
+    <section ref={ref} className="bg-midnight-blue px-6 py-[100px]">
+      <div className="mx-auto max-w-[1000px]">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: easeExpoOut }}
+          className="mb-16 text-center font-playfair text-[36px] font-semibold text-pure-white"
+        >
+          THE TWO STREAMS
+        </motion.h2>
+
+        <div className="grid gap-6 md:grid-cols-2">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2, ease: easeExpoOut }}
+            className="bg-deep-navy p-10"
+          >
+            <p className="font-inter text-[12px] font-medium uppercase tracking-[2px] text-steel-blue">
+              Stream One
+            </p>
+            <h3 className="mt-4 font-playfair text-[22px] font-semibold text-pure-white">
+              The Distilled Five Hundred
+            </h3>
+            <p className="mt-4 font-inter text-[16px] leading-relaxed text-off-white">
+              Hill spent twenty-five years cataloguing the operating procedures of Ford, Edison, Carnegie, Wrigley, Rockefeller, Schwab, Eastman, Bell, Wanamaker, and Woolworth — five hundred operators in total. Every chapter in the book is a composite pattern drawn from that data set. When your club discusses a chapter, you are not swapping opinions. You are decoding the field manual those operators ran.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.4, ease: easeExpoOut }}
+            className="bg-deep-navy p-10"
+          >
+            <p className="font-inter text-[12px] font-medium uppercase tracking-[2px] text-steel-blue">
+              Stream Two
+            </p>
+            <h3 className="mt-4 font-playfair text-[22px] font-semibold text-pure-white">
+              The Latent Intelligence
+            </h3>
+            <p className="mt-4 font-inter text-[16px] leading-relaxed text-off-white">
+              Hill&apos;s protocol requires every member to write down their own ideas during discussion — not a transcript, not notes on what someone else said. Your own ideas. The capture step doubles as the filter: the prepared member has something to capture. The unprepared member sits in silence. The structure does the work. You don&apos;t have to call anyone out.
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  SECTION 4 — SESSION MATERIALS                                      */
+/* ------------------------------------------------------------------ */
+
+function SessionMaterials() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.15 })
+
+  return (
+    <section ref={ref} className="bg-deep-navy px-6 py-[100px]">
+      <div className="mx-auto max-w-[1200px]">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: easeExpoOut }}
+          className="mb-4 text-center font-playfair text-[36px] font-semibold text-pure-white"
+        >
+          SESSION MATERIALS
+        </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mx-auto mb-12 max-w-[580px] text-center font-inter text-[16px] text-off-white"
+        >
+          Every chapter has a discussion guide. Five questions drawn from the source text. Open it before your session.
+        </motion.p>
+
+        <div className="grid gap-3 sm:grid-cols-2 md:grid-cols-3">
+          {chapters.map((c) => (
+            <motion.a
+              key={c.slug}
+              href={`/resources/discussion-guides/dg-ch${String(chapters.indexOf(c)).padStart(2, '0')}-${c.slug}.html`}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{
+                duration: 0.6,
+                delay: 0.05 * chapters.indexOf(c),
+                ease: easeExpoOut,
+              }}
+              className="group flex items-center gap-4 bg-midnight-blue px-6 py-5 transition-colors duration-300 hover:bg-[#1a2d4a]"
+            >
+              <span className="flex h-[36px] w-[36px] flex-shrink-0 items-center justify-center bg-deep-navy font-inter text-[13px] font-medium text-accent-gold group-hover:text-[#e8c14a]">
+                {chapters.indexOf(c) + 1}
+              </span>
+              <span className="font-inter text-[14px] text-off-white group-hover:text-pure-white">
+                {c.label}
+              </span>
+            </motion.a>
+          ))}
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 1.0 }}
+          className="mt-10 text-center font-inter text-[14px] text-steel-blue"
+        >
+          Full resource library — worksheets, deep-dives, and chapter summaries — available on the{' '}
+          <Link to="/study-plan" className="text-accent-gold underline-offset-2 hover:underline">
+            Study Plan
+          </Link>{' '}
+          page.
+        </motion.p>
+      </div>
+    </section>
+  )
+}
+
+/* ------------------------------------------------------------------ */
+/*  SECTION 5 — THE DIFFERENCE                                         */
+/* ------------------------------------------------------------------ */
+
+function TheDifference() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, amount: 0.3 })
 
   return (
     <section ref={ref} className="bg-warm-white px-6 py-[100px]">
-      <div className="mx-auto max-w-[1000px]">
-        {/* Section title */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: easeExpoOut }}
-          className="mb-16 text-center font-playfair text-[36px] font-semibold text-deep-navy"
-        >
-          HOW IT WORKS
-        </motion.h2>
-
-        {/* Steps - horizontal on desktop, vertical on mobile */}
-        <div className="relative flex flex-col gap-12 md:flex-row md:items-start md:gap-0">
-          {steps.map((s, i) => (
-            <div key={s.num} className="relative flex flex-1 flex-col items-center text-center md:px-4">
-              {/* Step circle */}
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={isInView ? { scale: 1 } : {}}
-                transition={{
-                  duration: 0.6,
-                  delay: i * 0.2,
-                  ease: easeExpoOut,
-                }}
-                className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-accent-gold font-inter text-[28px] font-bold text-deep-navy"
-              >
-                {s.num}
-              </motion.div>
-
-              {/* Connecting line — between circles, hidden for last item */}
-              {i < steps.length - 1 && (
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={isInView ? { scaleX: 1 } : {}}
-                  transition={{
-                    duration: 0.5,
-                    delay: i * 0.2 + 0.3,
-                    ease: easeExpoOut,
-                  }}
-                  className="absolute left-1/2 top-[36px] hidden h-[2px] w-[calc(100%-72px)] origin-left bg-accent-gold md:block"
-                  style={{ transform: 'translateX(36px)' }}
-                />
-              )}
-
-              {/* Mobile connecting line */}
-              {i < steps.length - 1 && (
-                <motion.div
-                  initial={{ scaleY: 0 }}
-                  animate={isInView ? { scaleY: 1 } : {}}
-                  transition={{
-                    duration: 0.5,
-                    delay: i * 0.2 + 0.3,
-                    ease: easeExpoOut,
-                  }}
-                  className="mt-4 h-[40px] w-[2px] origin-top bg-accent-gold md:hidden"
-                />
-              )}
-
-              {/* Step text */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.7,
-                  delay: i * 0.2 + 0.2,
-                  ease: easeExpoOut,
-                }}
-                className="mt-6"
-              >
-                <h3 className="font-playfair text-[22px] font-semibold text-deep-navy">
-                  {s.title}
-                </h3>
-                <p className="mx-auto mt-2 max-w-[240px] font-inter text-[16px] leading-[1.6] text-charcoal">
-                  {s.desc}
-                </p>
-              </motion.div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-/*  SECTION 4 — EVENTS CALENDAR                                        */
-/* ------------------------------------------------------------------ */
-
-function EventsSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
-
-  return (
-    <section ref={ref} className="bg-deep-navy px-6 py-[100px]">
-      <div className="mx-auto max-w-[1200px]">
-        {/* Section title */}
-        <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: easeExpoOut }}
-          className="text-center font-playfair text-[36px] font-semibold text-pure-white"
-        >
-          UPCOMING EVENTS
-        </motion.h2>
-
-        {/* Subtitle */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: easeExpoOut }}
-          className="mx-auto mt-4 max-w-[600px] text-center font-inter text-[18px] font-light text-off-white"
-        >
-          Weekly gatherings, special workshops, and guest speaker sessions
-        </motion.p>
-
-        {/* Event cards */}
-        <div className="mt-12 flex flex-col gap-6">
-          {events.map((e, i) => (
-            <motion.div
-              key={e.title}
-              initial={{ opacity: 0, x: -30 }}
-              animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{
-                duration: 0.7,
-                delay: 0.3 + i * 0.12,
-                ease: easeExpoOut,
-              }}
-              className="flex flex-col overflow-hidden border-l-[3px] border-accent-gold bg-midnight-blue md:flex-row"
-            >
-              {/* Date badge */}
-              <div className="flex w-full items-center justify-center bg-accent-gold px-6 py-4 md:w-[200px]">
-                <span className="font-inter text-[14px] font-semibold uppercase tracking-[1px] text-deep-navy">
-                  {e.date}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="p-8">
-                <h3 className="font-playfair text-[22px] font-semibold text-pure-white">
-                  {e.title}
-                </h3>
-                <p className="mt-2 font-inter text-[16px] text-off-white">
-                  {e.desc}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ------------------------------------------------------------------ */
-/*  SECTION 5 — JOIN CTA                                               */
-/* ------------------------------------------------------------------ */
-
-function JoinCTA() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.3 })
-  const [email, setEmail] = useState('')
-  const [focused, setFocused] = useState(false)
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setEmail('')
-  }
-
-  return (
-    <section
-      ref={ref}
-      className="border-t border-slate-blue bg-midnight-blue px-6 py-[100px]"
-    >
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, ease: easeExpoOut }}
-        className="mx-auto max-w-[600px] text-center"
+        className="mx-auto max-w-[700px] text-center"
       >
-        {/* Title */}
-        <h2 className="font-playfair text-[clamp(28px,3vw,44px)] font-semibold text-pure-white">
-          Start Your Mastermind Journey
+        <p className="font-inter text-[12px] font-medium uppercase tracking-[3px] text-accent-gold">
+          THE DIFFERENCE
+        </p>
+
+        <h2 className="mt-4 font-playfair text-[clamp(24px,3vw,36px)] font-semibold leading-[1.3] text-deep-navy">
+          Reading alone is the broken configuration.
         </h2>
 
-        {/* Subtitle */}
-        <p className="mx-auto mt-4 max-w-[560px] font-inter text-[18px] font-light text-off-white">
-          The 13 Principles come alive when studied together. Join a group of committed learners and transform your thinking.
+        <p className="mt-6 font-inter text-[18px] leading-relaxed text-charcoal">
+          Most people who pick up <em className="not-italic text-deep-navy font-medium">Think and Grow Rich</em> in 2026 will not extract the secret. They will skim. They will highlight three lines for a story. They will close the book and return to the algorithm. They will tell themselves they &ldquo;read it.&rdquo;
         </p>
 
-        {/* Email form */}
-        <motion.form
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          onSubmit={handleSubmit}
-          className="mt-8 flex flex-col gap-3 sm:flex-row"
+        <p className="mt-4 font-inter text-[18px] leading-relaxed text-charcoal">
+          The study club is not an add-on. It is the <em className="not-italic font-medium text-accent-gold">required configuration</em>. Hill built the protocol into the Author&apos;s Preface — before the first chapter, before the secret, before any principle is named. The group is not supplementary. It is the operating environment the book was designed to run in.
+        </p>
+
+        <p className="mt-4 font-inter text-[18px] leading-relaxed text-charcoal">
+          Same text. Two different machines.
+        </p>
+
+        <Link
+          to="/study-plan"
+          className="mt-10 inline-block bg-accent-gold px-10 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
         >
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            onFocus={() => setFocused(true)}
-            onBlur={() => setFocused(false)}
-            placeholder="Enter your email address"
-            className="flex-1 rounded-[4px] bg-deep-navy px-5 py-4 font-inter text-[16px] text-off-white outline-none transition-colors duration-300"
-            style={{
-              border: focused
-                ? '1px solid var(--accent-gold)'
-                : '1px solid var(--slate-blue)',
-            }}
-          />
-          <button
-            type="submit"
-            className="rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
-          >
-            Join the StudyClub
-          </button>
-        </motion.form>
-
-        {/* Privacy note */}
-        <p className="mt-4 font-inter text-[12px] font-normal text-steel-blue">
-          We respect your privacy. Unsubscribe at any time.
-        </p>
+          Start the Study Plan
+        </Link>
       </motion.div>
     </section>
   )
@@ -435,10 +373,10 @@ export default function Community() {
   return (
     <Layout>
       <PageHeader />
-      <PillarsSection />
-      <HowItWorks />
-      <EventsSection />
-      <JoinCTA />
+      <ProtocolSection />
+      <TwoStreams />
+      <SessionMaterials />
+      <TheDifference />
     </Layout>
   )
 }
