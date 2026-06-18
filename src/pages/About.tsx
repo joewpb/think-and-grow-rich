@@ -1,84 +1,358 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router'
-import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion'
+import { motion, useInView } from 'framer-motion'
 import Layout from '../components/Layout'
 
-/* ─── easing token ─── */
 const easeExpoOut = [0.16, 1, 0.3, 1] as [number, number, number, number]
 
 /* ═══════════════════════════════════════════
-   Section 1 — Page Header
+   Section 1 — Page Header (cold open)
    ═══════════════════════════════════════════ */
 function PageHeader() {
-  const titleChars = 'NAPOLEON HILL'.split('')
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true })
 
   return (
     <section
-      className="relative flex items-center justify-center overflow-hidden bg-deep-navy"
-      style={{ minHeight: '60vh' }}
+      ref={ref}
+      className="relative flex items-center justify-center bg-deep-navy px-6"
+      style={{ minHeight: '55vh' }}
     >
-      <div className="relative z-10 mx-auto flex max-w-[800px] flex-col items-center px-6 pb-16 pt-28 text-center">
-        {/* Eyebrow */}
+      <div className="relative z-10 mx-auto max-w-[760px] pb-16 pt-28 text-center">
         <motion.p
-          className="mb-6 font-inter text-[12px] font-medium uppercase tracking-[3px] text-accent-gold"
+          className="font-inter text-[11px] font-medium uppercase tracking-[3px] text-steel-blue"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: easeExpoOut }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
         >
-          THE AUTHOR &amp; THE BOOK
+          The Hill Codex
         </motion.p>
 
-        {/* Title — char split */}
-        <h1 className="mb-6 flex flex-wrap justify-center font-playfair text-[clamp(48px,6vw,96px)] font-bold leading-[1.1] text-pure-white">
-          {titleChars.map((char, i) => (
-            <motion.span
-              key={i}
-              className="inline-block"
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.8,
-                delay: 0.4 + i * 0.04,
-                ease: easeExpoOut,
-              }}
-              style={{ whiteSpace: char === ' ' ? 'pre' : undefined }}
-            >
-              {char === ' ' ? '\u00A0' : char}
-            </motion.span>
-          ))}
-        </h1>
+        <motion.h1
+          className="mt-5 font-playfair text-[clamp(36px,5vw,64px)] font-bold leading-[1.08] tracking-[-1px] text-pure-white"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.4, ease: easeExpoOut }}
+        >
+          The book is not the product.
+        </motion.h1>
 
-        {/* Decorative gold line */}
+        <motion.p
+          className="mx-auto mt-8 max-w-[600px] font-inter text-[18px] leading-relaxed text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.8, ease: easeExpoOut }}
+        >
+          The study club is.
+        </motion.p>
+
         <motion.div
-          className="mb-6 h-[1px] w-20 bg-accent-gold"
+          className="mx-auto mt-10 h-[1px] w-[60px] bg-accent-gold"
           initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.6, delay: 1.1, ease: easeExpoOut }}
+        />
+      </div>
+    </section>
+  )
+}
+
+/* ═══════════════════════════════════════════
+   Section 2 — The Filter
+   ═══════════════════════════════════════════ */
+function FilterSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.15 })
+
+  return (
+    <section ref={ref} className="bg-deep-navy px-6 py-[80px]">
+      <div className="mx-auto max-w-[760px]">
+        <motion.p
+          className="font-inter text-[11px] font-medium uppercase tracking-[3px] text-steel-blue"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          The Author's Preface
+        </motion.p>
+
+        <motion.p
+          className="mt-8 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: easeExpoOut }}
+        >
+          The Author's Preface to <em className="not-italic text-accent-gold">Think and Grow Rich</em> is not a foreword. It is a filter. Hill engineered it that way on purpose, and ninety years later, the filter still works exactly as designed.
+        </motion.p>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: easeExpoOut }}
+        >
+          If you are opening this book to be entertained, the preface is doing its job — it is filtering you out. If you are opening it to architect a different life, the preface is doing its other job — it is loading the operating system.
+        </motion.p>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.45, ease: easeExpoOut }}
+        >
+          Same text. Two different machines.
+        </motion.p>
+
+        <motion.p
+          className="mt-4 font-inter text-[14px] text-steel-blue"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.55 }}
+        >
+          Verstehst du?
+        </motion.p>
+      </div>
+    </section>
+  )
+}
+
+/* ═══════════════════════════════════════════
+   Section 3 — The Commission
+   ═══════════════════════════════════════════ */
+function CommissionSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.15 })
+
+  return (
+    <section ref={ref} className="bg-midnight-blue px-6 py-[100px]">
+      <div className="mx-auto max-w-[760px]">
+        <motion.p
+          className="font-inter text-[11px] font-medium uppercase tracking-[3px] text-steel-blue"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          The Origin
+        </motion.p>
+
+        <motion.p
+          className="mt-8 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: easeExpoOut }}
+        >
+          In 1908, Napoleon Hill — a young reporter from Virginia — sat down across a table from Andrew Carnegie. Carnegie was, at that moment, one of the wealthiest men who had ever lived. He handed Hill a single idea and went silent. No lecture. No slide deck. He tossed the secret over and watched, with what Hill later remembered as a "merry twinkle," to see if the kid had the wiring to receive it.
+        </motion.p>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: easeExpoOut }}
+        >
+          When Hill caught it, Carnegie made him an offer no MBA program will ever match. Spend twenty years. Build a working philosophy from the lives of five hundred of the most accomplished operators in America. Ford. Edison. Wrigley. Rockefeller. Schwab. Eastman. Bell. Wanamaker. Woolworth.
+        </motion.p>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.45, ease: easeExpoOut }}
+        >
+          Hill said yes. He spent twenty-five. The book is the artifact of that promise — published in 1937, during the Great Depression, when the market for hope was limitless but the demand for procedure was real. Over 100 million copies later, the procedure still works exactly as documented.
+        </motion.p>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6, ease: easeExpoOut }}
+        >
+          The book is not a collection of motivational quotes. It is a field manual compiled from the operating procedures of five hundred people who actually built things. Hill treated success as an engineering problem. We treat the book the same way.
+        </motion.p>
+      </div>
+    </section>
+  )
+}
+
+/* ═══════════════════════════════════════════
+   Section 4 — The Protocol
+   ═══════════════════════════════════════════ */
+function ProtocolSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.1 })
+
+  return (
+    <section ref={ref} className="bg-deep-navy px-6 py-[100px]">
+      <div className="mx-auto max-w-[760px]">
+        <motion.p
+          className="font-inter text-[11px] font-medium uppercase tracking-[3px] text-steel-blue"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          The Operating Manual
+        </motion.p>
+
+        <motion.h2
+          className="mt-4 font-playfair text-[clamp(28px,3.5vw,42px)] font-semibold leading-[1.15] text-pure-white"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: easeExpoOut }}
+        >
+          Hill did not write a book for solitary readers.
+        </motion.h2>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: easeExpoOut }}
+        >
+          Before Chapter One begins, before a single principle is named, before the secret appears anywhere in the text, Hill lays down a protocol. Not a suggestion. A protocol. Six steps, printed in the Author's Preface. The club is not an add-on product. It is the operating environment the book was designed to run in.
+        </motion.p>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.45, ease: easeExpoOut }}
+        >
+          Gather a friendly, harmonious group — any number works. Meet on a fixed cadence, as often as once a week. Each member reads and analyzes the chapter several days before. One strong reader voices it aloud, with color and feeling. Everyone discusses freely, and — this is the load-bearing step — writes down every idea the discussion sparks. Run with persistence.
+        </motion.p>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6, ease: easeExpoOut }}
+        >
+          Every session produces two knowledge streams. Stream one: the distilled experience of the five hundred operators Hill catalogued. Stream two: the latent intelligence already in the room. The capture step is also the filter. The unprepared member has nothing to write down and the table reveals it. The structure does the work. You don't have to call anyone out.
+        </motion.p>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.75] text-off-white"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.75, ease: easeExpoOut }}
+        >
+          Harmony is not decoration. Hill names it before he names frequency, before he names reading, before he names anything else. The Master Mind does not function without it. This is the operating requirement.
+        </motion.p>
+      </div>
+    </section>
+  )
+}
+
+/* ═══════════════════════════════════════════
+   Section 5 — The Difference (polarization close)
+   ═══════════════════════════════════════════ */
+function TheDifference() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, amount: 0.15 })
+
+  return (
+    <section ref={ref} className="bg-warm-white px-6 py-[100px]">
+      <div className="mx-auto max-w-[700px] text-center">
+        <motion.p
+          className="font-inter text-[12px] font-medium uppercase tracking-[3px] text-accent-gold"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6 }}
+        >
+          The difference
+        </motion.p>
+
+        <motion.h2
+          className="mt-4 font-playfair text-[clamp(26px,3vw,40px)] font-semibold leading-[1.2] text-deep-navy"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.15, ease: easeExpoOut }}
+        >
+          Most people who pick up this book will not extract the secret.
+        </motion.h2>
+
+        <motion.p
+          className="mt-6 font-inter text-[18px] leading-[1.7] text-charcoal"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.3, ease: easeExpoOut }}
+        >
+          They will skim. They will highlight three lines for a story. They will close the book and return to the algorithm. They will tell themselves they "read it."
+        </motion.p>
+
+        <motion.p
+          className="mt-5 font-inter text-[18px] leading-[1.7] text-charcoal"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.45, ease: easeExpoOut }}
+        >
+          This is not a moral failure. It is a configuration error. The unready reader treats the book as content. The ready reader treats the book as a manual. Same pages. Different operating system.
+        </motion.p>
+
+        <motion.p
+          className="mt-5 font-inter text-[18px] leading-[1.7] text-charcoal"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.6, ease: easeExpoOut }}
+        >
+          Hill is telling you, before you turn a single chapter, that the determining factor is not the book.
+        </motion.p>
+
+        <motion.p
+          className="mt-2 font-inter text-[18px] font-semibold leading-[1.7] text-deep-navy"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.75, ease: easeExpoOut }}
+        >
+          It is you.
+        </motion.p>
+
+        <motion.p
+          className="mt-5 font-inter text-[18px] leading-[1.7] text-charcoal"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.9, ease: easeExpoOut }}
+        >
+          If that sentence makes you defensive, the preface has already done its work. If it makes you sit up straighter, the preface has already done its work. Both responses are signal. The question is which one you act on this week.
+        </motion.p>
+
+        <motion.div
+          className="mx-auto mt-6 h-[1px] w-[40px] bg-accent-gold"
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.6, delay: 1.05, ease: easeExpoOut }}
         />
 
-        {/* Subtitle */}
         <motion.p
-          className="mx-auto max-w-[640px] font-inter text-[18px] font-light leading-relaxed text-off-white"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.0, ease: easeExpoOut }}
+          className="mt-10 font-inter text-[16px] leading-[1.7] text-charcoal"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 1.15 }}
         >
-          1883–1970 — The man who spent 20 years interviewing 500+ of the world&apos;s
-          most successful people to uncover the philosophy of achievement.
+          Hill closes the preface with one of the stranger instructions in the book. When you recognize the secret as you read, "stop for a moment, and turn down a glass."
         </motion.p>
 
-        {/* Portrait */}
-        <motion.div
-          className="mt-12 h-48 w-48 overflow-hidden rounded-full border-2 border-accent-gold shadow-gold-glow md:h-56 md:w-56"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 1.2, ease: easeExpoOut }}
+        <motion.p
+          className="mt-3 font-inter text-[16px] leading-[1.7] text-charcoal"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 1.3 }}
         >
-          <img
-            src="/napoleon-hill-portrait.jpg"
-            alt="Napoleon Hill portrait"
-            className="h-full w-full object-cover"
-          />
+          Most readers will never turn down a glass. Some of you will. That is the only difference that matters.
+        </motion.p>
+
+        <motion.div
+          className="mt-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 1.45, ease: easeExpoOut }}
+        >
+          <Link
+            to="/study-plan"
+            className="inline-block rounded-[4px] bg-accent-gold px-10 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E]"
+          >
+            Start the Study Plan
+          </Link>
         </motion.div>
       </div>
     </section>
@@ -86,370 +360,16 @@ function PageHeader() {
 }
 
 /* ═══════════════════════════════════════════
-   Section 2 — Biography Timeline
-   ═══════════════════════════════════════════ */
-const timelineEvents = [
-  { year: '1883', text: 'Born in a one-room cabin in Pound, Virginia. His mother died when he was nine.' },
-  { year: '1908', text: 'Hired as a reporter, he secured an interview with Andrew Carnegie — then the world\'s richest man. Carnegie was impressed.' },
-  { year: '1908–1928', text: 'Carnegie challenged Hill to interview successful people and systematize their methods. Hill spent 20 years meeting Ford, Edison, Rockefeller, and 500+ others.' },
-  { year: '1928', text: 'Published "The Law of Success," an eight-volume work and precursor to Think and Grow Rich.' },
-  { year: '1937', text: 'Published Think and Grow Rich during the Great Depression. It was an immediate success, providing hope and a practical path forward.' },
-  { year: '1970', text: 'Napoleon Hill passed away, but his work continues to influence millions worldwide. The book has sold over 100 million copies.' },
-]
-
-function TimelineSection() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const isInView = useInView(containerRef, { once: true, amount: 0.15 })
-  const [activeIndex, setActiveIndex] = useState(-1)
-
-  useEffect(() => {
-    if (!isInView) return
-    const timers: ReturnType<typeof setTimeout>[] = []
-    timelineEvents.forEach((_, i) => {
-      timers.push(
-        setTimeout(() => {
-          setActiveIndex(i)
-        }, 300 + i * 400)
-      )
-    })
-    return () => timers.forEach(clearTimeout)
-  }, [isInView])
-
-  return (
-    <section className="bg-deep-navy py-24 md:py-32">
-      <div ref={containerRef} className="mx-auto max-w-[900px] px-6">
-        {/* Title */}
-        <motion.h2
-          className="mb-16 text-center font-playfair text-[36px] font-semibold text-pure-white"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8, ease: easeExpoOut }}
-        >
-          THE JOURNEY
-        </motion.h2>
-
-        {/* Timeline */}
-        <div className="relative pl-8 md:pl-12">
-          {/* SVG vertical gold line — draws on scroll */}
-          <svg
-            className="absolute left-[5px] top-0 h-full w-[2px] md:left-[7px]"
-            preserveAspectRatio="none"
-          >
-            <motion.line
-              x1="1"
-              y1="0"
-              x2="1"
-              y2="100%"
-              stroke="#D4AF37"
-              strokeWidth="2"
-              fill="none"
-              initial={{ pathLength: 0 }}
-              animate={isInView ? { pathLength: 1 } : { pathLength: 0 }}
-              transition={{ duration: 2.4, ease: 'easeInOut' }}
-            />
-          </svg>
-
-          {/* Timeline items */}
-          <div className="flex flex-col gap-12 md:gap-16">
-            {timelineEvents.map((event, i) => (
-              <div key={event.year + i} className="relative">
-                {/* Node */}
-                <motion.div
-                  className="absolute -left-[27px] top-[6px] h-3 w-3 rounded-full bg-accent-gold md:-left-[31px]"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: activeIndex >= i ? 1 : 0 }}
-                  transition={{ duration: 0.4, ease: easeExpoOut }}
-                />
-
-                {/* Content */}
-                <motion.div
-                  className="flex flex-col gap-1 md:flex-row md:items-baseline md:gap-6"
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: activeIndex >= i ? 1 : 0, x: activeIndex >= i ? 0 : 20 }}
-                  transition={{ duration: 0.6, delay: 0.15, ease: easeExpoOut }}
-                >
-                  <span className="shrink-0 font-inter text-[20px] font-bold text-accent-gold">
-                    {event.year}
-                  </span>
-                  <p className="font-inter text-[16px] leading-[1.7] text-off-white">
-                    {event.text}
-                  </p>
-                </motion.div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════
-   Section 3 — Key Quotes Gallery
-   ═══════════════════════════════════════════ */
-const quotes = [
-  { text: 'Tell the world what you intend to do, but first show it.', context: 'On action over announcement' },
-  { text: 'Fears are nothing more than states of mind. One\'s state of mind is subject to control and direction.', context: 'On mastering fear' },
-  { text: 'Man can create nothing which he does not first conceive in the form of an impulse of thought.', context: 'On the power of thought' },
-  { text: 'There is a difference between WISHING for a thing and being READY to receive it.', context: 'On preparedness' },
-  { text: 'The way of success is the way of continuous pursuit of knowledge.', context: 'On lifelong learning' },
-  { text: 'A quitter never wins — and a winner never quits.', context: 'On persistence' },
-]
-
-function QuotesSection() {
-  return (
-    <section className="bg-warm-white py-24 md:py-32">
-      <div className="mx-auto max-w-[1200px] px-6">
-        {/* Title */}
-        <motion.h2
-          className="mb-4 text-center font-playfair text-[clamp(32px,4vw,56px)] font-semibold"
-          style={{ color: '#020C1B' }}
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8, ease: easeExpoOut }}
-        >
-          WORDS OF WISDOM
-        </motion.h2>
-
-        {/* Subtitle */}
-        <motion.p
-          className="mb-16 text-center font-inter text-[18px] font-normal"
-          style={{ color: '#2C2C2C' }}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: easeExpoOut }}
-        >
-          Timeless insights from Think and Grow Rich
-        </motion.p>
-
-        {/* Quote Grid */}
-        <div className="grid gap-6 md:grid-cols-2">
-          {quotes.map((quote, i) => (
-            <motion.div
-              key={i}
-              className="relative overflow-hidden bg-pure-white p-10"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.1,
-                ease: easeExpoOut,
-              }}
-            >
-              {/* Animated gold left border — scaleY(0->1) from top */}
-              <motion.div
-                className="absolute bottom-0 left-0 top-0 w-[3px] bg-accent-gold"
-                initial={{ scaleY: 0 }}
-                whileInView={{ scaleY: 1 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{
-                  duration: 0.5,
-                  delay: i * 0.1 + 0.2,
-                  ease: easeExpoOut,
-                }}
-                style={{ transformOrigin: 'top' }}
-              />
-
-              <p
-                className="mb-4 font-instrument text-[clamp(18px,2vw,22px)] italic leading-[1.6]"
-                style={{ color: '#020C1B' }}
-              >
-                &ldquo;{quote.text}&rdquo;
-              </p>
-              <span className="font-inter text-[12px] font-medium uppercase tracking-[1px] text-accent-gold">
-                {quote.context}
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════
-   Section 4 — Legacy Impact Stats
-   ═══════════════════════════════════════════ */
-const stats = [
-  { number: 100, suffix: 'M+', label: 'Copies sold worldwide across all editions and translations', rawLabel: 'Copies Sold' },
-  { number: 40, suffix: '+', label: 'Languages translated into, making it one of the most accessible books ever written', rawLabel: 'Languages' },
-  { number: 20, suffix: '+', label: 'Years Hill spent interviewing the most successful people of his era', rawLabel: 'Years of Research' },
-  { number: 500, suffix: '+', label: 'Successful individuals including Ford, Edison, Rockefeller, and Carnegie', rawLabel: 'People Interviewed' },
-]
-
-function useCountUp(target: number, duration: number, triggered: boolean) {
-  const mv = useMotionValue(0)
-  const rounded = useTransform(mv, (v) => Math.round(v))
-  const [display, setDisplay] = useState(0)
-
-  useEffect(() => {
-    if (!triggered) return
-    const controls = animate(mv, target, { duration, ease: easeExpoOut })
-    const unsub = rounded.on('change', (v) => setDisplay(v))
-    return () => {
-      controls.stop()
-      unsub()
-    }
-  }, [triggered, target, duration, mv, rounded])
-
-  return display
-}
-
-function StatBlock({ stat, index }: { stat: typeof stats[0]; index: number }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const isInView = useInView(ref, { once: true, amount: 0.5 })
-  const count = useCountUp(stat.number, 2, isInView)
-
-  return (
-    <motion.div
-      ref={ref}
-      className="flex flex-1 flex-col items-center px-6 py-8 text-center"
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.8, delay: index * 0.15, ease: easeExpoOut }}
-    >
-      <span className="font-playfair text-[clamp(48px,6vw,80px)] font-bold text-accent-gold">
-        {count}
-        {stat.suffix}
-      </span>
-      <span className="mb-3 font-inter text-[16px] font-medium text-off-white">
-        {stat.rawLabel}
-      </span>
-      <p className="max-w-[240px] font-inter text-[16px] text-off-white">
-        {stat.label}
-      </p>
-    </motion.div>
-  )
-}
-
-function LegacySection() {
-  return (
-    <section className="bg-deep-navy py-24 md:py-32">
-      <div className="mx-auto max-w-[1000px] px-6">
-        {/* Title */}
-        <motion.h2
-          className="mb-4 text-center font-playfair text-[36px] font-semibold text-pure-white"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8, ease: easeExpoOut }}
-        >
-          THE LEGACY
-        </motion.h2>
-
-        {/* Subtitle */}
-        <motion.p
-          className="mb-16 text-center font-inter text-[18px] font-light text-off-white"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.8, delay: 0.15, ease: easeExpoOut }}
-        >
-          Over 85 years of impact across the world
-        </motion.p>
-
-        {/* Stats Row */}
-        <div className="flex flex-col md:flex-row md:items-stretch">
-          {stats.map((stat, i) => (
-            <div key={stat.rawLabel} className="flex flex-1">
-              <StatBlock stat={stat} index={i} />
-              {/* Divider */}
-              {i < stats.length - 1 && (
-                <div
-                  className="hidden w-[1px] self-stretch md:block"
-                  style={{ backgroundColor: '#233554' }}
-                />
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════
-   Section 5 — CTA Banner
-   ═══════════════════════════════════════════ */
-function CTASection() {
-  return (
-    <section
-      className="border-y border-slate-blue bg-midnight-blue py-20 md:py-24"
-    >
-      <div className="mx-auto max-w-[800px] px-6 text-center">
-        {/* Quote */}
-        <motion.blockquote
-          className="mx-auto mb-4 max-w-[700px] font-instrument text-[clamp(18px,2vw,24px)] italic leading-relaxed text-accent-gold"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 1.0, ease: easeExpoOut }}
-        >
-          &ldquo;When you begin to think and grow rich, you will observe that riches begin
-          with a state of mind, with definiteness of purpose, with little or no hard work.&rdquo;
-        </motion.blockquote>
-
-        {/* Attribution */}
-        <motion.p
-          className="mb-10 font-inter text-[14px] text-steel-blue"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: easeExpoOut }}
-        >
-          — Napoleon Hill
-        </motion.p>
-
-        {/* CTA Buttons */}
-        <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, delay: 0.4, ease: easeExpoOut }}
-          >
-            <Link
-              to="/study-plan"
-              className="inline-block rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
-            >
-              Start Your Study Plan
-            </Link>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.6, delay: 0.55, ease: easeExpoOut }}
-          >
-            <Link
-              to="/community"
-              className="inline-block rounded-[4px] border border-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-accent-gold transition-all duration-300 hover:bg-accent-gold hover:text-deep-navy"
-            >
-              Join the Community
-            </Link>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-/* ═══════════════════════════════════════════
-   About Page
+   About Page — assembled
    ═══════════════════════════════════════════ */
 export default function About() {
   return (
     <Layout>
       <PageHeader />
-      <TimelineSection />
-      <QuotesSection />
-      <LegacySection />
-      <CTASection />
+      <FilterSection />
+      <CommissionSection />
+      <ProtocolSection />
+      <TheDifference />
     </Layout>
   )
 }
