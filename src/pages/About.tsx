@@ -295,16 +295,7 @@ function TheDifference() {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.6, ease: easeExpoOut }}
         >
-          Hill is telling you, before you turn a single chapter, that the determining factor is not the book.
-        </motion.p>
-
-        <motion.p
-          className="mt-2 font-inter text-[18px] font-semibold leading-[1.7] text-deep-navy"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.75, ease: easeExpoOut }}
-        >
-          It is you.
+          Hill is telling you, before you turn a single chapter, that the determining factor is not the book. It is you. Here is the question the preface asks before the first principle is even named: are you here to consume, or are you here to install? There is no third option.
         </motion.p>
 
         <motion.p
@@ -351,7 +342,7 @@ function TheDifference() {
             to="/study-plan"
             className="inline-block rounded-none bg-accent-gold px-10 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430]"
           >
-            Start the Study Plan
+            Begin the Protocol
           </Link>
         </motion.div>
       </div>
