@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Ch 08 Self-Analysis — Persistence — josie.ai</title>
+<style>
+  :root{--bg:#0e0e0f;--panel:#16161a;--line:#3a3a40;--ink:#ececec;--mut:#8a8a92;--acc:#e0633a;--amb:#d9b44a;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--ink);font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;padding:28px 14px 56px;display:flex;justify-content:center;}
+  .wrap{width:100%;max-width:620px;}
+  .kicker{font-size:10px;letter-spacing:.28em;color:var(--mut);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-size:22px;font-weight:700;letter-spacing:.03em;margin-bottom:4px;}
+  .sub{font-size:11px;color:var(--mut);letter-spacing:.06em;margin-bottom:18px;}
+  .lead{font-size:13px;line-height:1.7;border-left:3px solid var(--acc);padding-left:13px;margin-bottom:24px;}
+  .lead b{color:var(--amb);}
+  .secthead{font-size:10px;letter-spacing:.22em;color:var(--mut);text-transform:uppercase;border-bottom:1px solid var(--line);padding-bottom:5px;margin:22px 0 12px;}
+  .ws-row{display:grid;grid-template-columns:170px 1fr;border:1px solid var(--line);margin-bottom:6px;}
+  .ws-label{background:var(--panel);padding:12px 13px;font-size:10px;color:var(--acc);letter-spacing:.12em;text-transform:uppercase;border-right:1px solid var(--line);display:flex;align-items:center;line-height:1.3;}
+  .ws-field{padding:12px 13px;font-size:11px;color:var(--mut);line-height:1.5;}
+  .ws-field.tall{min-height:72px;}
+  .ws-field.xtall{min-height:110px;}
+  .ws-field b{color:var(--ink);}
+  .check-row{display:flex;gap:8px;align-items:flex-start;padding:9px 11px;border:1px dashed var(--line);margin-bottom:5px;font-size:11px;color:var(--mut);}
+  .check-box{width:13px;height:13px;border:1px solid var(--acc);flex-shrink:0;margin-top:1px;}
+  .affirmation-box{border:1px solid var(--amb);padding:14px 15px;margin-bottom:8px;}
+  .aff-label{font-size:9px;color:var(--amb);letter-spacing:.16em;text-transform:uppercase;margin-bottom:6px;}
+  .aff-text{font-size:13px;line-height:1.7;color:var(--ink);}
+  .aff-blank{display:inline-block;min-width:120px;border-bottom:1px solid var(--amb);margin:0 4px;}
+  .tracker-row{display:grid;grid-template-columns:100px repeat(7,1fr);border:1px solid var(--line);margin-bottom:4px;}
+  .tracker-label{padding:8px 10px;font-size:10px;color:var(--acc);background:var(--panel);border-right:1px solid var(--line);display:flex;align-items:center;}
+  .tracker-day{border-right:1px solid var(--line);padding:8px 4px;text-align:center;font-size:9px;color:var(--mut);}
+  .tracker-day:last-child{border-right:none;}
+  .tracker-day .d{display:block;font-size:8px;margin-bottom:4px;color:var(--mut);}
+  .tracker-day .box{width:20px;height:20px;border:1px solid var(--line);margin:0 auto;}
+  .sa-row{border:1px solid var(--line);margin-bottom:6px;background:var(--panel);}
+  .sa-q{padding:10px 13px;font-size:12px;line-height:1.5;color:var(--ink);}
+  .sa-a{padding:8px 13px 12px;font-size:11px;color:var(--mut);border-top:1px dashed var(--line);min-height:48px;}
+  .rating-row{display:flex;gap:6px;margin-top:8px;}
+  .r-box{flex:1;border:1px solid var(--line);padding:6px 4px;text-align:center;font-size:10px;color:var(--mut);}
+  .footer{margin-top:26px;font-size:11px;color:var(--mut);line-height:1.6;border-top:1px solid var(--line);padding-top:12px;}
+  .footer b{color:var(--acc);}
+  .brand{font-size:10px;letter-spacing:.18em;color:var(--line);text-transform:uppercase;margin-top:18px;}
+  @media(max-width:460px){.ws-row{grid-template-columns:1fr;} .ws-label{border-right:none;border-bottom:1px solid var(--line);} .tracker-row{grid-template-columns:80px repeat(7,1fr);}}
+  @media print{
+    :root{--bg:#fff;--panel:#f4f4f4;--line:#ccc;--ink:#111;--mut:#444;--acc:#b84a20;--amb:#8a6800;}
+    body{background:#fff;color:#111;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .ws-row,.sa-row,.affirmation-box,.tracker-row{border-color:#ccc;}
+    .ws-label{background:#f4f4f4;} .affirmation-box{border-color:#8a6800;}
+    .tracker-day .box{border-color:#ccc;}
+  }
+</style>
+</head><body><div class="wrap">
+  <div class="kicker">Chapter 08 · Persistence · Week 10 · Self-Analysis</div>
+  <h1>SELF-ANALYSIS: PERSISTENCE</h1>
+  <div class="sub">The Sustained Effort Necessary to Induce Faith · josie.ai Study Club</div>
+  <div class="lead">Self-analysis is the most productive form of discomfort available to you. The questions below are designed to produce one thing: honest data about how the principle of Persistence is or isn't currently operating in your life. <b>Comfortable answers are useless. Accurate answers are the entire point.</b></div>
+  <div class="secthead">Five Diagnostic Questions — Answer Every One</div>
+  <div class="sa-row">
+    <div class="sa-q">Q01. List 5 specific instances in the last 90 days where you continued after a result that would have justified stopping.</div>
+    <div class="sa-a">Your answer here — write without filtering.</div>
+  </div><div class="sa-row">
+    <div class="sa-q">Q02. Which 3 of Hill's 13 persistence symptoms apply most directly to you right now?</div>
+    <div class="sa-a">Your answer here — write without filtering.</div>
+  </div><div class="sa-row">
+    <div class="sa-q">Q03. For each symptom, write the one specific action that directly counteracts it.</div>
+    <div class="sa-a">Your answer here — write without filtering.</div>
+  </div><div class="sa-row">
+    <div class="sa-q">Q04. Who in your current alliance will actively encourage your persistence under defeat? If no one, who do you need to find?</div>
+    <div class="sa-a">Your answer here — write without filtering.</div>
+  </div><div class="sa-row">
+    <div class="sa-q">Q05. At what point in your current pursuit does quitting seem most rational? What does that tell you about where the breakthrough likely is?</div>
+    <div class="sa-a">Your answer here — write without filtering.</div>
+  </div>
+  <div class="secthead">Action Commitment</div>
+  <div class="ws-row"><div class="ws-label">The One Finding That Matters Most</div><div class="ws-field tall">Based on your answers above — what is the single most important thing you found out about how this principle is operating in your life right now?</div></div>
+  <div class="ws-row"><div class="ws-label">The Specific Action</div><div class="ws-field tall">One concrete, dated action you will take this week based on that finding. No vague commitments.</div></div>
+  <div class="ws-row"><div class="ws-label">The Date</div><div class="ws-field tall">By when. Exact.</div></div>
+  <div class="footer">The value of this exercise is entirely determined by the honesty of your answers — not the neatness of them, not the impressiveness of them. <b>A brutally honest answer to an uncomfortable question is worth more than a week of comfortable reading.</b></div>
+<div class="brand">josie.ai · Think and Grow Rich Study Club · thehillcodex.xyz</div>
+</div></body></html>
