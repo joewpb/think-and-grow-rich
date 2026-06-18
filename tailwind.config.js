@@ -12,9 +12,9 @@ module.exports = {
         'charcoal': '#2C2C2C',
         'off-white': '#F5F5F7',
         'warm-white': '#F7F5F2',
-        'accent-gold': '#D4AF37',
-        'accent-gold-dim': 'rgba(212,175,55,0.5)',
-        'accent-gold-glow': 'rgba(212,175,55,0.3)',
+        'accent-gold': '#e0633a',
+        'accent-gold-dim': 'rgba(224,99,58,0.5)',
+        'accent-gold-glow': 'rgba(224,99,58,0.3)',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -73,7 +73,7 @@ module.exports = {
       },
       boxShadow: {
         xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        'gold-glow': '0 0 20px rgba(212,175,55,0.3)',
+        'gold-glow': '0 0 20px rgba(224,99,58,0.3)',
       },
       keyframes: {
         "accordion-down": {

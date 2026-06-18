@@ -109,7 +109,7 @@ export default function Hero() {
             transform: loaded ? 'translateY(0)' : 'translateY(30px)',
           }}
         >
-          A 13-Week Study Program Based on Napoleon Hill&apos;s Timeless Philosophy of Success
+          Thirteen principles. Installed one per week. Hill catalogued five hundred operators and built an operating system. This is the installation protocol.
         </p>
 
         {/* CTA Buttons */}
@@ -124,13 +124,13 @@ export default function Hero() {
         >
           <Link
             to="/study-plan"
-            className="rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
+            className="rounded-none bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430] hover:shadow-gold-glow"
           >
-            Start Your Journey
+            Begin
           </Link>
           <Link
             to="/principles"
-            className="rounded-[4px] border border-accent-gold bg-transparent px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-accent-gold transition-all duration-300 hover:bg-accent-gold hover:text-deep-navy"
+            className="rounded-none border border-accent-gold bg-transparent px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-accent-gold transition-all duration-300 hover:bg-accent-gold hover:text-deep-navy"
           >
             Explore the 13 Principles
           </Link>

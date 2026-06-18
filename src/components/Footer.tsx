@@ -35,7 +35,7 @@ export default function Footer() {
           </p>
           <Link
             to="/study-plan"
-            className="mt-8 inline-block rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
+            className="mt-8 inline-block rounded-none bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430] hover:shadow-gold-glow"
           >
             Start the Study Plan
           </Link>
@@ -107,11 +107,11 @@ export default function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email"
-                className="flex-1 rounded-[4px] border border-slate-blue bg-deep-navy px-4 py-3 font-inter text-[14px] text-off-white placeholder-steel-blue outline-none transition-colors duration-300 focus:border-accent-gold"
+                className="flex-1 rounded-none border border-slate-blue bg-deep-navy px-4 py-3 font-inter text-[14px] text-off-white placeholder-steel-blue outline-none transition-colors duration-300 focus:border-accent-gold"
               />
               <button
                 type="submit"
-                className="rounded-[4px] bg-accent-gold px-5 py-3 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
+                className="rounded-none bg-accent-gold px-5 py-3 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430] hover:shadow-gold-glow"
               >
                 Subscribe
               </button>

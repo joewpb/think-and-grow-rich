@@ -131,7 +131,7 @@ function PageHeader() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="font-inter text-[12px] font-medium uppercase tracking-[3px] text-accent-gold"
         >
-          YOUR PATH
+          THE PROTOCOL
         </motion.p>
 
         {/* Title with word split */}
@@ -156,7 +156,7 @@ function PageHeader() {
           transition={{ duration: 0.8, delay: 1.0, ease: easeExpoOut }}
           className="mx-auto mt-6 max-w-[600px] font-inter text-[18px] font-light leading-[1.6] text-off-white"
         >
-          A structured, week-by-week journey through Think and Grow Rich. Each week covers one principle with reading, exercises, and group discussion.
+          One principle per week. Read the chapter. Work the exercises. Discuss with serious peers. The structure is the installation protocol. The outcome is your configuration.
         </motion.p>
 
         {/* Decorative gold line */}
@@ -189,7 +189,7 @@ function WeeklyTimeline() {
           transition={{ duration: 0.8, ease: easeExpoOut }}
           className="mb-16 text-center font-playfair text-[36px] font-semibold text-pure-white"
         >
-          WEEK BY WEEK
+          THE INSTALL
         </motion.h2>
 
         {/* Timeline container */}
@@ -204,7 +204,7 @@ function WeeklyTimeline() {
               y1="0"
               x2="1"
               y2="100%"
-              stroke="#D4AF37"
+              stroke="#e0633a"
               strokeWidth="2"
               initial={{ pathLength: 0 }}
               animate={isInView ? { pathLength: 1 } : {}}
@@ -309,7 +309,7 @@ function ResourcesSection() {
           transition={{ duration: 0.8, delay: 0.2, ease: easeExpoOut }}
           className="mx-auto mt-4 max-w-[600px] text-center font-inter text-[18px] font-normal text-charcoal"
         >
-          Everything you need to complete the 13-week program
+          Each resource maps to one chapter. No filler. Every file is a tool with a specific job.
         </motion.p>
 
         {/* Resource cards grid */}
@@ -326,7 +326,7 @@ function ResourcesSection() {
                   delay: 0.3 + i * 0.12,
                   ease: easeExpoOut,
                 }}
-                className="rounded-[4px] border border-black/[0.08] bg-pure-white p-10"
+                className="rounded-none border border-black/[0.08] bg-pure-white p-10"
               >
                 {/* Icon */}
                 <div className="mb-6">
@@ -425,7 +425,7 @@ function DailyPractice() {
           transition={{ duration: 0.8, delay: 0.2, ease: easeExpoOut }}
           className="mx-auto mt-4 max-w-[600px] font-inter text-[18px] font-light text-off-white"
         >
-          Hill&apos;s recommended daily disciplines, practiced by the world&apos;s most successful people
+          Hill catalogued five hundred operators. The ones who succeeded ran the same five moves until the behavior became invisible. The reps are the signal. Skipping them is the noise.
         </motion.p>
 
         {/* Practice items */}
@@ -476,21 +476,21 @@ function CTABanner() {
         className="mx-auto max-w-[800px] text-center"
       >
         <h2 className="font-playfair text-[clamp(28px,3vw,48px)] font-semibold text-pure-white">
-          Ready to Begin?
+          The Preface Is a Filter
         </h2>
         <p className="mx-auto mt-4 max-w-[600px] font-inter text-[18px] font-light text-off-white">
-          Join The Hill Codex and start your 13-week journey today.
+          You read the preface. You are still here. The first principle is the only step that matters right now.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
             to="/study-plan"
-            className="inline-block rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
+            className="inline-block rounded-none bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430] hover:shadow-gold-glow"
           >
             Start the Study Plan
           </Link>
           <Link
             to="/principles"
-            className="inline-block rounded-[4px] border border-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-accent-gold transition-all duration-300 hover:bg-accent-gold hover:text-deep-navy"
+            className="inline-block rounded-none border border-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-accent-gold transition-all duration-300 hover:bg-accent-gold hover:text-deep-navy"
           >
             Explore the Principles
           </Link>

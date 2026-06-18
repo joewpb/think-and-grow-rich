@@ -356,7 +356,7 @@ function TheDifference() {
 
         <Link
           to="/study-plan"
-          className="mt-10 inline-block bg-accent-gold px-10 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
+          className="mt-10 inline-block bg-accent-gold px-10 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430] hover:shadow-gold-glow"
         >
           Start the Study Plan
         </Link>

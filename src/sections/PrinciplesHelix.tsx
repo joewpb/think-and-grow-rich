@@ -31,7 +31,7 @@ function CoreOfValue() {
   return (
     <mesh ref={meshRef}>
       <icosahedronGeometry args={[0.8, 0]} />
-      <meshBasicMaterial color="#D4AF37" wireframe />
+      <meshBasicMaterial color="#e0633a" wireframe />
     </mesh>
   )
 }
@@ -57,7 +57,7 @@ function PrincipleCard({ index }: { index: number }) {
       {/* Gold border line */}
       <mesh position={[0, -0.95, 0.01]}>
         <planeGeometry args={[3.2, 0.04]} />
-        <meshBasicMaterial color="#D4AF37" />
+        <meshBasicMaterial color="#e0633a" />
       </mesh>
     </mesh>
   )
@@ -181,7 +181,7 @@ export default function PrinciplesHelix() {
         >
           <Link
             to="/principles"
-            className="inline-block rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
+            className="inline-block rounded-none bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430] hover:shadow-gold-glow"
           >
             Explore All 13 Principles in Detail
           </Link>
@@ -233,7 +233,7 @@ function PrincipleCardsOverlay() {
       {cards.map((card) => (
         <div
           key={card.num}
-          className="absolute -translate-x-1/2 -translate-y-1/2 rounded-[4px] border border-slate-blue bg-midnight-blue p-4"
+          className="absolute -translate-x-1/2 -translate-y-1/2 rounded-none border border-slate-blue bg-midnight-blue p-4"
           style={{
             left: card.xPos,
             top: card.yPos,

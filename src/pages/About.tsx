@@ -349,7 +349,7 @@ function TheDifference() {
         >
           <Link
             to="/study-plan"
-            className="inline-block rounded-[4px] bg-accent-gold px-10 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E]"
+            className="inline-block rounded-none bg-accent-gold px-10 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430]"
           >
             Start the Study Plan
           </Link>

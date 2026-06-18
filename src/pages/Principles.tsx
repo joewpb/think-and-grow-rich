@@ -556,7 +556,6 @@ function FearCard({ fear }: { fear: Fear }) {
         },
       }}
       className="border border-slate-blue bg-midnight-blue p-8"
-      style={{ borderRadius: '4px' }}
     >
       <h3 className="mb-4 font-playfair text-[24px] font-semibold text-pure-white">
         {fear.name}
@@ -666,7 +665,7 @@ function CTABanner() {
         >
           <Link
             to="/study-plan"
-            className="inline-block rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
+            className="inline-block rounded-none bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430] hover:shadow-gold-glow"
           >
             Start Your Study Plan
           </Link>

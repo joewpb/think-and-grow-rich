@@ -102,9 +102,9 @@ export default function SixSteps() {
           >
             <defs>
               <linearGradient id="goldLine" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#D4AF37" stopOpacity="0.3" />
-                <stop offset="50%" stopColor="#D4AF37" stopOpacity="1" />
-                <stop offset="100%" stopColor="#D4AF37" stopOpacity="0.3" />
+                <stop offset="0%" stopColor="#e0633a" stopOpacity="0.3" />
+                <stop offset="50%" stopColor="#e0633a" stopOpacity="1" />
+                <stop offset="100%" stopColor="#e0633a" stopOpacity="0.3" />
               </linearGradient>
             </defs>
             {/* Diagonal gold line connecting cards */}
@@ -175,7 +175,7 @@ export default function SixSteps() {
                   className={`flex ${isLeft ? 'md:justify-start' : 'md:justify-end'}`}
                 >
                   <div
-                    className="w-full max-w-[480px] rounded-[4px] border-l-[3px] border-accent-gold bg-charcoal p-6"
+                    className="w-full max-w-[480px] rounded-none border-l-[3px] border-accent-gold bg-charcoal p-6"
                     style={{
                       transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
                       opacity: cardVisible[i] ? 1 : 0,

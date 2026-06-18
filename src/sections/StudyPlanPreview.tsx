@@ -78,7 +78,7 @@ export default function StudyPlanPreview() {
           {cards.map((card, i) => (
             <div
               key={card.num}
-              className="rounded-[4px] border border-[rgba(0,0,0,0.08)] bg-pure-white p-10 transition-all duration-300 hover:shadow-lg"
+              className="rounded-none border border-[rgba(0,0,0,0.08)] bg-pure-white p-10 transition-all duration-300 hover:shadow-lg"
               style={{
                 transitionDelay: `${i * 0.12}s`,
                 opacity: cardsVisible ? 1 : 0,
@@ -121,7 +121,7 @@ export default function StudyPlanPreview() {
         >
           <Link
             to="/study-plan"
-            className="inline-block rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
+            className="inline-block rounded-none bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#c45430] hover:shadow-gold-glow"
           >
             View Full Study Plan
           </Link>
