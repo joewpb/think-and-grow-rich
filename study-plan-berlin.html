@@ -3,37 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Study Plan — Berlin-Industrial — The Hill Codex</title>
+<title>Study Plan — Hybrid — The Hill Codex</title>
 <style>
   :root {
     --bg:    #0e0e0f;
-    --panel: #16161a;
+    --panel: rgba(22, 22, 26, 0.92);
     --line:  #3a3a40;
     --ink:   #ececec;
     --mut:   #8a8a92;
     --acc:   #e0633a;
     --amb:   #d9b44a;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 2px 8px rgba(0,0,0,0.25);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     background: var(--bg);
     color: var(--ink);
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    font-size: 13px;
-    line-height: 1.6;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
     overflow-x: hidden;
   }
   .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
 
-  /* ── nav ── */
   nav {
     position: sticky; top: 0; z-index: 20;
-    background: var(--panel);
+    background: rgba(14, 14, 15, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--line);
     padding: 12px 24px;
     display: flex; align-items: center; justify-content: space-between;
   }
   nav .logo {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
     text-transform: uppercase; color: var(--acc);
     text-decoration: none;
@@ -46,23 +50,24 @@
   nav .links a:hover { color: var(--ink); }
   nav .links a.active { color: var(--acc); }
 
-  /* ── header ── */
   .page-header {
     padding: 80px 0 60px;
     text-align: center;
     border-bottom: 1px solid var(--line);
   }
   .page-header .kicker {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
     color: var(--mut); margin-bottom: 16px;
   }
   .page-header h1 {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: clamp(28px, 4vw, 44px); font-weight: 700;
     letter-spacing: 0.02em; line-height: 1.1;
     color: var(--ink); margin-bottom: 12px;
   }
   .page-header .sub {
-    font-size: 12px; color: var(--mut); letter-spacing: 0.06em;
+    font-size: 13px; color: var(--mut); letter-spacing: 0.06em;
     max-width: 520px; margin: 0 auto;
   }
   .page-header .line {
@@ -70,52 +75,63 @@
     margin: 20px auto 0;
   }
 
-  /* ── section ── */
   .section { padding: 64px 0; }
   .section-title {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
     color: var(--mut); border-bottom: 1px solid var(--line);
     padding-bottom: 8px; margin-bottom: 32px;
   }
 
-  /* ── timeline ── */
   .timeline-item {
     display: grid; grid-template-columns: 40px 1fr;
     gap: 16px; padding: 16px 0;
     border-bottom: 1px solid var(--line);
+    animation: fadeSlide 0.6s ease-out both;
   }
   .timeline-item:last-child { border-bottom: none; }
   .timeline-num {
     width: 36px; height: 36px;
     border: 1px solid var(--line);
     display: flex; align-items: center; justify-content: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 14px; font-weight: 700; color: var(--amb);
     background: var(--panel);
     flex-shrink: 0;
+    box-shadow: var(--shadow-sm);
   }
   .timeline-title {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 14px; font-weight: 600; color: var(--ink);
     margin-bottom: 4px;
   }
-  .timeline-meta { font-size: 11px; color: var(--mut); margin-bottom: 6px; }
+  .timeline-meta { font-size: 12px; color: var(--mut); margin-bottom: 6px; }
   .timeline-exercises { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
   .timeline-exercises span {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 10px; padding: 3px 8px;
     border: 1px solid var(--line); background: var(--panel);
     color: var(--acc); letter-spacing: 0.06em;
   }
   .timeline-prompt {
-    font-size: 11px; color: var(--mut); font-style: italic;
+    font-size: 12px; color: var(--mut); font-style: italic;
     margin-top: 6px;
   }
 
-  /* ── resource cards ── */
-  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .card {
     background: var(--panel);
     border: 1px solid var(--line);
     padding: 24px;
     display: flex; flex-direction: column;
+    box-shadow: var(--shadow-md);
+    transition: box-shadow 0.2s, transform 0.2s;
+    opacity: 0; transform: translateY(32px);
+    animation: fadeSlide 0.6s ease-out forwards;
+  }
+  .card:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+    transform: translateY(-2px);
   }
   .card-icon {
     font-size: 20px; margin-bottom: 16px;
@@ -125,17 +141,19 @@
     color: var(--acc);
   }
   .card-title {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
     text-transform: uppercase; color: var(--ink);
     margin-bottom: 12px;
   }
   .card-items { display: flex; flex-direction: column; gap: 8px; flex: 1; }
   .card-item-type {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
     color: var(--mut); margin-bottom: 2px;
   }
   .card-item-chapters {
-    font-size: 10px; line-height: 1.8; color: var(--mut);
+    font-size: 11px; line-height: 1.8; color: var(--mut);
   }
   .card-item-chapters a {
     color: var(--mut); text-decoration: none; transition: color 0.15s;
@@ -143,12 +161,12 @@
   .card-item-chapters a:hover { color: var(--acc); }
   .card-item-chapters .sep { color: var(--line); margin: 0 4px; }
   .card-item-link {
-    font-size: 11px; color: var(--mut); text-decoration: none;
+    font-size: 12px; color: var(--mut); text-decoration: none;
     transition: color 0.15s;
   }
   .card-item-link:hover { color: var(--acc); }
   .card-item-gap {
-    font-size: 10px; color: var(--mut);
+    font-size: 11px; color: var(--mut);
     display: flex; align-items: center; gap: 6px;
   }
   .card-item-gap .bullet {
@@ -158,59 +176,84 @@
     font-size: 9px; font-style: italic; color: var(--mut); opacity: 0.7;
   }
 
-  /* ── daily ── */
   .daily-item {
     display: grid; grid-template-columns: 80px 1fr;
-    gap: 20px; padding: 18px 0;
-    border-bottom: 1px solid var(--line);
+    gap: 20px;
+    box-shadow: var(--shadow-sm);
+    background: rgba(22, 22, 26, 0.4);
+    padding: 16px;
+    margin-bottom: 12px;
+    border: 1px solid var(--line);
+    transition: box-shadow 0.2s;
   }
-  .daily-item:last-child { border-bottom: none; }
+  .daily-item:hover { box-shadow: var(--shadow-md); }
+  .daily-item:last-child { margin-bottom: 0; }
   .daily-time {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
     color: var(--acc); padding-top: 2px;
   }
   .daily-name {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 13px; font-weight: 600; color: var(--ink);
     margin-bottom: 4px;
   }
-  .daily-desc { font-size: 11px; color: var(--mut); line-height: 1.6; }
+  .daily-desc { font-size: 12px; color: var(--mut); line-height: 1.6; }
 
-  /* ── cta ── */
   .cta {
     text-align: center; padding: 64px 0;
     border-top: 1px solid var(--line);
     background: var(--panel);
+    box-shadow: var(--shadow-md);
   }
   .cta h2 {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: clamp(20px, 3vw, 30px); font-weight: 700;
     color: var(--ink); margin-bottom: 8px;
   }
   .cta p {
-    font-size: 12px; color: var(--mut); max-width: 460px;
+    font-size: 13px; color: var(--mut); max-width: 460px;
     margin: 0 auto 24px; line-height: 1.6;
   }
   .cta-btn {
     display: inline-block;
     border: 1px solid var(--acc); color: var(--acc);
     padding: 12px 28px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase;
     text-decoration: none; transition: all 0.15s;
+    box-shadow: var(--shadow-sm);
   }
-  .cta-btn:hover { background: var(--acc); color: var(--bg); }
+  .cta-btn:hover { background: var(--acc); color: var(--bg); box-shadow: var(--shadow-md); }
   .cta-btn-outline {
     display: inline-block; margin-left: 12px;
     border: 1px solid var(--line); color: var(--mut);
     padding: 12px 28px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 11px; letter-spacing: 0.10em; text-transform: uppercase;
     text-decoration: none; transition: all 0.15s;
+    box-shadow: var(--shadow-sm);
   }
-  .cta-btn-outline:hover { border-color: var(--ink); color: var(--ink); }
+  .cta-btn-outline:hover { border-color: var(--ink); color: var(--ink); box-shadow: var(--shadow-md); }
 
-  /* ── footer ── */
   footer {
     border-top: 1px solid var(--line);
     padding: 32px 24px; text-align: center;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 10px; color: var(--mut); letter-spacing: 0.06em;
+  }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes drawLine {
+    from { width: 0; }
+    to   { width: 60px; }
+  }
+  .page-header .line {
+    width: 0;
+    animation: drawLine 0.6s ease-out 0.4s forwards;
   }
 
   @media (max-width: 600px) {
@@ -220,7 +263,6 @@
 </head>
 <body>
 
-<!-- nav -->
 <nav>
   <a class="logo" href="./#/">THE HILL CODEX</a>
   <div class="links">
@@ -231,7 +273,6 @@
   </div>
 </nav>
 
-<!-- header -->
 <div class="page-header">
   <div class="container">
     <p class="kicker">Your Path</p>
@@ -241,146 +282,87 @@
   </div>
 </div>
 
-<!-- timeline -->
 <div class="section">
   <div class="container">
     <h2 class="section-title">Week by Week</h2>
-
     <div class="timeline-item">
       <div class="timeline-num">1</div>
       <div>
         <div class="timeline-title">Desire</div>
         <div class="timeline-meta">Ch. 1–2</div>
-        <div class="timeline-exercises">
-          <span>Desire Statement</span><span>Visualization</span><span>Burning Desire Test</span>
-        </div>
+        <div class="timeline-exercises"><span>Desire Statement</span><span>Visualization</span><span>Burning Desire Test</span></div>
         <div class="timeline-prompt">"What do you want so badly you can almost taste it?"</div>
       </div>
     </div>
-
     <div class="timeline-item">
       <div class="timeline-num">2</div>
       <div>
         <div class="timeline-title">Faith</div>
         <div class="timeline-meta">Ch. 3</div>
-        <div class="timeline-exercises">
-          <span>Affirmation Writing</span><span>Faith Builder</span><span>Belief Audit</span>
-        </div>
+        <div class="timeline-exercises"><span>Affirmation Writing</span><span>Faith Builder</span><span>Belief Audit</span></div>
         <div class="timeline-prompt">"What would you attempt if you knew you could not fail?"</div>
       </div>
     </div>
-
     <div class="timeline-item">
       <div class="timeline-num">3</div>
       <div>
         <div class="timeline-title">Auto-Suggestion</div>
         <div class="timeline-meta">Ch. 4</div>
-        <div class="timeline-exercises">
-          <span>Auto-Suggestion Script</span><span>Mirror Practice</span><span>Voice Recording</span>
-        </div>
+        <div class="timeline-exercises"><span>Auto-Suggestion Script</span><span>Mirror Practice</span><span>Voice Recording</span></div>
         <div class="timeline-prompt">"What story do you tell yourself every day?"</div>
       </div>
     </div>
-
     <div class="timeline-item">
       <div class="timeline-num">4</div>
       <div>
         <div class="timeline-title">Specialized Knowledge</div>
         <div class="timeline-meta">Ch. 5</div>
-        <div class="timeline-exercises">
-          <span>Skills Audit</span><span>Learning Plan</span><span>Knowledge Gap Analysis</span>
-        </div>
+        <div class="timeline-exercises"><span>Skills Audit</span><span>Learning Plan</span><span>Knowledge Gap Analysis</span></div>
         <div class="timeline-prompt">"What specific knowledge stands between you and your goal?"</div>
       </div>
     </div>
-
     <div class="timeline-item">
       <div class="timeline-num">5</div>
       <div>
         <div class="timeline-title">Imagination</div>
         <div class="timeline-meta">Ch. 6</div>
-        <div class="timeline-exercises">
-          <span>Vision Board</span><span>Creative Exercise</span><span>Synthetic vs Creative Test</span>
-        </div>
+        <div class="timeline-exercises"><span>Vision Board</span><span>Creative Exercise</span><span>Synthetic vs Creative Test</span></div>
         <div class="timeline-prompt">"Can you see, feel, and touch your desired future?"</div>
       </div>
     </div>
-
-    <p style="font-size: 10px; color: var(--mut); text-align: center; margin-top: 24px; letter-spacing: 0.06em;">
-      ... weeks 6–13 follow the same pattern
-    </p>
+    <p style="font-size: 10px; color: var(--mut); text-align: center; margin-top: 24px; letter-spacing: 0.06em;">... weeks 6–13 follow the same pattern</p>
   </div>
 </div>
 
-<!-- resources -->
 <div class="section">
   <div class="container">
     <h2 class="section-title">Study Resources</h2>
-
     <div class="cards">
-      <!-- Study Guides -->
       <div class="card">
         <div class="card-icon">📖</div>
         <div class="card-title">Study Guides</div>
         <div class="card-items">
-          <div>
-            <div class="card-item-type">Chapter summaries</div>
-            <div class="card-item-chapters">
-              <a href="#">Ch. 1 — Desire</a><span class="sep">·</span>
-              <a href="#">Ch. 2 — Faith</a><span class="sep">·</span>
-              <a href="#">Ch. 3 — Auto-Suggestion</a><span class="sep">·</span>
-              <a href="#">Ch. 4 — Specialized Knowledge</a><span class="sep">·</span>
-              ... 15 total
-            </div>
-          </div>
-          <div>
-            <div class="card-item-type">Key concept explanations</div>
-            <div class="card-item-chapters">15 chapter files</div>
-          </div>
-          <div>
-            <div class="card-item-type">Principle deep-dives</div>
-            <div class="card-item-chapters">15 chapter files</div>
-          </div>
-          <div>
-            <div class="card-item-type">Vocabulary definitions</div>
-            <div class="card-item-chapters">15 chapter files</div>
-          </div>
+          <div><div class="card-item-type">Chapter summaries</div><div class="card-item-chapters">15 chapter files</div></div>
+          <div><div class="card-item-type">Key concept explanations</div><div class="card-item-chapters">15 chapter files</div></div>
+          <div><div class="card-item-type">Principle deep-dives</div><div class="card-item-chapters">15 chapter files</div></div>
+          <div><div class="card-item-type">Vocabulary definitions</div><div class="card-item-chapters">15 chapter files</div></div>
         </div>
       </div>
-
-      <!-- Worksheets -->
       <div class="card">
         <div class="card-icon">📄</div>
         <div class="card-title">Worksheets</div>
         <div class="card-items">
-          <div>
-            <div class="card-item-type">Desire statements</div>
-            <div class="card-item-chapters">15 chapter files</div>
-          </div>
-          <div>
-            <div class="card-item-type">Affirmation templates</div>
-            <div class="card-item-chapters">15 chapter files</div>
-          </div>
-          <div>
-            <div class="card-item-type">Progress trackers</div>
-            <div class="card-item-chapters">15 chapter files</div>
-          </div>
-          <div>
-            <div class="card-item-type">Self-analysis questionnaires</div>
-            <div class="card-item-chapters">15 chapter files</div>
-          </div>
+          <div><div class="card-item-type">Desire statements</div><div class="card-item-chapters">15 chapter files</div></div>
+          <div><div class="card-item-type">Affirmation templates</div><div class="card-item-chapters">15 chapter files</div></div>
+          <div><div class="card-item-type">Progress trackers</div><div class="card-item-chapters">15 chapter files</div></div>
+          <div><div class="card-item-type">Self-analysis questionnaires</div><div class="card-item-chapters">15 chapter files</div></div>
         </div>
       </div>
-
-      <!-- Audio -->
       <div class="card">
         <div class="card-icon">🎧</div>
         <div class="card-title">Audio Summaries</div>
         <div class="card-items">
-          <div class="card-item-gap">
-            <span class="bullet"></span>
-            <span>15-minute chapter recaps <span class="tag">— in production</span></span>
-          </div>
+          <div class="card-item-gap"><span class="bullet"></span><span>15-minute chapter recaps <span class="tag">— in production</span></span></div>
           <a class="card-item-link" href="./resources/guided-visualization.m4a">Guided visualization audio</a>
           <a class="card-item-link" href="./resources/auto-suggestion-recordings.m4a">Auto-suggestion recordings</a>
         </div>
@@ -389,50 +371,17 @@
   </div>
 </div>
 
-<!-- daily practice -->
 <div class="section">
   <div class="container">
     <h2 class="section-title">Daily Practice</h2>
-
-    <div class="daily-item">
-      <div class="daily-time">Morning</div>
-      <div>
-        <div class="daily-name">Read Your Statement</div>
-        <div class="daily-desc">Read your written desire statement aloud immediately upon waking, with full faith and visualization.</div>
-      </div>
-    </div>
-    <div class="daily-item">
-      <div class="daily-time">Morning</div>
-      <div>
-        <div class="daily-name">Plan Your Day</div>
-        <div class="daily-desc">Organize your day around actions that move you toward your definite purpose.</div>
-      </div>
-    </div>
-    <div class="daily-item">
-      <div class="daily-time">Throughout</div>
-      <div>
-        <div class="daily-name">Monitor Your Thoughts</div>
-        <div class="daily-desc">Catch negative thoughts and immediately replace them with positive affirmations.</div>
-      </div>
-    </div>
-    <div class="daily-item">
-      <div class="daily-time">Evening</div>
-      <div>
-        <div class="daily-name">Study & Reflect</div>
-        <div class="daily-desc">Read one chapter or study guide section. Journal your insights and applications.</div>
-      </div>
-    </div>
-    <div class="daily-item">
-      <div class="daily-time">Evening</div>
-      <div>
-        <div class="daily-name">Read Your Statement Again</div>
-        <div class="daily-desc">Read your written statement aloud once more before sleep. Let your subconscious work overnight.</div>
-      </div>
-    </div>
+    <div class="daily-item"><div class="daily-time">Morning</div><div><div class="daily-name">Read Your Statement</div><div class="daily-desc">Read your written desire statement aloud immediately upon waking, with full faith and visualization.</div></div></div>
+    <div class="daily-item"><div class="daily-time">Morning</div><div><div class="daily-name">Plan Your Day</div><div class="daily-desc">Organize your day around actions that move you toward your definite purpose.</div></div></div>
+    <div class="daily-item"><div class="daily-time">Throughout</div><div><div class="daily-name">Monitor Your Thoughts</div><div class="daily-desc">Catch negative thoughts and immediately replace them with positive affirmations.</div></div></div>
+    <div class="daily-item"><div class="daily-time">Evening</div><div><div class="daily-name">Study & Reflect</div><div class="daily-desc">Read one chapter or study guide section. Journal your insights and applications.</div></div></div>
+    <div class="daily-item"><div class="daily-time">Evening</div><div><div class="daily-name">Read Your Statement Again</div><div class="daily-desc">Read your written statement aloud once more before sleep. Let your subconscious work overnight.</div></div></div>
   </div>
 </div>
 
-<!-- cta -->
 <div class="cta">
   <h2>Ready to Begin?</h2>
   <p>Join The Hill Codex and start your 13-week journey today.</p>
