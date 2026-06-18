@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Style A/B — The Hill Codex</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #08080a;
+    color: #d0d0d4;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    overflow: hidden;
+    height: 100vh;
+  }
+  /* ── toolbar ── */
+  .toolbar {
+    height: 44px;
+    display: flex; align-items: center; gap: 16px;
+    padding: 0 20px;
+    border-bottom: 1px solid #2a2a30;
+    background: #0e0e0f;
+    flex-shrink: 0;
+  }
+  .toolbar .label {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: #8a8a92;
+  }
+  .toolbar .tag {
+    font-size: 10px; padding: 2px 8px; letter-spacing: 0.12em; text-transform: uppercase;
+  }
+  .tag-a {
+    background: #1a2440; color: #D4AF37;
+  }
+  .tag-b {
+    background: #1c1618; color: #e0633a;
+  }
+  .toolbar .title {
+    font-size: 13px; font-weight: 600; letter-spacing: 0.05em; margin-left: auto;
+  }
+  /* ── split panes ── */
+  .split {
+    display: flex; height: calc(100vh - 44px);
+  }
+  .pane {
+    flex: 1; overflow: hidden; position: relative;
+  }
+  .pane-left { border-right: 1px solid #2a2a30; }
+  .pane iframe {
+    border: none; width: 100%; height: 100%; display: block;
+  }
+  /* ── divider handle ── */
+  .handle {
+    width: 4px; background: #2a2a30; cursor: col-resize; flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .handle:hover { background: #e0633a; }
+  /* ── pane labels ── */
+  .pane-label {
+    position: absolute; top: 12px; left: 12px; z-index: 10;
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    padding: 4px 10px; pointer-events: none;
+  }
+  .pane-left .pane-label { background: rgba(10,20,40,0.9); color: #D4AF37; }
+  .pane-right .pane-label { background: rgba(14,14,15,0.9); color: #e0633a; }
+  /* ── bottom delta bar ── */
+  .deltas {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
+    background: #0e0e0f; border-top: 1px solid #3a3a40;
+    padding: 10px 20px;
+    display: flex; gap: 24px; flex-wrap: wrap;
+    font-size: 10px; letter-spacing: 0.08em; color: #8a8a92;
+    overflow-x: auto;
+  }
+  .deltas strong { color: #ececec; font-weight: 600; }
+  .delta-item { white-space: nowrap; }
+  .divider { width: 1px; background: #3a3a40; flex-shrink: 0; }
+  /* ── responsive ── */
+  @media (max-width: 768px) {
+    .split { flex-direction: column; }
+    .pane { flex: unset; height: 50%; }
+    .pane-left { border-right: none; border-bottom: 1px solid #2a2a30; }
+    .handle { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span class="label" style="color:#D4AF37">A: CURRENT</span>
+  <span class="label">STYLE A/B COMPARISON</span>
+  <span class="label" style="color:#e0633a">B: BERLIN-INDUSTRIAL</span>
+  <span class="title">THE HILL CODEX — Study Plan page</span>
+</div>
+
+<div class="split" id="split">
+  <div class="pane pane-left" id="paneLeft">
+    <span class="pane-label">A — Current (Luxury / Classic)</span>
+    <iframe src="./#/study-plan" title="Current style"></iframe>
+  </div>
+  <div class="handle" id="handle"></div>
+  <div class="pane pane-right" id="paneRight">
+    <span class="pane-label">B — Berlin-Industrial</span>
+    <iframe src="./study-plan-berlin.html" title="Berlin-industrial static"></iframe>
+  </div>
+</div>
+
+<div class="deltas">
+  <div class="delta-item"><strong>Background:</strong> A: <span style="color:#4A6FA5">#020C1B deep-navy</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Background:</strong> B: <span style="color:#e0633a">#0e0e0f near-black</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Headings:</strong> A: <span style="color:#D4AF37">Playfair Display, serif</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Headings:</strong> B: <span style="color:#e0633a">monospace</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Body:</strong> A: <span style="color:#4A6FA5">Inter, sans-serif</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Body:</strong> B: <span style="color:#e0633a">ui-monospace</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Accent:</strong> A: <span style="color:#D4AF37">#D4AF37 gold</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Accent:</strong> B: <span style="color:#e0633a">#e0633a orange</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Corners:</strong> A: <span style="color:#4A6FA5">4px rounded</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Corners:</strong> B: <span style="color:#e0633a">squared</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Shadows:</strong> A: <span style="color:#D4AF37">gold glow</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Shadows:</strong> B: <span style="color:#e0633a">none (hard edges)</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Nav:</strong> A: <span style="color:#4A6FA5">glassmorphism + blur</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Nav:</strong> B: <span style="color:#e0633a">solid panel</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Animations:</strong> A: <span style="color:#D4AF37">Framer Motion (char-split, scroll-fade, SVG stroke-draw)</span></div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>Animations:</strong> B: <span style="color:#e0633a">none or minimal (optional)</span></div>
+</div>
+
+<script>
+  // draggable divider
+  const split = document.getElementById('split');
+  const handle = document.getElementById('handle');
+  const left = document.getElementById('paneLeft');
+  const right = document.getElementById('paneRight');
+  let dragging = false;
+
+  handle.addEventListener('mousedown', (e) => {
+    dragging = true;
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!dragging) return;
+    const rect = split.getBoundingClientRect();
+    const pct = ((e.clientX - rect.left) / rect.width) * 100;
+    const clamped = Math.max(20, Math.min(80, pct));
+    left.style.flex = clamped + '%';
+    right.style.flex = (100 - clamped) + '%';
+  });
+
+  document.addEventListener('mouseup', () => {
+    dragging = false;
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+  });
+</script>
+
+</body>
+</html>
