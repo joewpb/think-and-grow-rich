@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Style A/B — The Hill Codex</title>
+<title>Style A/B/H — The Hill Codex</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -13,162 +13,192 @@
     overflow: hidden;
     height: 100vh;
   }
-  /* ── toolbar ── */
   .toolbar {
     height: 44px;
-    display: flex; align-items: center; gap: 16px;
-    padding: 0 20px;
+    display: flex; align-items: center; gap: 0;
     border-bottom: 1px solid #2a2a30;
     background: #0e0e0f;
     flex-shrink: 0;
   }
-  .toolbar .label {
-    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: #8a8a92;
+  .tab {
+    height: 100%; padding: 0 20px;
+    font-size: 11px; letter-spacing: 0.10em;
+    text-transform: uppercase; cursor: pointer;
+    background: none; border: none; color: #8a8a92;
+    font-family: inherit; transition: all 0.15s;
+    border-right: 1px solid #2a2a30;
+    display: flex; align-items: center; gap: 8px;
   }
-  .toolbar .tag {
-    font-size: 10px; padding: 2px 8px; letter-spacing: 0.12em; text-transform: uppercase;
+  .tab:hover { color: #ececec; background: #16161a; }
+  .tab .dot { width: 6px; height: 6px; flex-shrink: 0; }
+  .tab-a .dot { background: #D4AF37; }
+  .tab-b .dot { background: #e0633a; }
+  .tab-h .dot { background: #d9b44a; }
+  .tab.active { color: #ececec; background: #16161a; border-bottom: 2px solid var(--ac, #e0633a); }
+  .tab-a.active { --ac: #D4AF37; }
+  .tab-b.active { --ac: #e0633a; }
+  .tab-h.active { --ac: #d9b44a; }
+  .title {
+    margin-left: auto; margin-right: 20px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.04em; color: #8a8a92;
   }
-  .tag-a {
-    background: #1a2440; color: #D4AF37;
+  .split { display: flex; height: calc(100vh - 100px); }
+  .pane { flex: 1; overflow: hidden; position: relative; }
+  .pane iframe { border: none; width: 100%; height: 100%; display: block; }
+  .pane-label {
+    position: absolute; top: 10px; left: 10px; z-index: 10;
+    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 3px 8px; pointer-events: none;
   }
-  .tag-b {
-    background: #1c1618; color: #e0633a;
-  }
-  .toolbar .title {
-    font-size: 13px; font-weight: 600; letter-spacing: 0.05em; margin-left: auto;
-  }
-  /* ── split panes ── */
-  .split {
-    display: flex; height: calc(100vh - 44px);
-  }
-  .pane {
-    flex: 1; overflow: hidden; position: relative;
-  }
-  .pane-left { border-right: 1px solid #2a2a30; }
-  .pane iframe {
-    border: none; width: 100%; height: 100%; display: block;
-  }
-  /* ── divider handle ── */
+  .pane-lbl-a { background: rgba(10,20,40,0.9); color: #D4AF37; }
+  .pane-lbl-b { background: rgba(14,14,15,0.9); color: #e0633a; }
+  .pane-lbl-h { background: rgba(14,14,15,0.9); color: #d9b44a; }
   .handle {
-    width: 4px; background: #2a2a30; cursor: col-resize; flex-shrink: 0;
-    transition: background 0.15s;
+    width: 3px; background: #2a2a30; cursor: col-resize; flex-shrink: 0;
   }
   .handle:hover { background: #e0633a; }
-  /* ── pane labels ── */
-  .pane-label {
-    position: absolute; top: 12px; left: 12px; z-index: 10;
-    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    padding: 4px 10px; pointer-events: none;
-  }
-  .pane-left .pane-label { background: rgba(10,20,40,0.9); color: #D4AF37; }
-  .pane-right .pane-label { background: rgba(14,14,15,0.9); color: #e0633a; }
-  /* ── bottom delta bar ── */
   .deltas {
     position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
     background: #0e0e0f; border-top: 1px solid #3a3a40;
-    padding: 10px 20px;
-    display: flex; gap: 24px; flex-wrap: wrap;
-    font-size: 10px; letter-spacing: 0.08em; color: #8a8a92;
-    overflow-x: auto;
+    padding: 8px 20px;
+    display: flex; gap: 18px; flex-wrap: wrap;
+    font-size: 9px; letter-spacing: 0.06em; color: #8a8a92;
+    overflow-x: auto; height: 56px; align-items: center;
   }
-  .deltas strong { color: #ececec; font-weight: 600; }
+  .deltas strong { color: #ececec; }
   .delta-item { white-space: nowrap; }
-  .divider { width: 1px; background: #3a3a40; flex-shrink: 0; }
-  /* ── responsive ── */
+  .divider { width: 1px; background: #3a3a40; flex-shrink: 0; height: 20px; }
   @media (max-width: 768px) {
     .split { flex-direction: column; }
     .pane { flex: unset; height: 50%; }
-    .pane-left { border-right: none; border-bottom: 1px solid #2a2a30; }
     .handle { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="toolbar">
-  <span class="label" style="color:#D4AF37">A: CURRENT</span>
-  <span class="label">STYLE A/B COMPARISON</span>
-  <span class="label" style="color:#e0633a">B: BERLIN-INDUSTRIAL</span>
-  <span class="title">THE HILL CODEX — Study Plan page</span>
+<div class="toolbar" id="toolbar">
+  <button class="tab tab-a active" data-pane="a">A Current</button>
+  <button class="tab tab-b"        data-pane="b">B Berlin</button>
+  <button class="tab tab-h"        data-pane="h">H Hybrid</button>
+  <span class="title">THE HILL CODEX — Style Comparison</span>
 </div>
 
 <div class="split" id="split">
-  <div class="pane pane-left" id="paneLeft">
-    <span class="pane-label">A — Current (Luxury / Classic)</span>
-    <iframe src="./#/study-plan" title="Current style"></iframe>
+  <div class="pane" id="pane-a">
+    <span class="pane-label pane-lbl-a">A — Current (Luxury / Classic)</span>
+    <iframe src="./#/study-plan" title="Current"></iframe>
   </div>
-  <div class="handle" id="handle"></div>
-  <div class="pane pane-right" id="paneRight">
-    <span class="pane-label">B — Berlin-Industrial</span>
-    <iframe src="./study-plan-berlin.html" title="Berlin-industrial static"></iframe>
+  <div class="handle" id="handle-1"></div>
+  <div class="pane" id="pane-b">
+    <span class="pane-label pane-lbl-b">B — Berlin-Industrial (full monospace)</span>
+    <iframe src="./study-plan-berlin.html" title="Berlin"></iframe>
+  </div>
+  <div class="handle" id="handle-2"></div>
+  <div class="pane" id="pane-h">
+    <span class="pane-label pane-lbl-h">H — Hybrid (Berlin tokens + readable type)</span>
+    <iframe src="./study-plan-hybrid.html" title="Hybrid"></iframe>
   </div>
 </div>
 
-<div class="deltas">
-  <div class="delta-item"><strong>Background:</strong> A: <span style="color:#4A6FA5">#020C1B deep-navy</span></div>
+<div class="deltas" id="deltas">
+  <div class="delta-item delta-a"><strong>A:</strong> bg: <span style="color:#4A6FA5">#020C1B</span> | headings: <span style="color:#D4AF37">Playfair</span> | body: <span style="color:#4A6FA5">Inter</span> | accent: <span style="color:#D4AF37">gold</span> | corners: <span style="color:#4A6FA5">4px</span> | shadows: <span style="color:#D4AF37">glow</span> | nav: <span style="color:#4A6FA5">glass</span></div>
   <div class="divider"></div>
-  <div class="delta-item"><strong>Background:</strong> B: <span style="color:#e0633a">#0e0e0f near-black</span></div>
+  <div class="delta-item delta-b"><strong>B:</strong> bg: <span style="color:#e0633a">#0e0e0f</span> | headings: <span style="color:#e0633a">monospace</span> | body: <span style="color:#e0633a">monospace</span> | accent: <span style="color:#e0633a">#e0633a</span> | corners: <span style="color:#e0633a">square</span> | shadows: <span style="color:#e0633a">none</span> | nav: <span style="color:#e0633a">solid</span></div>
   <div class="divider"></div>
-  <div class="delta-item"><strong>Headings:</strong> A: <span style="color:#D4AF37">Playfair Display, serif</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Headings:</strong> B: <span style="color:#e0633a">monospace</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Body:</strong> A: <span style="color:#4A6FA5">Inter, sans-serif</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Body:</strong> B: <span style="color:#e0633a">ui-monospace</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Accent:</strong> A: <span style="color:#D4AF37">#D4AF37 gold</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Accent:</strong> B: <span style="color:#e0633a">#e0633a orange</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Corners:</strong> A: <span style="color:#4A6FA5">4px rounded</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Corners:</strong> B: <span style="color:#e0633a">squared</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Shadows:</strong> A: <span style="color:#D4AF37">gold glow</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Shadows:</strong> B: <span style="color:#e0633a">none (hard edges)</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Nav:</strong> A: <span style="color:#4A6FA5">glassmorphism + blur</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Nav:</strong> B: <span style="color:#e0633a">solid panel</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Animations:</strong> A: <span style="color:#D4AF37">Framer Motion (char-split, scroll-fade, SVG stroke-draw)</span></div>
-  <div class="divider"></div>
-  <div class="delta-item"><strong>Animations:</strong> B: <span style="color:#e0633a">none or minimal (optional)</span></div>
+  <div class="delta-item delta-h"><strong>H:</strong> bg: <span style="color:#d9b44a">#0e0e0f</span> | headings: <span style="color:#d9b44a">Playfair</span> | body: <span style="color:#d9b44a">Inter</span> | accent: <span style="color:#d9b44a">#e0633a</span> | corners: <span style="color:#d9b44a">square</span> | shadows: <span style="color:#d9b44a">none</span> | nav: <span style="color:#d9b44a">solid</span></div>
 </div>
 
 <script>
-  // draggable divider
+  // resize logic — adjust all pane flex values
+  const panes = { a: document.getElementById('pane-a'), b: document.getElementById('pane-b'), h: document.getElementById('pane-h') };
+  const handles = {
+    1: document.getElementById('handle-1'),
+    2: document.getElementById('handle-2')
+  };
   const split = document.getElementById('split');
-  const handle = document.getElementById('handle');
-  const left = document.getElementById('paneLeft');
-  const right = document.getElementById('paneRight');
-  let dragging = false;
+  const tabs = document.querySelectorAll('.tab');
 
-  handle.addEventListener('mousedown', (e) => {
-    dragging = true;
-    document.body.style.cursor = 'col-resize';
-    document.body.style.userSelect = 'none';
-    e.preventDefault();
+  // determine pane order: a, b, h
+  const paneOrder = ['a', 'b', 'h'];
+  let dragging = null;
+
+  function updateDeltas() {
+    const activeTabs = [...tabs].filter(t => t.classList.contains('active')).map(t => t.dataset.pane);
+    document.querySelectorAll('.delta-item').forEach(d => d.style.display = 'none');
+    activeTabs.forEach(p => {
+      document.querySelectorAll('.delta-' + p).forEach(d => d.style.display = '');
+    });
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tab.classList.toggle('active');
+      const active = [...tabs].filter(t => t.classList.contains('active'));
+      if (active.length === 0) { tab.classList.add('active'); return; }
+      // rebalance panes
+      const activeIds = active.map(t => t.dataset.pane);
+      const num = activeIds.length;
+      const pct = Math.floor(100 / num);
+      paneOrder.forEach(p => {
+        panes[p].style.flex = activeIds.includes(p) ? pct + '%' : '0%';
+        panes[p].style.display = activeIds.includes(p) ? '' : 'none';
+      });
+      // show/hide handles
+      let handleIdx = 1;
+      for (let i = 0; i < paneOrder.length - 1; i++) {
+        const left = paneOrder[i], right = paneOrder[i+1];
+        const h = handles[String(handleIdx)];
+        h.style.display = (activeIds.includes(left) && activeIds.includes(right)) ? '' : 'none';
+        handleIdx++;
+      }
+      updateDeltas();
+    });
+  });
+
+  // draggable handles
+  Object.entries(handles).forEach(([idx, handle]) => {
+    handle.addEventListener('mousedown', (e) => {
+      dragging = parseInt(idx);
+      document.body.style.cursor = 'col-resize';
+      document.body.style.userSelect = 'none';
+      e.preventDefault();
+    });
   });
 
   document.addEventListener('mousemove', (e) => {
     if (!dragging) return;
     const rect = split.getBoundingClientRect();
-    const pct = ((e.clientX - rect.left) / rect.width) * 100;
-    const clamped = Math.max(20, Math.min(80, pct));
-    left.style.flex = clamped + '%';
-    right.style.flex = (100 - clamped) + '%';
+    const x = e.clientX - rect.left;
+    const total = rect.width;
+    const active = [...tabs].filter(t => t.classList.contains('active')).map(t => t.dataset.pane);
+    if (active.length < 2) return;
+
+    // find the two panes that the handle separates
+    const idx = dragging - 1; // handle 1 = between pane a and b, handle 2 = between pane b and h
+    const leftPane = paneOrder[idx], rightPane = paneOrder[idx+1];
+    if (!active.includes(leftPane) || !active.includes(rightPane)) return;
+
+    // compute current flex percentages
+    let leftPct = parseFloat(panes[leftPane].style.flex) || 33.3;
+    let rightPct = parseFloat(panes[rightPane].style.flex) || 33.3;
+    const totalPct = leftPct + rightPct;
+    const leftWidth = (leftPct / totalPct) * total;
+    const newLeftPct = Math.max(15, Math.min(85, (x / total) * totalPct));
+    const newRightPct = totalPct - newLeftPct;
+
+    panes[leftPane].style.flex = newLeftPct + '%';
+    panes[rightPane].style.flex = newRightPct + '%';
   });
 
   document.addEventListener('mouseup', () => {
-    dragging = false;
+    dragging = null;
     document.body.style.cursor = '';
     document.body.style.userSelect = '';
   });
-</script>
 
+  // init: all three panes visible
+  updateDeltas();
+</script>
 </body>
 </html>

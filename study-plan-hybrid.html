@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Study Plan — Hybrid — The Hill Codex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:    #0e0e0f;
+    --panel: #16161a;
+    --line:  #3a3a40;
+    --ink:   #ececec;
+    --mut:   #8a8a92;
+    --acc:   #e0633a;
+    --amb:   #d9b44a;
+    --warm:  #f7f5f2;
+    --char:  #1a1a1c;
+    --chmut: #6e6e76;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+  h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+  section { padding: 80px 0; }
+
+  /* ── nav ── */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+  }
+  nav .inner {
+    max-width: 1100px; margin: 0 auto; padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  nav .logo {
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--acc);
+    text-decoration: none;
+  }
+  nav .links { display: flex; gap: 28px; }
+  nav .links a {
+    font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--mut); text-decoration: none;
+  }
+  nav .links a.active { color: var(--acc); }
+  nav .links a:hover { color: var(--ink); }
+
+  /* ── page header ── */
+  .page-header {
+    text-align: center; padding: 90px 0 70px;
+    border-bottom: 1px solid var(--line);
+  }
+  .page-header .kicker {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.24em; text-transform: uppercase; color: var(--acc);
+    margin-bottom: 18px;
+  }
+  .page-header h1 {
+    font-size: clamp(40px, 5vw, 64px); font-weight: 700;
+    line-height: 1.08; color: var(--ink); margin-bottom: 18px;
+  }
+  .page-header .sub {
+    font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 300;
+    color: var(--mut); max-width: 540px; margin: 0 auto; line-height: 1.6;
+  }
+  .page-header .divider {
+    width: 60px; height: 1px; background: var(--acc); margin: 22px auto 0;
+  }
+
+  /* ── timeline ── */
+  .timeline { background: var(--bg); }
+  .section-title {
+    font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 600;
+    color: var(--ink); margin-bottom: 48px; text-align: center;
+  }
+  .timeline-item {
+    display: flex; gap: 24px; padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-num {
+    width: 50px; height: 50px; flex-shrink: 0;
+    border: 1px solid var(--line); background: var(--panel);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Inter', sans-serif; font-size: 18px; font-weight: 600;
+    color: var(--amb);
+  }
+  .timeline-body { flex: 1; }
+  .timeline-title {
+    font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600;
+    color: var(--ink); margin-bottom: 4px;
+  }
+  .timeline-reading {
+    font-family: 'Inter', sans-serif; font-size: 13px; color: var(--mut);
+    margin-bottom: 10px;
+  }
+  .timeline-exercises { display: flex; flex-wrap: wrap; gap: 6px; }
+  .timeline-exercises span {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500;
+    padding: 5px 12px; border: 1px solid var(--line);
+    background: var(--panel); color: var(--acc);
+  }
+  .timeline-prompt {
+    font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic;
+    color: var(--mut); margin-top: 10px; opacity: 0.6;
+  }
+  .timeline-more {
+    text-align: center; margin-top: 30px;
+    font-family: 'Inter', sans-serif; font-size: 11px; color: var(--mut);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── resources (warm section) ── */
+  .resources {
+    background: var(--warm); color: var(--char);
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .res-section-title {
+    font-family: 'Playfair Display', serif; font-size: 32px;
+    font-weight: 600; color: var(--char); text-align: center; margin-bottom: 12px;
+  }
+  .res-subtitle {
+    font-family: 'Inter', sans-serif; font-size: 15px; color: var(--chmut);
+    text-align: center; max-width: 500px; margin: 0 auto 48px; line-height: 1.5;
+  }
+  .cards {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  .card {
+    background: white;
+    border: 1px solid #d8d4cf;
+    padding: 32px 28px;
+  }
+  .card-icon {
+    width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    border: 1px solid #d8d4cf; color: var(--acc);
+    font-size: 18px; margin-bottom: 20px;
+  }
+  .card-title {
+    font-family: 'Playfair Display', serif; font-size: 21px; font-weight: 600;
+    color: var(--char); margin-bottom: 14px;
+  }
+  .card-item {
+    font-family: 'Inter', sans-serif; font-size: 13px; margin-bottom: 8px;
+  }
+  .card-item-type {
+    font-weight: 600; color: var(--char); font-size: 12px; letter-spacing: 0.04em;
+    margin-bottom: 2px;
+  }
+  .card-item-links { font-size: 11px; color: var(--chmut); line-height: 1.8; }
+  .card-item-links a {
+    color: var(--chmut); text-decoration: none;
+  }
+  .card-item-links a:hover { color: var(--acc); }
+  .card-item-links .sep { color: #c4bfb7; margin: 0 4px; }
+  .card-item-link {
+    display: block; font-size: 13px; color: var(--chmut); text-decoration: none;
+    margin-bottom: 3px;
+  }
+  .card-item-link:hover { color: var(--acc); }
+  .card-item-gap {
+    font-size: 12px; color: var(--chmut);
+    display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+  }
+  .card-item-gap .bx { width: 4px; height: 4px; background: var(--chmut); flex-shrink: 0; }
+  .card-item-gap .tag { font-size: 10px; font-style: italic; opacity: 0.6; }
+
+  /* ── daily ── */
+  .daily { background: var(--bg); }
+  .daily-grid { max-width: 740px; margin: 0 auto; }
+  .daily-item {
+    display: grid; grid-template-columns: 110px 1fr; gap: 28px;
+    padding: 22px 0; border-bottom: 1px solid var(--line);
+  }
+  .daily-item:last-child { border-bottom: none; }
+  .daily-time {
+    font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 500;
+    letter-spacing: 0.10em; text-transform: uppercase; color: var(--acc);
+  }
+  .daily-name {
+    font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .daily-desc {
+    font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 300;
+    color: var(--mut); line-height: 1.6;
+  }
+
+  /* ── cta ── */
+  .cta {
+    background: var(--panel);
+    border-top: 1px solid var(--line);
+    text-align: center; padding: 80px 0;
+  }
+  .cta h2 {
+    font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 600;
+    color: var(--ink); margin-bottom: 10px;
+  }
+  .cta p {
+    font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 300;
+    color: var(--mut); max-width: 450px; margin: 0 auto 28px; line-height: 1.6;
+  }
+  .cta-btn {
+    display: inline-block; border: 1px solid var(--acc);
+    background: var(--acc); color: var(--bg);
+    padding: 14px 32px;
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  }
+  .cta-btn:hover { background: #cc4f2a; }
+  .cta-btn-ghost {
+    display: inline-block; margin-left: 14px;
+    border: 1px solid var(--line); color: var(--mut);
+    padding: 14px 32px;
+    font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none;
+  }
+  .cta-btn-ghost:hover { border-color: var(--ink); color: var(--ink); }
+
+  /* ── footer ── */
+  footer {
+    border-top: 1px solid var(--line);
+    text-align: center; padding: 30px 28px;
+    font-family: 'Inter', sans-serif; font-size: 11px;
+    color: var(--mut); letter-spacing: 0.06em;
+  }
+
+  @media (max-width: 680px) {
+    .cards { grid-template-columns: 1fr; }
+    .daily-item { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a class="logo" href="./#/">THE HILL CODEX</a>
+    <div class="links">
+      <a href="./#/">Home</a>
+      <a href="./#/principles">Principles</a>
+      <a class="active" href="./#/study-plan">Study Plan</a>
+      <a href="./#/about">About</a>
+    </div>
+  </div>
+</nav>
+
+<!-- header -->
+<section class="page-header">
+  <p class="kicker">Your Path</p>
+  <h1>13-Week Study Plan</h1>
+  <p class="sub">A structured, week-by-week journey through Think and Grow Rich. Each week covers one principle with reading, exercises, and group discussion.</p>
+  <div class="divider"></div>
+</section>
+
+<!-- timeline -->
+<section class="timeline">
+  <div class="container">
+    <h2 class="section-title">Week by Week</h2>
+
+    <div class="timeline-item">
+      <div class="timeline-num">1</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Desire</div>
+        <div class="timeline-reading">Ch. 1–2</div>
+        <div class="timeline-exercises">
+          <span>Desire Statement</span><span>Visualization</span><span>Burning Desire Test</span>
+        </div>
+        <div class="timeline-prompt">"What do you want so badly you can almost taste it?"</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-num">2</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Faith</div>
+        <div class="timeline-reading">Ch. 3</div>
+        <div class="timeline-exercises">
+          <span>Affirmation Writing</span><span>Faith Builder</span><span>Belief Audit</span>
+        </div>
+        <div class="timeline-prompt">"What would you attempt if you knew you could not fail?"</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-num">3</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Auto-Suggestion</div>
+        <div class="timeline-reading">Ch. 4</div>
+        <div class="timeline-exercises">
+          <span>Auto-Suggestion Script</span><span>Mirror Practice</span><span>Voice Recording</span>
+        </div>
+        <div class="timeline-prompt">"What story do you tell yourself every day?"</div>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-num">4</div>
+      <div class="timeline-body">
+        <div class="timeline-title">Specialized Knowledge</div>
+        <div class="timeline-reading">Ch. 5</div>
+        <div class="timeline-exercises">
+          <span>Skills Audit</span><span>Learning Plan</span><span>Knowledge Gap Analysis</span>
+        </div>
+        <div class="timeline-prompt">"What specific knowledge stands between you and your goal?"</div>
+      </div>
+    </div>
+
+    <p class="timeline-more">... weeks 5–13 follow the same structure</p>
+  </div>
+</section>
+
+<!-- resources -->
+<section class="resources">
+  <div class="container">
+    <h2 class="res-section-title">Study Resources</h2>
+    <p class="res-subtitle">Everything you need to complete the 13-week program</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📖</div>
+        <div class="card-title">Study Guides</div>
+        <div class="card-item">
+          <div class="card-item-type">Chapter summaries</div>
+          <div class="card-item-links">Ch. 1 · Ch. 2 · Ch. 3 · ... 15 total</div>
+        </div>
+        <div class="card-item">
+          <div class="card-item-type">Key concept explanations</div>
+          <div class="card-item-links">15 chapter files</div>
+        </div>
+        <div class="card-item">
+          <div class="card-item-type">Principle deep-dives</div>
+          <div class="card-item-links">15 chapter files</div>
+        </div>
+        <div class="card-item">
+          <div class="card-item-type">Vocabulary definitions</div>
+          <div class="card-item-links">15 chapter files</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <div class="card-title">Worksheets</div>
+        <div class="card-item">
+          <div class="card-item-type">Desire statements</div>
+          <div class="card-item-links">15 chapter files</div>
+        </div>
+        <div class="card-item">
+          <div class="card-item-type">Affirmation templates</div>
+          <div class="card-item-links">15 chapter files</div>
+        </div>
+        <div class="card-item">
+          <div class="card-item-type">Progress trackers</div>
+          <div class="card-item-links">15 chapter files</div>
+        </div>
+        <div class="card-item">
+          <div class="card-item-type">Self-analysis questionnaires</div>
+          <div class="card-item-links">15 chapter files</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-icon">🎧</div>
+        <div class="card-title">Audio Summaries</div>
+        <div class="card-item-gap"><span class="bx"></span>15-minute chapter recaps <span class="tag">— in production</span></div>
+        <a class="card-item-link" href="./resources/guided-visualization.m4a">Guided visualization audio</a>
+        <a class="card-item-link" href="./resources/auto-suggestion-recordings.m4a">Auto-suggestion recordings</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- daily -->
+<section class="daily">
+  <div class="container">
+    <h2 class="section-title">Daily Practice</h2>
+    <div class="daily-grid">
+      <div class="daily-item">
+        <div class="daily-time">Morning</div>
+        <div>
+          <div class="daily-name">Read Your Statement</div>
+          <div class="daily-desc">Read your written desire statement aloud immediately upon waking, with full faith and visualization.</div>
+        </div>
+      </div>
+      <div class="daily-item">
+        <div class="daily-time">Morning</div>
+        <div>
+          <div class="daily-name">Plan Your Day</div>
+          <div class="daily-desc">Organize your day around actions that move you toward your definite purpose.</div>
+        </div>
+      </div>
+      <div class="daily-item">
+        <div class="daily-time">Throughout</div>
+        <div>
+          <div class="daily-name">Monitor Your Thoughts</div>
+          <div class="daily-desc">Catch negative thoughts and immediately replace them with positive affirmations.</div>
+        </div>
+      </div>
+      <div class="daily-item">
+        <div class="daily-time">Evening</div>
+        <div>
+          <div class="daily-name">Study & Reflect</div>
+          <div class="daily-desc">Read one chapter or study guide section. Journal your insights and applications.</div>
+        </div>
+      </div>
+      <div class="daily-item">
+        <div class="daily-time">Evening</div>
+        <div>
+          <div class="daily-name">Read Your Statement Again</div>
+          <div class="daily-desc">Read your written statement aloud once more before sleep. Let your subconscious work overnight.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- cta -->
+<section class="cta">
+  <h2>Ready to Begin?</h2>
+  <p>Join The Hill Codex and start your 13-week journey today.</p>
+  <a class="cta-btn" href="./#/study-plan">Start the Study Plan</a>
+  <a class="cta-btn-ghost" href="./#/principles">Explore the Principles</a>
+</section>
+
+<footer>&copy; 2025 The Hill Codex — Think and Grow Rich</footer>
+
+</body>
+</html>
