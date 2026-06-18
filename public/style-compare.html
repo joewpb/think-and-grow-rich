@@ -3,154 +3,126 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Style A/B/C — The Hill Codex</title>
+<title>Style A/B — The Hill Codex</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  *,*::before,*::after { box-sizing:border-box;margin:0;padding:0; }
   body {
-    background: #08080a; color: #d0d0d4;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    overflow: hidden; height: 100vh;
+    background:#08080a; color:#d0d0d4;
+    font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    overflow:hidden; height:100vh;
   }
   .toolbar {
-    height: 44px; display: flex; align-items: center; gap: 12px;
-    padding: 0 16px; border-bottom: 1px solid #2a2a30;
-    background: #0e0e0f; flex-shrink: 0;
+    height:48px; display:flex; align-items:center; gap:12px;
+    padding:0 20px; border-bottom:1px solid #2a2a30; background:#0e0e0f;
+    flex-shrink:0;
   }
-  .toolbar .label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #8a8a92; }
-  .tag { font-size: 9px; padding: 2px 7px; letter-spacing: 0.10em; text-transform: uppercase; }
-  .tag-a { background: #1a2440; color: #D4AF37; }
-  .tag-b { background: #1c1618; color: #e0633a; }
-  .tag-c { background: #1a1c18; color: #d9b44a; }
-  .toolbar .title { font-size: 12px; font-weight: 600; letter-spacing: 0.04em; margin-left: auto; }
-  .split { display: flex; height: calc(100vh - 44px); }
-  .pane { flex: 1; overflow: hidden; position: relative; }
-  .pane-a { flex: 30%; border-right: 1px solid #2a2a30; }
-  .pane-c { flex: 40%; border-left: 1px solid #2a2a30; }
-  .pane-b { flex: 30%; }
-  .pane iframe { border: none; width: 100%; height: 100%; display: block; }
+  .toolbar .label {
+    font-size:10px; letter-spacing:0.16em; text-transform:uppercase;
+    color:#8a8a92; font-weight:600;
+  }
+  .toolbar .tag {
+    font-size:9px; padding:2px 8px; letter-spacing:0.12em; text-transform:uppercase;
+    cursor:pointer; transition:all 0.15s; border:1px solid transparent;
+  }
+  .tag-a  { background:#1a2440; color:#D4AF37; border-color:#D4AF37; }
+  .tag-b  { background:#1c1618; color:#e0633a; border-color:#3a3a40; }
+  .tag-c  { background:#161c14; color:#d9b44a; border-color:#3a3a40; }
+  .tag-active { border-color:currentColor; }
+  .toolbar .title { font-size:12px; font-weight:600; letter-spacing:0.05em; margin-left:auto; color:#ececec; }
+  .toolbar .note { font-size:10px; color:#8a8a92; letter-spacing:0.06em; }
+
+  .split { display:flex; height:calc(100vh - 48px); }
+  .pane { flex:1; overflow:hidden; position:relative; }
+  .pane-left { border-right:1px solid #2a2a30; }
+  .pane iframe { border:none; width:100%; height:100%; display:block; }
   .pane-label {
-    position: absolute; top: 10px; left: 10px; z-index: 10;
-    font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 3px 8px; pointer-events: none;
+    position:absolute; top:12px; left:12px; z-index:10;
+    font-size:10px; letter-spacing:0.14em; text-transform:uppercase;
+    padding:4px 10px; pointer-events:none;
   }
-  .pane-a .pane-label { background: rgba(10,20,40,0.9); color: #D4AF37; }
-  .pane-c .pane-label { background: rgba(22,22,26,0.9); color: #d9b44a; }
-  .pane-b .pane-label { background: rgba(14,14,15,0.9); color: #e0633a; }
-  .handle {
-    width: 3px; background: #2a2a30; cursor: col-resize; flex-shrink: 0;
-    transition: background 0.15s;
-  }
-  .handle:hover { background: #e0633a; }
+  .pane-left .pane-label  { background:rgba(10,20,40,0.9); color:#D4AF37; }
+  .pane-right .pane-label { background:rgba(14,14,15,0.9); }
+
   .deltas {
-    position: fixed; bottom: 0; left: 0; right: 0; z-index: 20;
-    background: #0e0e0f; border-top: 1px solid #3a3a40;
-    padding: 8px 16px; display: flex; gap: 16px;
-    font-size: 10px; letter-spacing: 0.06em; color: #8a8a92;
+    position:fixed; bottom:0; left:0; right:0; z-index:20;
+    background:#0e0e0f; border-top:1px solid #3a3a40;
+    padding:10px 20px; display:flex; gap:20px; flex-wrap:wrap;
+    font-size:9px; letter-spacing:0.06em; color:#8a8a92;
+    overflow-x:auto;
   }
-  .deltas strong { color: #ececec; font-weight: 600; }
-  .divider { width: 1px; background: #3a3a40; flex-shrink: 0; }
-  @media (max-width: 900px) {
-    .split { flex-direction: column; }
-    .pane { flex: unset; height: 33.3%; min-height: 0; }
-    .pane-a, .pane-c { border-left: none; border-right: none; }
-    .pane-a { border-bottom: 1px solid #2a2a30; }
-    .pane-c { border-top: 1px solid #2a2a30; }
-    .handle { display: none; }
-    .deltas { display: none; }
+  .deltas strong { color:#ececec; font-weight:600; }
+  .delta-item { white-space:nowrap; }
+  .divider { width:1px; background:#3a3a40; flex-shrink:0; }
+
+  @media (max-width:768px) {
+    .split { flex-direction:column; }
+    .pane { flex:unset; height:50%; }
+    .pane-left { border-right:none; border-bottom:1px solid #2a2a30; }
   }
 </style>
 </head>
 <body>
 
 <div class="toolbar">
-  <span class="tag tag-a">A: CURRENT</span>
-  <span class="tag tag-b">B: BERLIN</span>
-  <span class="tag tag-c">C: HYBRID</span>
-  <span class="title">THE HILL CODEX — Style A/B/C — Study Plan</span>
+  <span class="label" style="color:#D4AF37">A: CURRENT</span>
+  <span class="label">vs</span>
+  <span class="label" id="rightLabel" style="color:#d9b44a">C: HYBRID</span>
+  <span style="font-size:9px;color:#8a8a92;margin-left:8px;">right panel style:</span>
+  <span class="tag tag-b" onclick="switchStyle('b','#e0633a')">B: BERLIN</span>
+  <span class="tag tag-c tag-active" onclick="switchStyle('c','#d9b44a')" id="tagC">C: HYBRID ✓</span>
+  <span class="title">THE HILL CODEX — Study Plan page</span>
 </div>
 
 <div class="split" id="split">
-  <!-- A: Current -->
-  <div class="pane pane-a" id="paneA">
-    <span class="pane-label">A — Current</span>
+  <div class="pane pane-left" id="paneLeft">
+    <span class="pane-label">A — Current (Luxury / Classic)</span>
     <iframe src="./#/study-plan" title="Current style"></iframe>
   </div>
-  <div class="handle" id="handleA"></div>
-
-  <!-- C: Hybrid (center, larger) -->
-  <div class="pane pane-c" id="paneC">
-    <span class="pane-label">C — Hybrid (recommended)</span>
-    <iframe src="./study-plan-hybrid.html" title="Hybrid"></iframe>
-  </div>
-  <div class="handle" id="handleC"></div>
-
-  <!-- B: Berlin-Industrial -->
-  <div class="pane pane-b" id="paneB">
-    <span class="pane-label">B — Hybrid (Berlin palette + readability + glass + shadows)</span>
-    <iframe src="./study-plan-hybrid.html" title="Hybrid style"></iframe>
+  <div class="pane pane-right" id="paneRight">
+    <span class="pane-label" id="rightPaneLabel">C — Hybrid</span>
+    <iframe id="rightIframe" src="./study-plan-hybrid.html" title="Hybrid style"></iframe>
   </div>
 </div>
 
-<div class="deltas">
-  <span><strong>C — Hybrid (recommended):</strong> <span style="color:#d9b44a">Berlin palette</span> + <span style="color:#D4AF37">Current readability</span> + <span style="color:#e0633a">glassmorphism kept</span></span>
-  <span class="divider"></span>
-  <span>Playfair headings</span><span class="divider"></span>
-  <span>Inter body</span><span class="divider"></span>
-  <span>Orange accent #e0633a</span><span class="divider"></span>
-  <span>Amber highlight #d9b44a</span><span class="divider"></span>
-  <span>Squared corners</span><span class="divider"></span>
-  <span>1px borders</span><span class="divider"></span>
-  <span>Hard edges / no shadows</span><span class="divider"></span>
-  <span>Glass nav (blur)</span><span class="divider"></span>
-  <span>Warm alt backgrounds</span>
+<div class="deltas" id="deltasBar">
+  <div class="delta-item"><strong>A:</strong> gold on deep-navy, <strong>C:</strong> orange/amber on near-black</div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>A:</strong> Playfair + Inter, rounded · <strong>C:</strong> same type, squared</div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>A:</strong> glass nav, gold glow · <strong>C:</strong> glass nav, warm shadows</div>
+  <div class="divider"></div>
+  <div class="delta-item"><strong>A:</strong> warm-white alt, Framer Motion · <strong>C:</strong> same + orange CTA glow</div>
+  <div class="divider"></div>
+  <div class="delta-item">B: pure Berlin (monospace, hard edges, no shadows) — toggle ⬆</div>
 </div>
 
 <script>
-  // dual draggable dividers
-  const split = document.getElementById('split');
-  const handleA = document.getElementById('handleA');
-  const handleC = document.getElementById('handleC');
-  const paneA = document.getElementById('paneA');
-  const paneB = document.getElementById('paneB');
-  const paneC = document.getElementById('paneC');
-  let dragging = null;
+function switchStyle(style, color) {
+  const iframe = document.getElementById('rightIframe');
+  const label = document.getElementById('rightLabel');
+  const paneLabel = document.getElementById('rightPaneLabel');
+  const tagB = document.querySelector('.tag-b');
+  const tagC = document.getElementById('tagC');
 
-  [handleA, handleC].forEach(h => {
-    h.addEventListener('mousedown', (e) => {
-      dragging = h.id; document.body.style.cursor = 'col-resize';
-      document.body.style.userSelect = 'none'; e.preventDefault();
-    });
-  });
-
-  document.addEventListener('mousemove', (e) => {
-    if (!dragging) return;
-    const rect = split.getBoundingClientRect();
-    const pct = ((e.clientX - rect.left) / rect.width) * 100;
-
-    if (dragging === 'handleA') {
-      const a = Math.max(15, Math.min(45, pct));
-      const ab = pct;
-      const rest = 100 - ab;
-      const c = rest * 0.57;
-      const b = rest * 0.43;
-      paneA.style.flex = a + '%';
-      paneC.style.flex = c + '%';
-      paneB.style.flex = b + '%';
-    } else {
-      const ac = pct;
-      const a = ac * 0.43;
-      const c = ac * 0.57;
-      const b = Math.max(15, Math.min(45, 100 - ac));
-      paneA.style.flex = a + '%';
-      paneC.style.flex = c + '%';
-      paneB.style.flex = b + '%';
-    }
-  });
-
-  document.addEventListener('mouseup', () => {
-    dragging = null; document.body.style.cursor = '';
-    document.body.style.userSelect = '';
-  });
+  if (style === 'b') {
+    iframe.src = './study-plan-berlin.html';
+    label.textContent = 'B: BERLIN';
+    label.style.color = '#e0633a';
+    paneLabel.textContent = 'B — Berlin-Industrial';
+    paneLabel.style.color = '#e0633a';
+    tagB.classList.add('tag-active');
+    tagC.classList.remove('tag-active');
+  } else {
+    iframe.src = './study-plan-hybrid.html';
+    label.textContent = 'C: HYBRID';
+    label.style.color = '#d9b44a';
+    paneLabel.textContent = 'C — Hybrid';
+    paneLabel.style.color = '#d9b44a';
+    tagC.classList.add('tag-active');
+    tagB.classList.remove('tag-active');
+  }
+}
 </script>
+
 </body>
 </html>
