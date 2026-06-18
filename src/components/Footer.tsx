@@ -5,15 +5,14 @@ const quickLinks = [
   { label: 'Home', path: '/' },
   { label: 'Principles', path: '/principles' },
   { label: 'Study Plan', path: '/study-plan' },
-  { label: 'Community', path: '/community' },
   { label: 'About', path: '/about' },
 ]
 
-const resources = [
-  'Discussion Guides',
-  'Worksheets',
-  'Audio Summaries',
-  'Recommended Reading',
+const footerResources = [
+  { label: 'Discussion Guides', href: '/study-plan' },
+  { label: 'Worksheets', href: '/study-plan' },
+  { label: 'Audio Summaries', href: '/study-plan' },
+  { label: 'Recommended Reading', gap: true },
 ]
 
 export default function Footer() {
@@ -31,13 +30,13 @@ export default function Footer() {
             Begin Your Transformation
           </h3>
           <p className="mx-auto mt-4 max-w-[560px] font-inter text-[18px] font-light text-off-white">
-            Join the StudyClub and start applying the 13 Principles today.
+            Join The Hill Codex and start applying the 13 Principles today.
           </p>
           <Link
-            to="/community"
+            to="/study-plan"
             className="mt-8 inline-block rounded-[4px] bg-accent-gold px-8 py-4 font-inter text-[14px] font-medium uppercase tracking-[1px] text-deep-navy transition-all duration-300 hover:bg-[#C4A02E] hover:shadow-gold-glow"
           >
-            Join the StudyClub
+            Start the Study Plan
           </Link>
         </div>
 
@@ -68,11 +67,20 @@ export default function Footer() {
               Resources
             </h4>
             <ul className="flex flex-col gap-3">
-              {resources.map((resource) => (
-                <li key={resource}>
-                  <span className="font-inter text-[16px] text-off-white">
-                    {resource}
-                  </span>
+              {footerResources.map((r) => (
+                <li key={r.label}>
+                  {r.gap ? (
+                    <span className="font-inter text-[16px] text-steel-blue">
+                      {r.label} <span className="text-[12px] italic">— coming soon</span>
+                    </span>
+                  ) : (
+                    <Link
+                      to={r.href!}
+                      className="font-inter text-[16px] text-off-white transition-colors duration-300 hover:text-accent-gold"
+                    >
+                      {r.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -113,7 +121,7 @@ export default function Footer() {
         {/* Bottom Row */}
         <div className="mt-12 border-t border-slate-blue pt-8 text-center">
           <p className="font-inter text-[14px] text-steel-blue">
-            &copy; 2025 StudyClub — Think and Grow Rich. All rights reserved.
+            &copy; 2025 The Hill Codex — Think and Grow Rich. All rights reserved.
           </p>
         </div>
       </div>

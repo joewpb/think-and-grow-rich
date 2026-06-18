@@ -5,7 +5,6 @@ const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'Principles', path: '/principles' },
   { label: 'Study Plan', path: '/study-plan' },
-  { label: 'Community', path: '/community' },
   { label: 'About', path: '/about' },
 ]
 
@@ -28,7 +27,7 @@ export default function Navbar() {
           to="/"
           className="font-inter text-[14px] font-medium uppercase tracking-[2px] text-accent-gold"
         >
-          STUDYCLUB
+          THE HILL CODEX
         </Link>
 
         {/* Desktop Nav */}

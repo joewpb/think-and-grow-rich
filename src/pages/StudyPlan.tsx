@@ -26,21 +26,73 @@ const weeks = [
   { week: 13, principle: 'Sixth Sense', reading: 'Ch. 14–15', exercises: ['Meditation Practice', 'Intuition Journal', 'Integration Review'], prompt: 'How does it feel to have mastered all 12 principles?' },
 ]
 
-const resources = [
+const chapters = [
+  { id: 'ch00', label: 'Introduction', slug: 'intro' },
+  { id: 'ch01', label: 'Ch. 1 — Desire', slug: 'desire' },
+  { id: 'ch02', label: 'Ch. 2 — Faith', slug: 'faith' },
+  { id: 'ch03', label: 'Ch. 3 — Auto-Suggestion', slug: 'autosuggestion' },
+  { id: 'ch04', label: 'Ch. 4 — Specialized Knowledge', slug: 'specialized_knowledge' },
+  { id: 'ch05', label: 'Ch. 5 — Imagination', slug: 'imagination' },
+  { id: 'ch06', label: 'Ch. 6 — Organized Planning', slug: 'organized_planning' },
+  { id: 'ch07', label: 'Ch. 7 — Decision', slug: 'decision' },
+  { id: 'ch08', label: 'Ch. 8 — Persistence', slug: 'persistence' },
+  { id: 'ch09', label: 'Ch. 9 — Master Mind', slug: 'master_mind' },
+  { id: 'ch10', label: 'Ch. 10 — Sex Transmutation', slug: 'sex_transmutation' },
+  { id: 'ch11', label: 'Ch. 11 — Subconscious Mind', slug: 'subconscious' },
+  { id: 'ch12', label: 'Ch. 12 — The Brain', slug: 'brain' },
+  { id: 'ch13', label: 'Ch. 13 — Sixth Sense', slug: 'sixth_sense' },
+  { id: 'ch14', label: 'Ch. 14 — Six Ghosts of Fear', slug: 'fear' },
+]
+
+type ResourceItem = {
+  label: string
+  href?: string
+  gap?: boolean
+}
+
+type ResourceCard = {
+  title: string
+  icon: typeof BookOpen
+  items: (ResourceItem & { chapters?: ResourceItem[] })[]
+}
+
+const resources: ResourceCard[] = [
   {
     title: 'Study Guides',
     icon: BookOpen,
-    items: ['Chapter summaries', 'Key concept explanations', 'Principle deep-dives', 'Vocabulary definitions'],
+    items: [
+      { label: 'Chapter summaries',
+        chapters: chapters.map(c => ({ label: c.label, href: `/resources/study-guides/chapter-summaries/sg-summary-${c.id}-${c.slug}.html` })) },
+      { label: 'Key concept explanations',
+        chapters: chapters.map(c => ({ label: c.label, href: `/resources/study-guides/key-concepts/sg-concepts-${c.id}-${c.slug}.html` })) },
+      { label: 'Principle deep-dives',
+        chapters: chapters.map(c => ({ label: c.label, href: `/resources/study-guides/principle-deep-dives/sg-deepdive-${c.id}-${c.slug}.html` })) },
+      { label: 'Vocabulary definitions',
+        chapters: chapters.map(c => ({ label: c.label, href: `/resources/study-guides/vocabulary/sg-vocab-${c.id}-${c.slug}.html` })) },
+    ],
   },
   {
     title: 'Worksheets',
     icon: FileText,
-    items: ['Desire statements', 'Affirmation templates', 'Progress trackers', 'Self-analysis questionnaires'],
+    items: [
+      { label: 'Desire statements',
+        chapters: chapters.map(c => ({ label: c.label, href: `/resources/worksheets/desire-statements/ws-desire-${c.id}-${c.slug}.html` })) },
+      { label: 'Affirmation templates',
+        chapters: chapters.map(c => ({ label: c.label, href: `/resources/worksheets/affirmation-templates/ws-affirm-${c.id}-${c.slug}.html` })) },
+      { label: 'Progress trackers',
+        chapters: chapters.map(c => ({ label: c.label, href: `/resources/worksheets/progress-trackers/ws-tracker-${c.id}-${c.slug}.html` })) },
+      { label: 'Self-analysis questionnaires',
+        chapters: chapters.map(c => ({ label: c.label, href: `/resources/worksheets/self-analysis/ws-analysis-${c.id}-${c.slug}.html` })) },
+    ],
   },
   {
     title: 'Audio Summaries',
     icon: Headphones,
-    items: ['15-minute chapter recaps', 'Guided visualization audio', 'Auto-suggestion recordings'],
+    items: [
+      { label: '15-minute chapter recaps', gap: true },
+      { label: 'Guided visualization audio', href: '/resources/guided-visualization.m4a' },
+      { label: 'Auto-suggestion recordings', href: '/resources/auto-suggestion-recordings.m4a' },
+    ],
   },
 ]
 
@@ -287,14 +339,52 @@ function ResourcesSection() {
                 </h3>
 
                 {/* Item list */}
-                <ul className="mt-4 flex flex-col gap-2">
+                <ul className="mt-4 flex flex-col gap-3">
                   {r.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-start gap-2 font-inter text-[16px] text-charcoal"
-                    >
-                      <span className="mt-[0.5em] block h-[5px] w-[5px] flex-shrink-0 rounded-full bg-charcoal" />
-                      {item}
+                    <li key={item.label} className="font-inter text-[14px]">
+                      {item.chapters ? (
+                        <div>
+                          <p className="mb-1 font-medium text-charcoal">
+                            {item.label}
+                          </p>
+                          <div className="flex flex-wrap gap-x-1 gap-y-0.5 leading-relaxed">
+                            {item.chapters.map((ch, ci) => (
+                              <span key={ch.label}>
+                                <a
+                                  href={ch.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-steel-blue underline-offset-2 transition-colors hover:text-accent-gold hover:underline"
+                                >
+                                  {ch.label}
+                                </a>
+                                {ci < item.chapters!.length - 1 && (
+                                  <span className="text-slate-blue"> · </span>
+                                )}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ) : item.href ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-steel-blue underline-offset-2 transition-colors hover:text-accent-gold hover:underline"
+                        >
+                          {item.label}
+                        </a>
+                      ) : (
+                        <span className="flex items-start gap-2 text-steel-blue">
+                          <span className="mt-[0.5em] block h-[5px] w-[5px] flex-shrink-0 rounded-full bg-steel-blue" />
+                          {item.label}
+                          {item.gap && (
+                            <span className="text-[11px] italic text-steel-blue">
+                              — in production
+                            </span>
+                          )}
+                        </span>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -389,7 +479,7 @@ function CTABanner() {
           Ready to Begin?
         </h2>
         <p className="mx-auto mt-4 max-w-[600px] font-inter text-[18px] font-light text-off-white">
-          Join the StudyClub community and start your 13-week journey today.
+          Join The Hill Codex and start your 13-week journey today.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Link
